@@ -59,6 +59,7 @@ def score_batch(
     window_size: int = 10,
     device: str | torch.device = "cpu",
     scoring_mode: str = "phase2_only",
+    batch_size: int = 0,
 ) -> np.ndarray:
     """Run TranAD inference and return per-dimension MSE scores.
 
@@ -69,6 +70,7 @@ def score_batch(
         device: Torch device.
         scoring_mode: "phase2_only" (reference code) uses z[1] only.
             "averaged" (paper Eq. 13) uses 0.5*MSE(x1) + 0.5*MSE(x2).
+        batch_size: Max samples per inference batch (0 = process all at once).
 
     Returns:
         Anomaly scores, shape (N, n_features). Per-dimension MSE.
@@ -83,24 +85,33 @@ def score_batch(
     windows = convert_to_windows(data_tensor, window_size)  # (N, W, F)
 
     loss_fn = nn.MSELoss(reduction="none")
+    n_total = windows.shape[0]
+
+    if batch_size <= 0:
+        batch_size = n_total
+
+    all_losses = []
 
     with torch.no_grad():
-        # (N, W, F) -> (W, N, F)
-        window = windows.permute(1, 0, 2)
-        N = window.shape[1]
-        elem = window[-1, :, :].view(1, N, n_features)
+        for start in range(0, n_total, batch_size):
+            end = min(start + batch_size, n_total)
+            batch_windows = windows[start:end]  # (B, W, F)
 
-        x1, x2 = model(window, elem)
+            # (B, W, F) -> (W, B, F)
+            window = batch_windows.permute(1, 0, 2)
+            B = window.shape[1]
+            elem = window[-1, :, :].view(1, B, n_features)
 
-        if scoring_mode == "averaged":
-            # Paper Eq. 13: s = 0.5*||O1 - W|| + 0.5*||O_hat_2 - W||
-            loss = 0.5 * loss_fn(x1, elem)[0] + 0.5 * loss_fn(x2, elem)[0]
-        else:
-            # Reference code: Phase 2 output only (z[1])
-            loss = loss_fn(x2, elem)[0]
+            x1, x2 = model(window, elem)
 
-    # Always return float32 for consistent downstream processing
-    return loss.cpu().float().numpy()
+            if scoring_mode == "averaged":
+                loss = 0.5 * loss_fn(x1, elem)[0] + 0.5 * loss_fn(x2, elem)[0]
+            else:
+                loss = loss_fn(x2, elem)[0]
+
+            all_losses.append(loss.cpu().float())
+
+    return torch.cat(all_losses, dim=0).numpy()
 
 
 # -- Threshold Calibration --
