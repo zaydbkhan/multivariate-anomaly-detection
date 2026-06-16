@@ -58,7 +58,6 @@ def verify_data(
     all_exist = all((processed_dir / f).exists() for f in expected_files)
 
     if all_exist and not force_download:
-        n_train = (processed_dir / "train_signals.npy").__class__.__name__
         print(f"  Processed data: {len(expected_files)} files in {processed_dir}")
         return True
 

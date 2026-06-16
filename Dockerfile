@@ -25,7 +25,8 @@ RUN uv pip install --system \
 
 # Copy application code
 COPY src/ src/
-COPY code/3_streaming_app.py code/3_streaming_app.py
+COPY code/ code/
+COPY syncan/ syncan/
 
 # Create directories for model/data volumes
 RUN mkdir -p models data
@@ -33,10 +34,13 @@ RUN mkdir -p models data
 # Expose FastAPI port
 EXPOSE 8000
 
-# Default environment variables
+# Default environment variables (SMD)
 ENV MODEL_PATH=models/tranad
 ENV DATA_DIR=data/smd/processed
 ENV DEVICE=cpu
 
+# Set APP_SCRIPT to "code/3_streaming_app.py" (SMD) or "syncan/3_streaming_app.py" (SynCAN)
+ENV APP_SCRIPT=code/3_streaming_app.py
+
 # Run the application
-CMD ["python", "-u", "code/3_streaming_app.py"]
+CMD ["sh", "-c", "python -u ${APP_SCRIPT}"]

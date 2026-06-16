@@ -31,7 +31,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.model import TranADConfig, TranADNet
 from src.scorer import POTParams, calibrate_threshold, evaluate, score_batch
 from src.syncan_registry import SynCANRegistry
-from src.train import EarlyStopping, seed_everything, train_epoch, validate_epoch, train_full
+from src.train import EarlyStopping, train_epoch, validate_epoch, train_full
 from src.utils import auto_device, convert_to_windows
 
 SYNCAN_PROCESSED = PROJECT_ROOT / "data" / "syncan" / "processed"

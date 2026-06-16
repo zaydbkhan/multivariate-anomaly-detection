@@ -3,7 +3,7 @@ Train TranAD on preprocessed SynCAN data.
 
 Trains a baseline model with deliberately conservative defaults so you can
 see the pipeline working before optimizing. The grid sweep
-(code/4_syncan_grid_sweep.py) finds the best configuration and retrains.
+(syncan/4_grid_sweep.py) finds the best configuration and retrains.
 
 Usage:
     uv run python syncan/1_train.py
