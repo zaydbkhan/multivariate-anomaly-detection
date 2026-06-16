@@ -80,9 +80,10 @@ def score_batch(
     n_features = data.shape[1]
 
     # Match model dtype (float32 or float64)
+    # Keep windows on CPU; move only each batch slice to GPU
     model_dtype = next(model.parameters()).dtype
-    data_tensor = torch.from_numpy(data).to(model_dtype).to(device)
-    windows = convert_to_windows(data_tensor, window_size)  # (N, W, F)
+    data_tensor = torch.from_numpy(data).to(model_dtype)
+    windows = convert_to_windows(data_tensor, window_size)  # (N, W, F) on CPU
 
     loss_fn = nn.MSELoss(reduction="none")
     n_total = windows.shape[0]
@@ -95,7 +96,7 @@ def score_batch(
     with torch.no_grad():
         for start in range(0, n_total, batch_size):
             end = min(start + batch_size, n_total)
-            batch_windows = windows[start:end]  # (B, W, F)
+            batch_windows = windows[start:end].to(device)  # (B, W, F) on GPU
 
             # (B, W, F) -> (W, B, F)
             window = batch_windows.permute(1, 0, 2)
