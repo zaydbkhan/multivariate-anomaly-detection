@@ -91,11 +91,11 @@ def evaluate_attack(
     metrics = evaluate(test_scores, test_lbl, cal["threshold"])
     metrics["threshold"] = float(cal["threshold"])
 
-    diag = diagnose(test_scores, test_lbl)
-    metrics.update(diag)
-
-    diag_elev = diagnose_with_elevation(test_scores, test_lbl, baselines)
-    metrics.update(diag_elev)
+    if test_lbl.ndim == 2:
+        diag = diagnose(test_scores, test_lbl)
+        metrics.update(diag)
+        diag_elev = diagnose_with_elevation(test_scores, test_lbl, baselines)
+        metrics.update(diag_elev)
 
     return metrics, test_scores
 
