@@ -38,14 +38,14 @@ SYNCAN_PROCESSED = PROJECT_ROOT / "data" / "syncan" / "processed"
 ATTACK_TYPES = ["plateau", "continuous", "playback", "suppress", "flooding"]
 
 QUICK_CONFIGS = [
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "phase2_only"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
-    {"window_size": 30,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
-    {"window_size": 60,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
-    {"window_size": 60,  "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
-    {"window_size": 30,  "lr": 0.0001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only", "dtype": "float32"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "phase2_only", "dtype": "float32"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 30,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 60,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 60,  "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 30,  "lr": 0.0001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
 ]
 
 FULL_GRID = {
