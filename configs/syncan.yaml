@@ -1,0 +1,9 @@
+# SynCAN Configuration (overrides default.yaml)
+model:
+  n_features: 20
+  n_heads: 10  # d_model=40 must be divisible by n_heads (40/10=4)
+
+data:
+  dataset: "syncan"
+  raw_dir: "data/syncan/raw"
+  processed_dir: "data/syncan/processed"

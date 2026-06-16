@@ -34,6 +34,8 @@ htmlcov/
 # Project specific
 data/smd/raw/
 data/smd/processed/
+data/syncan/raw/
+data/syncan/processed/
 models/tranad/initial/
 models/tranad/best/
 *.npy
@@ -55,3 +57,4 @@ latex-source/
 results/
 diagrams/
 blog_prompt.md
+AGENT_LOG.md
