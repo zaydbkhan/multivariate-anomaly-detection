@@ -1,5 +1,6 @@
 """Shared utilities for TranAD training and inference."""
 
+import numpy as np
 import torch
 
 
@@ -42,3 +43,25 @@ def auto_device(preference: str = "auto") -> torch.device:
     if torch.backends.mps.is_available():
         return torch.device("mps")
     return torch.device("cpu")
+
+
+def subsample_data(
+    data: np.ndarray, fraction: float, replace: bool = False
+) -> np.ndarray:
+    """Randomly subsample rows from a numpy array.
+
+    Args:
+        data: (N, ...) array.
+        fraction: fraction of rows to keep (< 1.0).
+        replace: whether to sample with replacement.
+
+    Returns:
+        Subsampled array of shape (max(1, int(N * fraction)), ...).
+        If fraction >= 1.0, returns data unchanged.
+    """
+    if fraction >= 1.0:
+        return data
+    n_rows = data.shape[0]
+    n_sample = max(1, int(n_rows * fraction))
+    indices = np.random.choice(n_rows, n_sample, replace=replace)
+    return data[indices]

@@ -13,7 +13,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 from src.model import TranADConfig, TranADNet
-from src.utils import convert_to_windows
+from src.utils import convert_to_windows, subsample_data
 
 
 def compute_loss_weight(epoch: int, config: TranADConfig) -> float:
@@ -143,14 +143,23 @@ def train_full(
     train_data: np.ndarray,
     device: torch.device,
     seed: int = 42,
+    subsample_fraction: float = 1.0,
 ) -> tuple[TranADNet, int, float]:
     """Train a TranAD model end-to-end from numpy data.
 
+    Args:
+        config: TranAD hyperparameters.
+        train_data: numpy array of shape (N, n_features).
+        device: torch device.
+        seed: random seed for reproducibility.
+        subsample_fraction: fraction of rows to use (e.g. 0.1 = 10%).
+            Applied before windowing, no effect on validation split.
+
     Returns (model, final_epoch, final_loss).
-    Used by both 1_train_model.py and 4_grid_sweep.py to keep
-    the training loop in one place.
     """
     seed_everything(seed)
+
+    train_data = subsample_data(train_data, subsample_fraction)
 
     torch_dtype = torch.float64 if config.dtype == "float64" else torch.float32
     train_tensor = torch.from_numpy(train_data).to(torch_dtype)

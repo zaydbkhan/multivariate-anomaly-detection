@@ -32,21 +32,24 @@ from src.model import TranADConfig, TranADNet
 from src.scorer import POTParams, calibrate_threshold, evaluate, score_batch
 from src.syncan_registry import SynCANRegistry
 from src.train import EarlyStopping, train_epoch, validate_epoch, train_full
-from src.utils import auto_device, convert_to_windows
+from src.utils import auto_device, convert_to_windows, subsample_data
 
 SYNCAN_PROCESSED = PROJECT_ROOT / "data" / "syncan" / "processed"
 ATTACK_TYPES = ["plateau", "continuous", "playback", "suppress", "flooding"]
 
 QUICK_CONFIGS = [
-    {"window_size": 100, "dtype": "float32", "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only", "lr": 0.0001, "d_feedforward": 16},
-    {"window_size": 200, "dtype": "float32", "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only", "lr": 0.0001, "d_feedforward": 16},
-    {"window_size": 60,  "dtype": "float32", "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only", "lr": 0.0001, "d_feedforward": 16},
-    {"window_size": 100, "dtype": "float32", "loss_weighting": "exponential_decay", "scoring_mode": "phase2_only", "lr": 0.0001, "d_feedforward": 16},
-    {"window_size": 100, "dtype": "float32", "loss_weighting": "epoch_inverse",     "scoring_mode": "averaged",    "lr": 0.0001, "d_feedforward": 16},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "phase2_only"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 100, "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 30,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 60,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 60,  "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
+    {"window_size": 30,  "lr": 0.0001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged"},
 ]
 
 FULL_GRID = {
-    "window_size": [60, 100, 200],
+    "window_size": [30, 60, 100],
     "dtype": ["float32"],
     "loss_weighting": ["epoch_inverse", "exponential_decay"],
     "scoring_mode": ["phase2_only", "averaged"],
@@ -62,7 +65,7 @@ CSV_COLUMNS = [
 ]
 
 
-def build_config(params: dict, max_epochs: int) -> TranADConfig:
+def build_config(params: dict, max_epochs: int, early_stopping_patience: int = 0) -> TranADConfig:
     return TranADConfig(
         n_features=20,
         n_heads=10,
@@ -74,7 +77,7 @@ def build_config(params: dict, max_epochs: int) -> TranADConfig:
         loss_weighting=params["loss_weighting"],
         adversarial_loss=False,
         scoring_mode=params["scoring_mode"],
-        early_stopping_patience=3,
+        early_stopping_patience=early_stopping_patience,
         val_split=0.1,
         max_epochs=max_epochs,
     )
@@ -120,23 +123,42 @@ def run_trial(
     train_data: np.ndarray,
     device: torch.device,
     score_batch_size: int = 5000,
+    subsample_fraction: float = 0.1,
 ) -> dict:
     """Train a model and evaluate on all 5 attack types.
 
+    Args:
+        config: TranAD hyperparameters.
+        train_data: numpy array of shape (N, n_features).
+        device: torch device.
+        score_batch_size: batch size for scoring.
+        subsample_fraction: fraction of rows to use for training
+            (applied before windowing). 1.0 = full dataset.
+
     Returns dict with per-attack metrics, avg F1, training stats.
     """
+    data_for_training = subsample_data(train_data, subsample_fraction)
+
     torch_dtype = torch.float64 if config.dtype == "float64" else torch.float32
-    train_tensor = torch.from_numpy(train_data).to(torch_dtype)
+    train_tensor = torch.from_numpy(data_for_training).to(torch_dtype)
     windows = convert_to_windows(train_tensor, config.window_size)
 
-    n_total = windows.shape[0]
-    n_val = int(n_total * config.val_split)
-    n_train = n_total - n_val
-    train_windows = windows[:n_train]
-    val_windows = windows[n_train:]
-
-    train_loader = DataLoader(TensorDataset(train_windows), batch_size=config.batch_size)
-    val_loader = DataLoader(TensorDataset(val_windows), batch_size=config.batch_size)
+    use_early_stopping = config.early_stopping_patience > 0
+    if use_early_stopping:
+        n_total = windows.shape[0]
+        n_val = int(n_total * config.val_split)
+        n_train = n_total - n_val
+        train_windows = windows[:n_train]
+        val_windows = windows[n_train:]
+        train_loader = DataLoader(TensorDataset(train_windows), batch_size=config.batch_size)
+        val_loader = DataLoader(TensorDataset(val_windows), batch_size=config.batch_size)
+        stopper = EarlyStopping(patience=config.early_stopping_patience)
+        total_epochs = config.max_epochs
+    else:
+        total_epochs = config.max_epochs
+        train_loader = DataLoader(TensorDataset(windows), batch_size=config.batch_size)
+        val_loader = None
+        stopper = None
 
     model = TranADNet(config).to(device)
     optimizer = torch.optim.AdamW(
@@ -146,21 +168,21 @@ def run_trial(
         optimizer, step_size=config.scheduler_step, gamma=config.scheduler_gamma
     )
     loss_fn = nn.MSELoss(reduction="none")
-    stopper = EarlyStopping(patience=config.early_stopping_patience)
 
     start_time = time.time()
     final_epoch = 0
     final_loss = 0.0
-    for epoch in range(config.max_epochs):
+    for epoch in range(total_epochs):
         train_loss = train_epoch(model, train_loader, optimizer, loss_fn, epoch, config, device)
         scheduler.step()
-        val_loss = validate_epoch(model, val_loader, loss_fn, epoch, config, device)
         final_epoch = epoch + 1
         final_loss = train_loss
 
-        if stopper.step(val_loss, model):
-            stopper.restore_best(model)
-            break
+        if use_early_stopping and val_loader is not None and stopper is not None:
+            val_loss = validate_epoch(model, val_loader, loss_fn, epoch, config, device)
+            if stopper.step(val_loss, model):
+                stopper.restore_best(model)
+                break
     train_time = time.time() - start_time
 
     train_scores = score_batch(
@@ -262,7 +284,12 @@ def main():
                         help="Where to save the retrained best model")
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--quick", action="store_true")
-    parser.add_argument("--max-sweep-epochs", type=int, default=30)
+    parser.add_argument("--full", action="store_true",
+                        help="Use 100% of training data for sweep trials (default: 10% subsample)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Print all trial configs and exit without training")
+    parser.add_argument("--max-sweep-epochs", type=int, default=5,
+                        help="Epochs per sweep trial (no early stopping)")
     parser.add_argument("--retrain-epochs", type=int, default=30,
                         help="Max epochs for the final retrain (uses early stopping)")
     parser.add_argument("--seed", type=int, default=42)
@@ -292,6 +319,26 @@ def main():
         ]
         grid_type = "full"
     print(f"Grid: {grid_type}, {len(combos)} configurations")
+
+    subsample_frac = 1.0 if args.full else 0.1
+    print(f"Sweep trials will use {'full dataset' if args.full else '10% subsample'}")
+
+    if args.dry_run:
+        print("\n" + "=" * 70)
+        print("DRY RUN — no training will be performed")
+        print("=" * 70)
+        for i, params in enumerate(combos):
+            trial_num = i + 1
+            config = build_config(params, args.max_sweep_epochs, early_stopping_patience=0)
+            print(f"\n[{trial_num}/{len(combos)}]")
+            for k, v in sorted(params.items()):
+                print(f"  {k}: {v}")
+            print(f"  (epochs={args.max_sweep_epochs}, early_stopping_patience=0, "
+                  f"subsample={subsample_frac})")
+        print("\n" + "=" * 70)
+        print("Dry run complete — no models were trained")
+        print("=" * 70)
+        return
 
     results_dir.mkdir(parents=True, exist_ok=True)
     results_path = results_dir / f"sweep_syncan_{grid_type}.csv"
@@ -327,8 +374,11 @@ def main():
         print(f"\n[{trial_num}/{len(combos)}] {params_str}")
 
         try:
-            config = build_config(params, args.max_sweep_epochs)
-            results = run_trial(config, train_signals, trial_device, args.score_batch_size)
+            config = build_config(params, args.max_sweep_epochs, early_stopping_patience=0)
+            results = run_trial(
+                config, train_signals, trial_device,
+                args.score_batch_size, subsample_fraction=subsample_frac,
+            )
 
             avg_f1 = results["avg_f1"]
             print(f"  Avg F1={avg_f1:.4f}  P={results['avg_precision']:.4f}  "

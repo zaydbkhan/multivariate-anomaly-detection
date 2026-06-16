@@ -28,14 +28,14 @@ BASELINE_DEFAULTS = {
     "window_size": 100,
     "epochs": 5,
     "batch_size": 128,
-    "lr": 0.0001,
+    "lr": 0.001,
     "d_feedforward": 16,
     "dtype": "float32",
     "loss_weighting": "epoch_inverse",
     "scoring_mode": "phase2_only",
-    "early_stopping_patience": 3,
+    "early_stopping_patience": 0,
     "val_split": 0.1,
-    "max_epochs": 30,
+    "max_epochs": 5,
 }
 
 
@@ -57,6 +57,8 @@ def main():
     parser.add_argument("--early-stopping-patience", type=int, default=None)
     parser.add_argument("--val-split", type=float, default=None)
     parser.add_argument("--max-epochs", type=int, default=None)
+    parser.add_argument("--full", action="store_true",
+                        help="Use 100% of training data (default: 10% subsample)")
 
     args = parser.parse_args()
 
@@ -81,6 +83,8 @@ def main():
         max_epochs=args.max_epochs or BASELINE_DEFAULTS["max_epochs"],
     )
 
+    subsample_frac = 1.0 if args.full else 0.1
+
     device = auto_device(args.device)
     if config.dtype == "float64" and device.type == "mps":
         print("Warning: float64 may not be fully supported on MPS, falling back to CPU")
@@ -99,8 +103,13 @@ def main():
           f"batch_size={config.batch_size}, lr={config.lr}, dtype={config.dtype}")
     print(f"  loss_weighting={config.loss_weighting}, "
           f"early_stopping_patience={config.early_stopping_patience}")
+    print(f"  subsample_fraction={subsample_frac} "
+          f"({'full dataset' if args.full else '10% subsample'})")
 
-    model, final_epoch, epoch_loss = train_full(config, train_data, device, seed=args.seed)
+    model, final_epoch, epoch_loss = train_full(
+        config, train_data, device, seed=args.seed,
+        subsample_fraction=subsample_frac,
+    )
 
     ckpt_dir = output_dir
     ckpt_dir.mkdir(parents=True, exist_ok=True)
