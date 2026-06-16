@@ -58,7 +58,7 @@ def main():
     parser.add_argument("--val-split", type=float, default=None)
     parser.add_argument("--max-epochs", type=int, default=None)
     parser.add_argument("--full", action="store_true",
-                        help="Use 100% of training data (default: 10% subsample)")
+                        help="Use 100%% of training data (default: 10%% subsample)")
 
     args = parser.parse_args()
 

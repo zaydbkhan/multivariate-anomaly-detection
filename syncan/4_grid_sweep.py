@@ -285,7 +285,7 @@ def main():
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--quick", action="store_true")
     parser.add_argument("--full", action="store_true",
-                        help="Use 100% of training data for sweep trials (default: 10% subsample)")
+                        help="Use 100%% of training data for sweep trials (default: 10%% subsample)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Print all trial configs and exit without training")
     parser.add_argument("--max-sweep-epochs", type=int, default=5,
