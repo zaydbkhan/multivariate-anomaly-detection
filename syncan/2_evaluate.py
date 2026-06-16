@@ -23,11 +23,28 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.syncan_registry import SynCANRegistry
-from src.scorer import POTParams, calibrate_threshold, evaluate, score_batch
+from src.scorer import (
+    POTParams,
+    adjust_predicts,
+    build_segment_summaries,
+    calibrate_threshold,
+    compute_feature_baselines,
+    diagnose,
+    diagnose_with_elevation,
+    evaluate,
+    score_batch,
+)
 from src.utils import auto_device
 
 ATTACK_TYPES = ["plateau", "continuous", "playback", "suppress", "flooding"]
 DATA_DIR = PROJECT_ROOT / "data" / "syncan" / "processed"
+
+
+def _json_safe(o):
+    """Convert numpy types to Python scalars for JSON serialization."""
+    if hasattr(o, "item"):
+        return o.item()
+    raise TypeError(f"Object of type {type(o)} is not JSON serializable")
 
 
 def load_data() -> tuple[np.ndarray, dict[str, tuple[np.ndarray, np.ndarray]]]:
@@ -45,13 +62,14 @@ def evaluate_attack(
     model,
     config,
     train_scores: np.ndarray,
+    baselines: np.ndarray,
     test_sig: np.ndarray,
     test_lbl: np.ndarray,
     device,
     method: str,
     score_batch_size: int,
 ) -> dict:
-    """Score a single attack and return metrics."""
+    """Score a single attack and return metrics with attribution."""
     test_scores = score_batch(
         model, test_sig,
         window_size=config.window_size,
@@ -72,7 +90,14 @@ def evaluate_attack(
 
     metrics = evaluate(test_scores, test_lbl, cal["threshold"])
     metrics["threshold"] = float(cal["threshold"])
-    return metrics
+
+    diag = diagnose(test_scores, test_lbl)
+    metrics.update(diag)
+
+    diag_elev = diagnose_with_elevation(test_scores, test_lbl, baselines)
+    metrics.update(diag_elev)
+
+    return metrics, test_scores
 
 
 def evaluate_model(
@@ -87,6 +112,8 @@ def evaluate_model(
     print(f"Loaded model: {config.n_features} features, window_size={config.window_size}, "
           f"scoring_mode={config.scoring_mode}")
 
+    signal_labels = np.load(DATA_DIR / "signal_columns.npy", allow_pickle=True).tolist()
+
     train_sig, test_data = load_data()
     print(f"Training data: {train_sig.shape}")
 
@@ -100,11 +127,21 @@ def evaluate_model(
     print(f"Train scores: shape={train_scores.shape}, "
           f"mean={train_scores.mean():.6f}, max={train_scores.max():.6f}")
 
+    baselines = compute_feature_baselines(train_scores)
+    print(f"Feature baselines: shape={baselines.shape}")
+
     results = {}
+    all_test_scores: list[np.ndarray] = []
+    all_test_labels: list[np.ndarray] = []
     for attack in ATTACK_TYPES:
         sig, lbl = test_data[attack]
-        m = evaluate_attack(model, config, train_scores, sig, lbl, device, method, score_batch_size)
+        m, test_scores = evaluate_attack(
+            model, config, train_scores, baselines,
+            sig, lbl, device, method, score_batch_size,
+        )
         results[attack] = m
+        all_test_scores.append(test_scores)
+        all_test_labels.append(lbl)
         n_anom = int(lbl.sum())
         print(f"  {attack:<12s} F1={m['f1']:.4f}  P={m['precision']:.4f}  "
               f"R={m['recall']:.4f}  AUC={m['roc_auc']:.4f}  "
@@ -129,6 +166,57 @@ def evaluate_model(
           f"{np.mean(recs):>8.4f}")
     print("=" * 65)
 
+    # Feature attribution across all attack segments
+    print("\n" + "=" * 65)
+    print("ROOT CAUSE ATTRIBUTION")
+    print("=" * 65)
+    concat_scores = np.concatenate(all_test_scores, axis=0)
+    concat_labels = np.concatenate(all_test_labels, axis=0)
+    score_1d = np.mean(concat_scores, axis=1)
+    labels_1d = concat_labels.astype(float)
+    threshold = np.mean([results[a]["threshold"] for a in ATTACK_TYPES])
+
+    raw_predictions = (score_1d > threshold).astype(float)
+    adjusted_predictions = adjust_predicts(score_1d, labels_1d, threshold)
+
+    summary_segments = build_segment_summaries(
+        concat_scores, adjusted_predictions, baselines,
+        feature_labels=signal_labels,
+    )
+    print(f"  Detected {len(summary_segments)} anomalous segments across all attacks")
+
+    attack_sizes = {a: len(all_test_scores[i]) for i, a in enumerate(ATTACK_TYPES)}
+    attack_offsets: dict[str, int] = {}
+    cum = 0
+    for a in ATTACK_TYPES:
+        attack_offsets[a] = cum
+        cum += attack_sizes[a]
+
+    attack_attribution: dict[str, dict] = {}
+    for attack in ATTACK_TYPES:
+        offset = attack_offsets[attack]
+        end = offset + attack_sizes[attack]
+        attack_segments = [
+            s for s in summary_segments
+            if offset <= s["segment_start"] < end
+        ]
+        top_channels: set[str] = set()
+        for seg in attack_segments[:3]:
+            for d in seg.get("attributed_dimensions", [])[:3]:
+                top_channels.add(d["label"])
+        attack_attribution[attack] = {
+            "n_segments": len(attack_segments),
+            "top_signals": sorted(top_channels)[:5],
+        }
+        if attack_segments:
+            print(f"\n  {attack}:")
+            top_list = sorted(top_channels)[:5]
+            print(f"    Top contributed signals: {', '.join(top_list) if top_list else '(none)'}")
+            for seg in attack_segments[:3]:
+                top_dims = [d["label"] for d in seg.get("attributed_dimensions", [])[:3]]
+                print(f"    Segment [{seg['segment_start']}-{seg['segment_end']}]: "
+                      f"peak={seg['peak_score']:.4f}, top={top_dims}")
+
     save_data = {
         "method": method,
         "per_attack": {
@@ -138,10 +226,16 @@ def evaluate_model(
         "avg_f1": float(np.mean(f1s)),
         "avg_precision": float(np.mean(precs)),
         "avg_recall": float(np.mean(recs)),
+        "attribution": attack_attribution,
     }
 
     registry.save_eval_results(save_data)
     print(f"\nResults saved to {registry.eval_path}")
+
+    attribution_path = model_dir / "attribution_results.json"
+    with open(attribution_path, "w") as f:
+        json.dump(summary_segments, f, indent=2, default=_json_safe)
+    print(f"Attribution saved to {attribution_path}")
 
     return save_data
 
