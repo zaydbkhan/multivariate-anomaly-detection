@@ -25,6 +25,8 @@ from requests.adapters import HTTPAdapter
 from tqdm import tqdm
 from urllib3.util.retry import Retry
 
+from src.preprocess import normalize
+
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://github.com/etas/SynCAN/raw/master"
@@ -208,29 +210,6 @@ def load_syncan_test(
     if not csv_path.exists():
         raise FileNotFoundError(f"Test file not found: {csv_path}")
     return load_syncan_csv(csv_path, resolution_ms)
-
-
-def normalize(
-    data: np.ndarray,
-    min_vals: np.ndarray | None = None,
-    max_vals: np.ndarray | None = None,
-    floor: float = 1e-4,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Per-feature min-max normalization to [0, 1].
-
-    Args:
-        data: (N, 20) signal array.
-        min_vals: Per-feature minimums (computed from data if None).
-        max_vals: Per-feature maximums (computed from data if None).
-        floor: Small epsilon to avoid division by zero.
-
-    Returns:
-        (normalized_data, min_vals, max_vals)
-    """
-    if min_vals is None:
-        min_vals = np.min(data, axis=0)
-        max_vals = np.max(data, axis=0)
-    return (data - min_vals) / (max_vals - min_vals + floor), min_vals, max_vals
 
 
 def preprocess_syncan(
