@@ -5,8 +5,8 @@ Downloads the SynCAN dataset if missing, preprocesses it, and verifies
 that all required data files exist.
 
 Usage:
-    uv run python code/0_verify_setup_syncan.py
-    uv run python code/0_verify_setup_syncan.py --force-download
+    uv run python syncan/0_verify_setup.py
+    uv run python syncan/0_verify_setup.py --force-download
 """
 
 import argparse
@@ -112,7 +112,7 @@ def main():
     if deps_ok and data_ok:
         print("All checks passed! Ready to go.")
         print("\nNext steps:")
-        print("  uv run python code/1_train_syncan.py")
+        print("  uv run python syncan/1_train.py")
     else:
         print("Some checks failed. See above for details.")
         sys.exit(1)

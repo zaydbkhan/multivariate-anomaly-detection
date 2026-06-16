@@ -6,8 +6,8 @@ see the pipeline working before optimizing. The grid sweep
 (code/4_syncan_grid_sweep.py) finds the best configuration and retrains.
 
 Usage:
-    uv run python code/1_train_syncan.py
-    uv run python code/1_train_syncan.py --window-size 200 --epochs 10
+    uv run python syncan/1_train.py
+    uv run python syncan/1_train.py --window-size 200 --epochs 10
 """
 
 import argparse
@@ -90,7 +90,7 @@ def main():
     print(f"Loading training data from {data_dir}...")
     train_path = data_dir / "train_signals.npy"
     if not train_path.exists():
-        print(f"Error: {train_path} not found. Run code/0_verify_setup_syncan.py first.")
+        print(f"Error: {train_path} not found. Run syncan/0_verify_setup.py first.")
         sys.exit(1)
 
     train_data = np.load(train_path)
