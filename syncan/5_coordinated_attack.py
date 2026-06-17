@@ -265,6 +265,8 @@ def main():
     parser.add_argument("--num-attacks", type=int, default=20)
     parser.add_argument("--attack-duration", type=int, default=400)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--two-tailed", action="store_true",
+                        help="Also evaluate with two-tailed z-score attribution")
     args = parser.parse_args()
 
     device = auto_device(args.device)
@@ -394,6 +396,9 @@ def main():
 
     baselines = compute_feature_baselines(train_scores)
     print(f"  Feature baselines: shape={baselines.shape}")
+    train_mean = np.mean(train_scores, axis=0)
+    train_std = np.std(train_scores, axis=0)
+    train_std = np.maximum(train_std, 1e-8)
 
     results = {}
     interval_results = {}
@@ -492,6 +497,27 @@ def main():
             dim: {"label": signal_labels[dim], "hits": dim_hits[dim], "total_segments": n_segs}
             for dim in attacked_dims
         }
+
+        # ---- two-tailed (z-score) attribution (--two-tailed flag) ----
+        if args.two_tailed:
+            z2_dim_hits: dict[int, int] = {d: 0 for d in attacked_dims}
+            for seg in segments:
+                s, e = seg["segment_start"], seg["segment_end"]
+                seg_scores = test_scores[s:e + 1]
+                z_scores = (seg_scores - train_mean) / train_std  # (T, F)
+                mean_z = np.mean(np.abs(z_scores), axis=0)  # (F,)
+                top3_z = np.argsort(mean_z)[::-1][:3]
+                for d in attacked_dims:
+                    if d in top3_z:
+                        z2_dim_hits[d] += 1
+
+            print(f"  Two-tailed z-score ({n_segs} segments, attacked signals in top-3):")
+            for dim in sorted(attacked_dims):
+                if n_segs > 0:
+                    hit_rate = 100.0 * z2_dim_hits[dim] / n_segs
+                    bar = "#" * int(hit_rate / 5) + "." * (20 - int(hit_rate / 5))
+                    print(f"    {signal_labels[dim]:<15s} (dim {dim:>2d}): "
+                          f"{z2_dim_hits[dim]:>2d}/{n_segs} ({hit_rate:>5.1f}%)  [{bar}]")
 
         del test_sig, test_lbl, test_scores, score_1d
 
