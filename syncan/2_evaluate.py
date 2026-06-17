@@ -78,7 +78,7 @@ def evaluate_attack(
         batch_size=score_batch_size,
     )
 
-    pot_params = POTParams(q=1e-5, level=0.999, scale=1.0)
+    pot_params = POTParams(q=1e-3, level=0.99, scale=1.0)
     cal = calibrate_threshold(
         train_scores=train_scores,
         test_scores=test_scores,
@@ -279,7 +279,7 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate TranAD on SynCAN")
     parser.add_argument("--model-dir", type=str, default="models/syncan/best")
     parser.add_argument("--method", type=str, default="pot",
-                        choices=["pot", "percentile"])
+                        choices=["pot", "percentile", "f1_max"])
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--from-saved", action="store_true",
                         help="Show saved results without re-scoring")

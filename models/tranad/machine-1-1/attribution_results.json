@@ -11,7 +11,7 @@
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 457.7679,
+          "mean_elevation": 457.7675,
           "contribution": 0.9539
         }
       ]
@@ -51,13 +51,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 57.1788,
+          "mean_elevation": 57.1789,
           "contribution": 0.0519
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 51.5867,
+          "mean_elevation": 51.5868,
           "contribution": 0.0559
         },
         {
@@ -75,7 +75,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 37.2779,
+          "mean_elevation": 37.278,
           "contribution": 0.035
         },
         {
@@ -127,7 +127,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 34.2815,
+          "mean_elevation": 34.2816,
           "contribution": 0.0351
         },
         {
@@ -155,7 +155,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 89.6417,
+          "mean_elevation": 89.6416,
           "contribution": 0.1367
         },
         {
@@ -219,7 +219,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 65.5955,
+          "mean_elevation": 65.5956,
           "contribution": 0.0639
         },
         {
@@ -243,7 +243,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 53.2054,
+          "mean_elevation": 53.2056,
           "contribution": 0.0618
         },
         {
@@ -261,7 +261,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 39.734,
+          "mean_elevation": 39.7341,
           "contribution": 0.04
         }
       ]
@@ -277,7 +277,7 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 2443.0559,
+          "mean_elevation": 2443.0562,
           "contribution": 0.2651
         },
         {
@@ -307,7 +307,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 33.5456,
+          "mean_elevation": 33.5457,
           "contribution": 0.0408
         }
       ]
@@ -353,7 +353,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 36.6417,
+          "mean_elevation": 36.6418,
           "contribution": 0.0476
         }
       ]
@@ -393,7 +393,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 69.0058,
+          "mean_elevation": 69.0059,
           "contribution": 0.0648
         },
         {
@@ -405,7 +405,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 57.4092,
+          "mean_elevation": 57.4093,
           "contribution": 0.0643
         },
         {
@@ -433,7 +433,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 118.9767,
+          "mean_elevation": 118.9766,
           "contribution": 0.1522
         },
         {
@@ -451,13 +451,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 65.3053,
+          "mean_elevation": 65.3054,
           "contribution": 0.0582
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 65.28,
+          "mean_elevation": 65.2801,
           "contribution": 0.0696
         },
         {
@@ -509,13 +509,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 64.0849,
+          "mean_elevation": 64.085,
           "contribution": 0.0844
         },
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 61.03,
+          "mean_elevation": 61.0301,
           "contribution": 0.0672
         },
         {
@@ -527,7 +527,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 45.9785,
+          "mean_elevation": 45.9786,
           "contribution": 0.0525
         },
         {
@@ -585,13 +585,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 74.4221,
+          "mean_elevation": 74.4222,
           "contribution": 0.0587
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 71.2758,
+          "mean_elevation": 71.2759,
           "contribution": 0.0671
         },
         {
@@ -613,7 +613,7 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 4935057.5,
+          "mean_elevation": 4935058.0,
           "contribution": 0.9664
         }
       ]
@@ -647,19 +647,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 142.0122,
+          "mean_elevation": 142.0123,
           "contribution": 0.0737
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 120.8517,
+          "mean_elevation": 120.852,
           "contribution": 0.0749
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 101.6636,
+          "mean_elevation": 101.6638,
           "contribution": 0.0549
         },
         {
@@ -699,7 +699,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 200.668,
+          "mean_elevation": 200.6679,
           "contribution": 0.0818
         },
         {
@@ -711,13 +711,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 130.3981,
+          "mean_elevation": 130.3982,
           "contribution": 0.0735
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 108.6114,
+          "mean_elevation": 108.6116,
           "contribution": 0.0731
         },
         {
@@ -729,7 +729,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 90.042,
+          "mean_elevation": 90.0422,
           "contribution": 0.0528
         },
         {
@@ -741,7 +741,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 86.6273,
+          "mean_elevation": 86.6272,
           "contribution": 0.0693
         },
         {
@@ -793,7 +793,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 61.3317,
+          "mean_elevation": 61.3318,
           "contribution": 0.0679
         },
         {
@@ -805,13 +805,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 50.6014,
+          "mean_elevation": 50.6015,
           "contribution": 0.0668
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 42.6599,
+          "mean_elevation": 42.66,
           "contribution": 0.0489
         },
         {
@@ -833,13 +833,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 326.8047,
+          "mean_elevation": 326.8051,
           "contribution": 0.4226
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 233.6388,
+          "mean_elevation": 233.6386,
           "contribution": 0.0043
         },
         {
@@ -861,13 +861,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 77140.6641,
+          "mean_elevation": 77140.6875,
           "contribution": 0.6865
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 944.0378,
+          "mean_elevation": 944.0373,
           "contribution": 0.1988
         }
       ]
@@ -883,13 +883,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 3634.7275,
+          "mean_elevation": 3634.7288,
           "contribution": 0.2605
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 155.698,
+          "mean_elevation": 155.6981,
           "contribution": 0.1934
         },
         {
@@ -923,13 +923,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 116120.4922,
+          "mean_elevation": 116120.5234,
           "contribution": 0.7052
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 1348.2042,
+          "mean_elevation": 1348.2035,
           "contribution": 0.1937
         }
       ]
@@ -945,13 +945,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 2534.6902,
+          "mean_elevation": 2534.6909,
           "contribution": 0.2593
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 182.187,
+          "mean_elevation": 182.1872,
           "contribution": 0.3234
         },
         {
@@ -969,7 +969,7 @@
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 18.7775,
+          "mean_elevation": 18.7774,
           "contribution": 0.0549
         },
         {
@@ -991,31 +991,31 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 5365.9741,
+          "mean_elevation": 5365.9761,
           "contribution": 0.0771
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 1269.2888,
+          "mean_elevation": 1269.2887,
           "contribution": 0.0212
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 862.2104,
+          "mean_elevation": 862.2112,
           "contribution": 0.4582
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 429.6838,
+          "mean_elevation": 429.6836,
           "contribution": 0.1458
         },
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 352.1566,
+          "mean_elevation": 352.1564,
           "contribution": 0.1322
         }
       ]
@@ -1031,13 +1031,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 45716.4062,
+          "mean_elevation": 45716.418,
           "contribution": 0.5308
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 985.494,
+          "mean_elevation": 985.4935,
           "contribution": 0.2707
         }
       ]
@@ -1053,13 +1053,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 1898.9438,
+          "mean_elevation": 1898.9445,
           "contribution": 0.1184
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 185.014,
+          "mean_elevation": 185.0142,
           "contribution": 0.4251
         },
         {
@@ -1071,7 +1071,7 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 42.4989,
+          "mean_elevation": 42.499,
           "contribution": 0.0451
         }
       ]
@@ -1087,19 +1087,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 110909.6797,
+          "mean_elevation": 110909.7109,
           "contribution": 0.7637
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 1104.266,
+          "mean_elevation": 1104.2657,
           "contribution": 0.0088
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 775.5614,
+          "mean_elevation": 775.561,
           "contribution": 0.1263
         }
       ]
@@ -1115,19 +1115,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 358.3623,
+          "mean_elevation": 358.3624,
           "contribution": 0.0317
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 238.5089,
+          "mean_elevation": 238.5092,
           "contribution": 0.3679
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 43.7618,
+          "mean_elevation": 43.7617,
           "contribution": 0.1147
         },
         {
@@ -1167,13 +1167,13 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 225.9416,
+          "mean_elevation": 225.9418,
           "contribution": 0.3822
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 32.9351,
+          "mean_elevation": 32.935,
           "contribution": 0.0939
         },
         {
@@ -1207,19 +1207,19 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 288.5396,
+          "mean_elevation": 288.5395,
           "contribution": 0.0104
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 127.7486,
+          "mean_elevation": 127.7487,
           "contribution": 0.3261
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 117.6827,
+          "mean_elevation": 117.6826,
           "contribution": 0.192
         },
         {
@@ -1241,7 +1241,7 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 445.0767,
+          "mean_elevation": 445.0761,
           "contribution": 0.0188
         },
         {
@@ -1259,7 +1259,7 @@
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 67.1364,
+          "mean_elevation": 67.1363,
           "contribution": 0.1271
         }
       ]
@@ -1275,13 +1275,13 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 2340.7561,
+          "mean_elevation": 2340.7563,
           "contribution": 0.0417
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 792.8663,
+          "mean_elevation": 792.8661,
           "contribution": 0.0984
         },
         {
@@ -1293,25 +1293,25 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 390.3573,
+          "mean_elevation": 390.3577,
           "contribution": 0.0671
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 352.0426,
+          "mean_elevation": 352.0433,
           "contribution": 0.0723
         },
         {
           "dim": 18,
           "label": "dim_18",
-          "mean_elevation": 326.7095,
+          "mean_elevation": 326.7094,
           "contribution": 0.0913
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 212.0488,
+          "mean_elevation": 212.0492,
           "contribution": 0.0379
         },
         {
@@ -1329,7 +1329,7 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 168.6366,
+          "mean_elevation": 168.6368,
           "contribution": 0.0448
         }
       ]
@@ -1375,7 +1375,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 56.7233,
+          "mean_elevation": 56.7235,
           "contribution": 0.0696
         },
         {
@@ -1387,7 +1387,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 42.4932,
+          "mean_elevation": 42.4933,
           "contribution": 0.0452
         },
         {
@@ -1415,25 +1415,25 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 1628.839,
+          "mean_elevation": 1628.8391,
           "contribution": 0.1269
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 104.2992,
+          "mean_elevation": 104.2991,
           "contribution": 0.0561
         },
         {
           "dim": 30,
           "label": "dim_30",
-          "mean_elevation": 89.3428,
+          "mean_elevation": 89.3427,
           "contribution": 0.0697
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 66.529,
+          "mean_elevation": 66.5292,
           "contribution": 0.059
         },
         {
@@ -1457,13 +1457,13 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 57.1777,
+          "mean_elevation": 57.1776,
           "contribution": 0.0603
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 43.5632,
+          "mean_elevation": 43.5633,
           "contribution": 0.0334
         },
         {
@@ -1485,13 +1485,13 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 837.6653,
+          "mean_elevation": 837.6654,
           "contribution": 0.049
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 189.8578,
+          "mean_elevation": 189.8577,
           "contribution": 0.0771
         },
         {
@@ -1503,19 +1503,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 117.9871,
+          "mean_elevation": 117.9872,
           "contribution": 0.0661
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 110.4883,
+          "mean_elevation": 110.4885,
           "contribution": 0.074
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 82.0481,
+          "mean_elevation": 82.0483,
           "contribution": 0.0478
         },
         {
@@ -1555,37 +1555,37 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 6751.1582,
+          "mean_elevation": 6751.1611,
           "contribution": 0.1166
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 512.2007,
+          "mean_elevation": 512.2012,
           "contribution": 0.3269
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 203.8429,
+          "mean_elevation": 203.843,
           "contribution": 0.2591
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 200.2503,
+          "mean_elevation": 200.2486,
           "contribution": 0.0018
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 187.5361,
+          "mean_elevation": 187.5363,
           "contribution": 0.0562
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 80.4952,
+          "mean_elevation": 80.4951,
           "contribution": 0.0326
         },
         {
@@ -1607,13 +1607,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 33673.832,
+          "mean_elevation": 33673.8438,
           "contribution": 0.6741
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 468.7587,
+          "mean_elevation": 468.7585,
           "contribution": 0.2218
         }
       ]
@@ -1629,19 +1629,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 4563.2104,
+          "mean_elevation": 4563.2119,
           "contribution": 0.2341
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 335.6346,
+          "mean_elevation": 335.6344,
           "contribution": 0.4066
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 163.0555,
+          "mean_elevation": 163.0556,
           "contribution": 0.0097
         },
         {
@@ -1663,25 +1663,25 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 6529.9028,
+          "mean_elevation": 6529.9048,
           "contribution": 0.3165
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 118.1304,
+          "mean_elevation": 118.1305,
           "contribution": 0.099
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 114.1855,
+          "mean_elevation": 114.1854,
           "contribution": 0.13
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 109.3489,
+          "mean_elevation": 109.349,
           "contribution": 0.0061
         },
         {
@@ -1745,25 +1745,25 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 91.6745,
+          "mean_elevation": 91.6746,
           "contribution": 0.0797
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 88.3992,
+          "mean_elevation": 88.3993,
           "contribution": 0.0919
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 68.4181,
+          "mean_elevation": 68.4182,
           "contribution": 0.0618
         },
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 64.6143,
+          "mean_elevation": 64.6144,
           "contribution": 0.0797
         },
         {
@@ -1803,13 +1803,13 @@
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 32702623744.0,
+          "mean_elevation": 32702648320.0,
           "contribution": 0.4434
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 20412207104.0,
+          "mean_elevation": 20412209152.0,
           "contribution": 0.552
         }
       ]
@@ -1825,19 +1825,19 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 699.878,
+          "mean_elevation": 699.8787,
           "contribution": 0.3894
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 333.311,
+          "mean_elevation": 333.3111,
           "contribution": 0.3699
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 176.0945,
+          "mean_elevation": 176.0947,
           "contribution": 0.0459
         }
       ]
@@ -1853,13 +1853,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 17376.9824,
+          "mean_elevation": 17376.9883,
           "contribution": 0.5544
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 382.9701,
+          "mean_elevation": 382.9699,
           "contribution": 0.2886
         }
       ]
@@ -1875,13 +1875,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 3660.2471,
+          "mean_elevation": 3660.2476,
           "contribution": 0.2843
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 196.7143,
+          "mean_elevation": 196.7142,
           "contribution": 0.3601
         },
         {
@@ -1903,19 +1903,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 12777.1016,
+          "mean_elevation": 12777.1055,
           "contribution": 0.4328
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 236.7377,
+          "mean_elevation": 236.7376,
           "contribution": 0.1891
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 156.3826,
+          "mean_elevation": 156.3827,
           "contribution": 0.0918
         },
         {
@@ -1927,7 +1927,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 56.8303,
+          "mean_elevation": 56.8304,
           "contribution": 0.0705
         }
       ]
@@ -1943,19 +1943,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 496.9449,
+          "mean_elevation": 496.945,
           "contribution": 0.0369
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 165.567,
+          "mean_elevation": 165.5672,
           "contribution": 0.2133
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 78.9259,
+          "mean_elevation": 78.9258,
           "contribution": 0.1372
         },
         {
@@ -1967,7 +1967,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 54.5391,
+          "mean_elevation": 54.5392,
           "contribution": 0.1484
         },
         {
@@ -2001,7 +2001,7 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 9194.6426,
+          "mean_elevation": 9194.6455,
           "contribution": 0.835
         }
       ]
@@ -2017,13 +2017,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 7177.9204,
+          "mean_elevation": 7177.9224,
           "contribution": 0.352
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 256.9999,
+          "mean_elevation": 256.9998,
           "contribution": 0.2974
         },
         {
@@ -2045,7 +2045,7 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 845.2967,
+          "mean_elevation": 845.2969,
           "contribution": 0.0807
         },
         {
@@ -2057,7 +2057,7 @@
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 120.3628,
+          "mean_elevation": 120.3627,
           "contribution": 0.27
         },
         {
@@ -2072,44 +2072,44 @@
       "segment_start": 18299,
       "segment_end": 18309,
       "segment_length": 11,
-      "peak_score": 1.372084,
+      "peak_score": 1.372085,
       "peak_timestamp": 18300,
       "mean_score": 0.297023,
       "attributed_dimensions": [
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 19035.4902,
+          "mean_elevation": 19035.4961,
           "contribution": 0.3894
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 351.2952,
+          "mean_elevation": 351.295,
           "contribution": 0.0084
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 237.0592,
+          "mean_elevation": 237.0594,
           "contribution": 0.0842
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 176.1005,
+          "mean_elevation": 176.1004,
           "contribution": 0.0848
         },
         {
           "dim": 17,
           "label": "dim_17",
-          "mean_elevation": 127.0381,
+          "mean_elevation": 127.0384,
           "contribution": 0.0034
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 84.3252,
+          "mean_elevation": 84.325,
           "contribution": 0.0515
         },
         {
@@ -2127,7 +2127,7 @@
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 63.3783,
+          "mean_elevation": 63.3785,
           "contribution": 0.0008
         },
         {
@@ -2167,13 +2167,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 62.4866,
+          "mean_elevation": 62.4867,
           "contribution": 0.0696
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 55.9421,
+          "mean_elevation": 55.9422,
           "contribution": 0.0744
         },
         {
@@ -2191,7 +2191,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 41.3182,
+          "mean_elevation": 41.3183,
           "contribution": 0.0476
         },
         {
@@ -2219,7 +2219,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 87.5136,
+          "mean_elevation": 87.5135,
           "contribution": 0.07
         },
         {
@@ -2237,13 +2237,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 61.7723,
+          "mean_elevation": 61.7724,
           "contribution": 0.0681
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 55.9679,
+          "mean_elevation": 55.968,
           "contribution": 0.0737
         },
         {
@@ -2261,7 +2261,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 40.4453,
+          "mean_elevation": 40.4454,
           "contribution": 0.0461
         },
         {
@@ -2307,13 +2307,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 67.5836,
+          "mean_elevation": 67.5837,
           "contribution": 0.0615
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 61.1588,
+          "mean_elevation": 61.1589,
           "contribution": 0.0665
         },
         {
@@ -2325,7 +2325,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 46.0091,
+          "mean_elevation": 46.0092,
           "contribution": 0.0434
         },
         {
@@ -2359,7 +2359,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 88.9378,
+          "mean_elevation": 88.9377,
           "contribution": 0.0601
         },
         {
@@ -2371,7 +2371,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 70.0278,
+          "mean_elevation": 70.0279,
           "contribution": 0.0653
         },
         {
@@ -2389,7 +2389,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 64.3406,
+          "mean_elevation": 64.3407,
           "contribution": 0.0717
         },
         {
@@ -2407,7 +2407,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 46.3229,
+          "mean_elevation": 46.323,
           "contribution": 0.0448
         },
         {
@@ -2429,7 +2429,7 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 1784937.25,
+          "mean_elevation": 1784937.5,
           "contribution": 0.9577
         }
       ]
@@ -2445,13 +2445,13 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 724.3787,
+          "mean_elevation": 724.3777,
           "contribution": 0.0068
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 503.2865,
+          "mean_elevation": 503.2871,
           "contribution": 0.3366
         },
         {
@@ -2469,7 +2469,7 @@
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 108.0156,
+          "mean_elevation": 108.0153,
           "contribution": 0.0585
         }
       ]
@@ -2485,19 +2485,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 321.1193,
+          "mean_elevation": 321.1194,
           "contribution": 0.0291
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 149.4718,
+          "mean_elevation": 149.4719,
           "contribution": 0.5027
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 50.6186,
+          "mean_elevation": 50.6187,
           "contribution": 0.1669
         },
         {
@@ -2525,13 +2525,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 780.9008,
+          "mean_elevation": 780.9011,
           "contribution": 0.0707
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 154.1752,
+          "mean_elevation": 154.1753,
           "contribution": 0.5174
         },
         {
@@ -2553,19 +2553,19 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 567.8943,
+          "mean_elevation": 567.8937,
           "contribution": 0.0092
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 384.9258,
+          "mean_elevation": 384.9262,
           "contribution": 0.442
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 146.098,
+          "mean_elevation": 146.0979,
           "contribution": 0.1068
         },
         {
@@ -2593,13 +2593,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 1647.2994,
+          "mean_elevation": 1647.2999,
           "contribution": 0.1581
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 424.9986,
+          "mean_elevation": 424.9981,
           "contribution": 0.0213
         },
         {
@@ -2611,7 +2611,7 @@
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 106.8564,
+          "mean_elevation": 106.8566,
           "contribution": 0.0059
         },
         {
@@ -2633,19 +2633,19 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 702.1293,
+          "mean_elevation": 702.1282,
           "contribution": 0.0096
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 452.7065,
+          "mean_elevation": 452.7069,
           "contribution": 0.4377
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 155.267,
+          "mean_elevation": 155.2671,
           "contribution": 0.1505
         },
         {
@@ -2667,19 +2667,19 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 171.786,
+          "mean_elevation": 171.7861,
           "contribution": 0.6062
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 67.7222,
+          "mean_elevation": 67.7221,
           "contribution": 0.0033
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 33.1737,
+          "mean_elevation": 33.1738,
           "contribution": 0.0534
         },
         {
@@ -2691,7 +2691,7 @@
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 31.8977,
+          "mean_elevation": 31.8976,
           "contribution": 0.0888
         },
         {
@@ -2713,19 +2713,19 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 179.3218,
+          "mean_elevation": 179.3219,
           "contribution": 0.6405
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 45.7357,
+          "mean_elevation": 45.7358,
           "contribution": 0.0752
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 40.5371,
+          "mean_elevation": 40.537,
           "contribution": 0.115
         }
       ]
@@ -2747,13 +2747,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 65.5813,
+          "mean_elevation": 65.5814,
           "contribution": 0.2357
         },
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 26.118,
+          "mean_elevation": 26.1179,
           "contribution": 0.0649
         }
       ]
@@ -2769,13 +2769,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 151.9101,
+          "mean_elevation": 151.9102,
           "contribution": 0.5059
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 84.7145,
+          "mean_elevation": 84.7144,
           "contribution": 0.1782
         },
         {
@@ -2821,7 +2821,7 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 43.6911,
+          "mean_elevation": 43.6912,
           "contribution": 0.1393
         }
       ]
@@ -2837,19 +2837,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 1431.2299,
+          "mean_elevation": 1431.2303,
           "contribution": 0.1404
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 150.9135,
+          "mean_elevation": 150.9136,
           "contribution": 0.5486
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 63.6119,
+          "mean_elevation": 63.6118,
           "contribution": 0.1455
         }
       ]
@@ -2871,7 +2871,7 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 71.1589,
+          "mean_elevation": 71.159,
           "contribution": 0.2528
         },
         {
@@ -2893,19 +2893,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 2375.0942,
+          "mean_elevation": 2375.095,
           "contribution": 0.1694
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 142.1122,
+          "mean_elevation": 142.1123,
           "contribution": 0.3755
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 132.3988,
+          "mean_elevation": 132.3987,
           "contribution": 0.2221
         },
         {
@@ -2927,13 +2927,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 9230.542,
+          "mean_elevation": 9230.5449,
           "contribution": 0.5803
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 152.5104,
+          "mean_elevation": 152.5105,
           "contribution": 0.3552
         }
       ]
@@ -2949,7 +2949,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 153.6509,
+          "mean_elevation": 153.651,
           "contribution": 0.5539
         },
         {
@@ -2977,13 +2977,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 150.6467,
+          "mean_elevation": 150.6468,
           "contribution": 0.5188
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 55.0036,
+          "mean_elevation": 55.0035,
           "contribution": 0.1189
         },
         {
@@ -3033,7 +3033,7 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 1694.9583,
+          "mean_elevation": 1694.9574,
           "contribution": 0.0174
         },
         {
@@ -3045,13 +3045,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 305.0217,
+          "mean_elevation": 305.022,
           "contribution": 0.2216
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 258.1939,
+          "mean_elevation": 258.1938,
           "contribution": 0.1198
         }
       ]
@@ -3067,19 +3067,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 1135.1982,
+          "mean_elevation": 1135.1986,
           "contribution": 0.1084
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 238.5947,
+          "mean_elevation": 238.5945,
           "contribution": 0.0119
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 174.7308,
+          "mean_elevation": 174.7309,
           "contribution": 0.6191
         },
         {
@@ -3101,13 +3101,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 2040.2349,
+          "mean_elevation": 2040.2355,
           "contribution": 0.1203
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 1009.4666,
+          "mean_elevation": 1009.4648,
           "contribution": 0.0311
         },
         {
@@ -3119,19 +3119,19 @@
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 118.3161,
+          "mean_elevation": 118.316,
           "contribution": 0.1638
         },
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 105.0845,
+          "mean_elevation": 105.0846,
           "contribution": 0.0036
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 79.7163,
+          "mean_elevation": 79.7164,
           "contribution": 0.1719
         }
       ]
@@ -3147,13 +3147,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 3230.9946,
+          "mean_elevation": 3230.9956,
           "contribution": 0.2223
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 154.9337,
+          "mean_elevation": 154.9338,
           "contribution": 0.395
         },
         {
@@ -3181,13 +3181,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 64.3427,
+          "mean_elevation": 64.3428,
           "contribution": 0.2178
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 32.8278,
+          "mean_elevation": 32.8279,
           "contribution": 0.0515
         },
         {
@@ -3209,37 +3209,37 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 14026.0566,
+          "mean_elevation": 14026.0596,
           "contribution": 0.3599
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 214.5477,
+          "mean_elevation": 214.5478,
           "contribution": 0.2043
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 204.2929,
+          "mean_elevation": 204.2931,
           "contribution": 0.091
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 95.3221,
+          "mean_elevation": 95.322,
           "contribution": 0.0573
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 88.6075,
+          "mean_elevation": 88.6076,
           "contribution": 0.0026
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 85.2518,
+          "mean_elevation": 85.2516,
           "contribution": 0.0653
         },
         {
@@ -3261,13 +3261,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 5203.7842,
+          "mean_elevation": 5203.7861,
           "contribution": 0.2583
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 226.0746,
+          "mean_elevation": 226.0747,
           "contribution": 0.4165
         },
         {
@@ -3297,7 +3297,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 20.8896,
+          "mean_elevation": 20.8897,
           "contribution": 0.0133
         },
         {
@@ -3319,13 +3319,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 214.8987,
+          "mean_elevation": 214.8988,
           "contribution": 0.791
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 33.776,
+          "mean_elevation": 33.7759,
           "contribution": 0.0264
         }
       ]
@@ -3341,7 +3341,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 228.756,
+          "mean_elevation": 228.7561,
           "contribution": 0.6591
         },
         {
@@ -3399,19 +3399,19 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 111721.1094,
+          "mean_elevation": 111721.1172,
           "contribution": 0.5855
         },
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 1583.4048,
+          "mean_elevation": 1583.403,
           "contribution": 0.0107
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 752.7211,
+          "mean_elevation": 752.7209,
           "contribution": 0.0275
         },
         {
@@ -3423,13 +3423,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 445.9124,
+          "mean_elevation": 445.9128,
           "contribution": 0.0225
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 420.4699,
+          "mean_elevation": 420.4707,
           "contribution": 0.0254
         },
         {
@@ -3447,13 +3447,13 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 333.6695,
+          "mean_elevation": 333.6701,
           "contribution": 0.0176
         },
         {
           "dim": 3,
           "label": "dim_3",
-          "mean_elevation": 309.6588,
+          "mean_elevation": 309.6587,
           "contribution": 0.0423
         }
       ]
@@ -3469,25 +3469,25 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 585.1398,
+          "mean_elevation": 585.1386,
           "contribution": 0.0056
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 462.8445,
+          "mean_elevation": 462.8449,
           "contribution": 0.3158
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 297.2157,
+          "mean_elevation": 297.2158,
           "contribution": 0.4043
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 179.0817,
+          "mean_elevation": 179.0819,
           "contribution": 0.0573
         },
         {
@@ -3509,13 +3509,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 136.0199,
+          "mean_elevation": 136.02,
           "contribution": 0.4317
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 105.8694,
+          "mean_elevation": 105.8695,
           "contribution": 0.3331
         },
         {
@@ -3543,13 +3543,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 136.6784,
+          "mean_elevation": 136.6785,
           "contribution": 0.4591
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 74.5573,
+          "mean_elevation": 74.5574,
           "contribution": 0.2473
         },
         {
@@ -3571,7 +3571,7 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 229.2661,
+          "mean_elevation": 229.2658,
           "contribution": 0.0068
         },
         {
@@ -3583,7 +3583,7 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 106.7237,
+          "mean_elevation": 106.7238,
           "contribution": 0.2218
         },
         {
@@ -3605,13 +3605,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 954.3205,
+          "mean_elevation": 954.3206,
           "contribution": 0.0859
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 213.6658,
+          "mean_elevation": 213.6657,
           "contribution": 0.01
         },
         {
@@ -3629,13 +3629,13 @@
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 96.7815,
+          "mean_elevation": 96.7816,
           "contribution": 0.005
         },
         {
           "dim": 16,
           "label": "dim_16",
-          "mean_elevation": 51.902,
+          "mean_elevation": 51.9019,
           "contribution": 0.0039
         },
         {
@@ -3657,19 +3657,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 584.0451,
+          "mean_elevation": 584.0453,
           "contribution": 0.0422
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 145.0986,
+          "mean_elevation": 145.0985,
           "contribution": 0.2472
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 136.2992,
+          "mean_elevation": 136.2993,
           "contribution": 0.3655
         },
         {
@@ -3691,13 +3691,13 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 13586.7686,
+          "mean_elevation": 13586.7725,
           "contribution": 0.6759
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 138.2998,
+          "mean_elevation": 138.2999,
           "contribution": 0.2547
         }
       ]
@@ -3741,19 +3741,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 434.2025,
+          "mean_elevation": 434.2026,
           "contribution": 0.0232
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 225.7362,
+          "mean_elevation": 225.736,
           "contribution": 0.0063
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 180.1503,
+          "mean_elevation": 180.1502,
           "contribution": 0.2267
         },
         {
@@ -3787,19 +3787,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 10460.4102,
+          "mean_elevation": 10460.4131,
           "contribution": 0.4194
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 184.8418,
+          "mean_elevation": 184.8419,
           "contribution": 0.2749
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 116.6677,
+          "mean_elevation": 116.6676,
           "contribution": 0.11
         }
       ]
@@ -3815,19 +3815,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 4434.7822,
+          "mean_elevation": 4434.7837,
           "contribution": 0.3414
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 139.9723,
+          "mean_elevation": 139.9724,
           "contribution": 0.399
         },
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 61.3597,
+          "mean_elevation": 61.3596,
           "contribution": 0.1101
         }
       ]
@@ -3843,19 +3843,19 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 6701.5171,
+          "mean_elevation": 6701.5195,
           "contribution": 0.2575
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 211.8249,
+          "mean_elevation": 211.825,
           "contribution": 0.3021
         },
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 138.049,
+          "mean_elevation": 138.0491,
           "contribution": 0.0919
         },
         {
@@ -3867,7 +3867,7 @@
         {
           "dim": 12,
           "label": "dim_12",
-          "mean_elevation": 53.4992,
+          "mean_elevation": 53.4991,
           "contribution": 0.0479
         }
       ]
@@ -3901,19 +3901,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 75.8775,
+          "mean_elevation": 75.8776,
           "contribution": 0.0591
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 62.0782,
+          "mean_elevation": 62.0783,
           "contribution": 0.0577
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 55.1615,
+          "mean_elevation": 55.1616,
           "contribution": 0.0446
         },
         {
@@ -3935,7 +3935,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 210.5156,
+          "mean_elevation": 210.5157,
           "contribution": 0.558
         },
         {
@@ -3953,19 +3953,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 64.4714,
+          "mean_elevation": 64.4715,
           "contribution": 0.0509
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 50.9695,
+          "mean_elevation": 50.9696,
           "contribution": 0.0419
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 49.666,
+          "mean_elevation": 49.6661,
           "contribution": 0.0467
         }
       ]
@@ -3981,13 +3981,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 122.9806,
+          "mean_elevation": 122.9807,
           "contribution": 0.4594
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 64.9945,
+          "mean_elevation": 64.9946,
           "contribution": 0.2394
         },
         {
@@ -4009,7 +4009,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 235.3265,
+          "mean_elevation": 235.3266,
           "contribution": 0.6524
         },
         {
@@ -4061,7 +4061,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 198.7227,
+          "mean_elevation": 198.7228,
           "contribution": 0.7379
         },
         {
@@ -4101,7 +4101,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 170.5328,
+          "mean_elevation": 170.5329,
           "contribution": 0.6014
         },
         {
@@ -4159,7 +4159,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 178.5196,
+          "mean_elevation": 178.5197,
           "contribution": 0.6462
         },
         {
@@ -4189,7 +4189,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 19.0416,
+          "mean_elevation": 19.0417,
           "contribution": 0.0198
         }
       ]
@@ -4205,7 +4205,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 174.5042,
+          "mean_elevation": 174.5043,
           "contribution": 0.6274
         },
         {
@@ -4251,19 +4251,19 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 189.4012,
+          "mean_elevation": 189.4013,
           "contribution": 0.6951
         },
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 37.0882,
+          "mean_elevation": 37.0881,
           "contribution": 0.0572
         },
         {
           "dim": 35,
           "label": "dim_35",
-          "mean_elevation": 33.316,
+          "mean_elevation": 33.3159,
           "contribution": 0.0528
         }
       ]
@@ -4279,7 +4279,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 157.5874,
+          "mean_elevation": 157.5875,
           "contribution": 0.5873
         },
         {
@@ -4331,7 +4331,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.0878,
+          "mean_elevation": 165.0879,
           "contribution": 0.6122
         },
         {
@@ -4423,7 +4423,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 166.2225,
+          "mean_elevation": 166.2226,
           "contribution": 0.6147
         },
         {
@@ -4447,7 +4447,7 @@
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 31.4222,
+          "mean_elevation": 31.4221,
           "contribution": 0.0047
         },
         {
@@ -4475,7 +4475,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 167.5392,
+          "mean_elevation": 167.5393,
           "contribution": 0.5879
         },
         {
@@ -4505,7 +4505,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 29.1978,
+          "mean_elevation": 29.1977,
           "contribution": 0.0428
         },
         {
@@ -4527,13 +4527,13 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 477.2781,
+          "mean_elevation": 477.2782,
           "contribution": 0.0254
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 204.3545,
+          "mean_elevation": 204.3546,
           "contribution": 0.3467
         },
         {
@@ -4557,25 +4557,25 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 83.3884,
+          "mean_elevation": 83.3885,
           "contribution": 0.0423
         },
         {
           "dim": 35,
           "label": "dim_35",
-          "mean_elevation": 77.1037,
+          "mean_elevation": 77.1036,
           "contribution": 0.0575
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 76.8587,
+          "mean_elevation": 76.8588,
           "contribution": 0.0466
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 51.8999,
+          "mean_elevation": 51.9,
           "contribution": 0.0273
         },
         {
@@ -4661,7 +4661,7 @@
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 8.5921,
+          "mean_elevation": 8.592,
           "contribution": 0.0203
         }
       ]
@@ -4677,7 +4677,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.1505,
+          "mean_elevation": 165.1506,
           "contribution": 0.6108
         },
         {
@@ -4729,7 +4729,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 116.2764,
+          "mean_elevation": 116.2763,
           "contribution": 0.0824
         },
         {
@@ -4747,13 +4747,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 66.6948,
+          "mean_elevation": 66.695,
           "contribution": 0.0778
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 53.2094,
+          "mean_elevation": 53.2095,
           "contribution": 0.054
         },
         {
@@ -4775,13 +4775,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 261.6967,
+          "mean_elevation": 261.6968,
           "contribution": 0.5095
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 175.4564,
+          "mean_elevation": 175.4563,
           "contribution": 0.0741
         },
         {
@@ -4793,19 +4793,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 98.8032,
+          "mean_elevation": 98.8033,
           "contribution": 0.0576
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 84.6169,
+          "mean_elevation": 84.617,
           "contribution": 0.0589
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 73.3685,
+          "mean_elevation": 73.3687,
           "contribution": 0.0445
         }
       ]
@@ -4821,13 +4821,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 2011.9618,
+          "mean_elevation": 2011.9637,
           "contribution": 0.5078
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 850.4426,
+          "mean_elevation": 850.4427,
           "contribution": 0.4285
         }
       ]
@@ -4843,13 +4843,13 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 192.5869,
+          "mean_elevation": 192.5871,
           "contribution": 0.3226
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 83.9728,
+          "mean_elevation": 83.9725,
           "contribution": 0.2419
         },
         {
@@ -4877,7 +4877,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 159.1993,
+          "mean_elevation": 159.1994,
           "contribution": 0.4311
         },
         {
@@ -4895,19 +4895,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 71.3098,
+          "mean_elevation": 71.3099,
           "contribution": 0.0577
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 65.0964,
+          "mean_elevation": 65.0965,
           "contribution": 0.0629
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 55.159,
+          "mean_elevation": 55.1591,
           "contribution": 0.0464
         },
         {
@@ -4935,25 +4935,25 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 108110.2891,
+          "mean_elevation": 108110.2969,
           "contribution": 0.5626
         },
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 1776.3232,
+          "mean_elevation": 1776.321,
           "contribution": 0.012
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 700.6702,
+          "mean_elevation": 700.67,
           "contribution": 0.0254
         },
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 527.0934,
+          "mean_elevation": 527.0941,
           "contribution": 0.0264
         },
         {
@@ -4965,25 +4965,25 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 475.2,
+          "mean_elevation": 475.2009,
           "contribution": 0.0249
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 438.0255,
+          "mean_elevation": 438.0264,
           "contribution": 0.0263
         },
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 282.6253,
+          "mean_elevation": 282.6252,
           "contribution": 0.0202
         },
         {
           "dim": 19,
           "label": "dim_19",
-          "mean_elevation": 280.1307,
+          "mean_elevation": 280.1308,
           "contribution": 0.021
         },
         {
@@ -5005,19 +5005,19 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 458.1704,
+          "mean_elevation": 458.1709,
           "contribution": 0.3666
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 311.3928,
+          "mean_elevation": 311.3937,
           "contribution": 0.0035
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 232.6933,
+          "mean_elevation": 232.6934,
           "contribution": 0.3714
         },
         {
@@ -5039,7 +5039,7 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 91.6626,
+          "mean_elevation": 91.6627,
           "contribution": 0.3071
         },
         {
@@ -5051,7 +5051,7 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 53.52,
+          "mean_elevation": 53.5201,
           "contribution": 0.0838
         },
         {
@@ -5073,7 +5073,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 212.6968,
+          "mean_elevation": 212.6969,
           "contribution": 0.7393
         },
         {
@@ -5101,7 +5101,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.6978,
+          "mean_elevation": 165.6979,
           "contribution": 0.451
         },
         {
@@ -5119,19 +5119,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 77.5353,
+          "mean_elevation": 77.5354,
           "contribution": 0.0632
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 57.5799,
+          "mean_elevation": 57.58,
           "contribution": 0.0558
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 54.6276,
+          "mean_elevation": 54.6277,
           "contribution": 0.0462
         },
         {
@@ -5153,25 +5153,25 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 938.9277,
+          "mean_elevation": 938.9267,
           "contribution": 0.0099
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 486.7913,
+          "mean_elevation": 486.7919,
           "contribution": 0.3633
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 266.6884,
+          "mean_elevation": 266.6885,
           "contribution": 0.3969
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 119.3883,
+          "mean_elevation": 119.3884,
           "contribution": 0.0891
         }
       ]
@@ -5189,7 +5189,7 @@
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 457.7679,
+          "mean_elevation": 457.7675,
           "contribution": 0.9539
         }
       ]
@@ -5229,13 +5229,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 57.1788,
+          "mean_elevation": 57.1789,
           "contribution": 0.0519
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 51.5867,
+          "mean_elevation": 51.5868,
           "contribution": 0.0559
         },
         {
@@ -5253,7 +5253,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 37.2779,
+          "mean_elevation": 37.278,
           "contribution": 0.035
         },
         {
@@ -5305,7 +5305,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 34.2815,
+          "mean_elevation": 34.2816,
           "contribution": 0.0351
         },
         {
@@ -5333,7 +5333,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 89.6417,
+          "mean_elevation": 89.6416,
           "contribution": 0.1367
         },
         {
@@ -5397,7 +5397,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 65.5955,
+          "mean_elevation": 65.5956,
           "contribution": 0.0639
         },
         {
@@ -5421,7 +5421,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 53.2054,
+          "mean_elevation": 53.2056,
           "contribution": 0.0618
         },
         {
@@ -5439,7 +5439,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 39.734,
+          "mean_elevation": 39.7341,
           "contribution": 0.04
         }
       ]
@@ -5455,7 +5455,7 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 2443.0559,
+          "mean_elevation": 2443.0562,
           "contribution": 0.2651
         },
         {
@@ -5485,7 +5485,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 33.5456,
+          "mean_elevation": 33.5457,
           "contribution": 0.0408
         }
       ]
@@ -5531,7 +5531,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 36.6417,
+          "mean_elevation": 36.6418,
           "contribution": 0.0476
         }
       ]
@@ -5571,7 +5571,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 69.0058,
+          "mean_elevation": 69.0059,
           "contribution": 0.0648
         },
         {
@@ -5583,7 +5583,7 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 57.4092,
+          "mean_elevation": 57.4093,
           "contribution": 0.0643
         },
         {
@@ -5611,7 +5611,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 118.9767,
+          "mean_elevation": 118.9766,
           "contribution": 0.1522
         },
         {
@@ -5629,13 +5629,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 65.3053,
+          "mean_elevation": 65.3054,
           "contribution": 0.0582
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 65.28,
+          "mean_elevation": 65.2801,
           "contribution": 0.0696
         },
         {
@@ -5687,13 +5687,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 64.0849,
+          "mean_elevation": 64.085,
           "contribution": 0.0844
         },
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 61.03,
+          "mean_elevation": 61.0301,
           "contribution": 0.0672
         },
         {
@@ -5705,7 +5705,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 45.9785,
+          "mean_elevation": 45.9786,
           "contribution": 0.0525
         },
         {
@@ -5763,13 +5763,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 74.4221,
+          "mean_elevation": 74.4222,
           "contribution": 0.0587
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 71.2758,
+          "mean_elevation": 71.2759,
           "contribution": 0.0671
         },
         {
@@ -5791,7 +5791,7 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 4935057.5,
+          "mean_elevation": 4935058.0,
           "contribution": 0.9664
         }
       ]
@@ -5825,19 +5825,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 142.0122,
+          "mean_elevation": 142.0123,
           "contribution": 0.0737
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 120.8517,
+          "mean_elevation": 120.852,
           "contribution": 0.0749
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 101.6636,
+          "mean_elevation": 101.6638,
           "contribution": 0.0549
         },
         {
@@ -5877,7 +5877,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 200.668,
+          "mean_elevation": 200.6679,
           "contribution": 0.0818
         },
         {
@@ -5889,13 +5889,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 130.3981,
+          "mean_elevation": 130.3982,
           "contribution": 0.0735
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 108.6114,
+          "mean_elevation": 108.6116,
           "contribution": 0.0731
         },
         {
@@ -5907,7 +5907,7 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 90.042,
+          "mean_elevation": 90.0422,
           "contribution": 0.0528
         },
         {
@@ -5919,7 +5919,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 86.6273,
+          "mean_elevation": 86.6272,
           "contribution": 0.0693
         },
         {
@@ -5971,7 +5971,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 61.3317,
+          "mean_elevation": 61.3318,
           "contribution": 0.0679
         },
         {
@@ -5983,13 +5983,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 50.6014,
+          "mean_elevation": 50.6015,
           "contribution": 0.0668
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 42.6599,
+          "mean_elevation": 42.66,
           "contribution": 0.0489
         },
         {
@@ -6011,7 +6011,7 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 898.296,
+          "mean_elevation": 898.2962,
           "contribution": 0.1113
         },
         {
@@ -6053,7 +6053,7 @@
         {
           "dim": 18,
           "label": "dim_18",
-          "mean_elevation": 23.2633,
+          "mean_elevation": 23.2632,
           "contribution": 0.0514
         },
         {
@@ -6081,13 +6081,13 @@
         {
           "dim": 26,
           "label": "dim_26",
-          "mean_elevation": 10549233664.0,
+          "mean_elevation": 10549240832.0,
           "contribution": 0.4434
         },
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 6584583168.0,
+          "mean_elevation": 6584583680.0,
           "contribution": 0.552
         }
       ]
@@ -6119,19 +6119,19 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 28853.7852,
+          "mean_elevation": 28853.7891,
           "contribution": 0.5216
         },
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 409.3255,
+          "mean_elevation": 409.325,
           "contribution": 0.0096
         },
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 328.0096,
+          "mean_elevation": 328.0097,
           "contribution": 0.0051
         },
         {
@@ -6143,7 +6143,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 193.1463,
+          "mean_elevation": 193.1464,
           "contribution": 0.1113
         },
         {
@@ -6155,13 +6155,13 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 118.5082,
+          "mean_elevation": 118.5083,
           "contribution": 0.0206
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 111.2772,
+          "mean_elevation": 111.2774,
           "contribution": 0.0231
         },
         {
@@ -6189,7 +6189,7 @@
         {
           "dim": 9,
           "label": "dim_9",
-          "mean_elevation": 533.2574,
+          "mean_elevation": 533.2575,
           "contribution": 0.0612
         },
         {
@@ -6207,7 +6207,7 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 21.4662,
+          "mean_elevation": 21.4661,
           "contribution": 0.0012
         },
         {
@@ -6235,13 +6235,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 122.9806,
+          "mean_elevation": 122.9807,
           "contribution": 0.4594
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 64.9945,
+          "mean_elevation": 64.9946,
           "contribution": 0.2394
         },
         {
@@ -6263,7 +6263,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 235.3265,
+          "mean_elevation": 235.3266,
           "contribution": 0.6524
         },
         {
@@ -6315,7 +6315,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 198.7227,
+          "mean_elevation": 198.7228,
           "contribution": 0.7379
         },
         {
@@ -6355,7 +6355,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 170.5328,
+          "mean_elevation": 170.5329,
           "contribution": 0.6014
         },
         {
@@ -6413,7 +6413,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 178.5196,
+          "mean_elevation": 178.5197,
           "contribution": 0.6462
         },
         {
@@ -6443,7 +6443,7 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 19.0416,
+          "mean_elevation": 19.0417,
           "contribution": 0.0198
         }
       ]
@@ -6459,7 +6459,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 174.5042,
+          "mean_elevation": 174.5043,
           "contribution": 0.6274
         },
         {
@@ -6505,19 +6505,19 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 189.4012,
+          "mean_elevation": 189.4013,
           "contribution": 0.6951
         },
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 37.0882,
+          "mean_elevation": 37.0881,
           "contribution": 0.0572
         },
         {
           "dim": 35,
           "label": "dim_35",
-          "mean_elevation": 33.316,
+          "mean_elevation": 33.3159,
           "contribution": 0.0528
         }
       ]
@@ -6533,7 +6533,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 157.5874,
+          "mean_elevation": 157.5875,
           "contribution": 0.5873
         },
         {
@@ -6585,7 +6585,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.0878,
+          "mean_elevation": 165.0879,
           "contribution": 0.6122
         },
         {
@@ -6677,7 +6677,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 166.2225,
+          "mean_elevation": 166.2226,
           "contribution": 0.6147
         },
         {
@@ -6701,7 +6701,7 @@
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 31.4222,
+          "mean_elevation": 31.4221,
           "contribution": 0.0047
         },
         {
@@ -6729,7 +6729,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 167.5392,
+          "mean_elevation": 167.5393,
           "contribution": 0.5879
         },
         {
@@ -6759,7 +6759,7 @@
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 29.1978,
+          "mean_elevation": 29.1977,
           "contribution": 0.0428
         },
         {
@@ -6781,13 +6781,13 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 477.2781,
+          "mean_elevation": 477.2782,
           "contribution": 0.0254
         },
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 204.3545,
+          "mean_elevation": 204.3546,
           "contribution": 0.3467
         },
         {
@@ -6811,25 +6811,25 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 83.3884,
+          "mean_elevation": 83.3885,
           "contribution": 0.0423
         },
         {
           "dim": 35,
           "label": "dim_35",
-          "mean_elevation": 77.1037,
+          "mean_elevation": 77.1036,
           "contribution": 0.0575
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 76.8587,
+          "mean_elevation": 76.8588,
           "contribution": 0.0466
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 51.8999,
+          "mean_elevation": 51.9,
           "contribution": 0.0273
         },
         {
@@ -6915,7 +6915,7 @@
         {
           "dim": 14,
           "label": "dim_14",
-          "mean_elevation": 8.5921,
+          "mean_elevation": 8.592,
           "contribution": 0.0203
         }
       ]
@@ -6931,7 +6931,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.1505,
+          "mean_elevation": 165.1506,
           "contribution": 0.6108
         },
         {
@@ -6983,7 +6983,7 @@
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 116.2764,
+          "mean_elevation": 116.2763,
           "contribution": 0.0824
         },
         {
@@ -7001,13 +7001,13 @@
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 66.6948,
+          "mean_elevation": 66.695,
           "contribution": 0.0778
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 53.2094,
+          "mean_elevation": 53.2095,
           "contribution": 0.054
         },
         {
@@ -7029,13 +7029,13 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 261.6967,
+          "mean_elevation": 261.6968,
           "contribution": 0.5095
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 175.4564,
+          "mean_elevation": 175.4563,
           "contribution": 0.0741
         },
         {
@@ -7047,19 +7047,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 98.8032,
+          "mean_elevation": 98.8033,
           "contribution": 0.0576
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 84.6169,
+          "mean_elevation": 84.617,
           "contribution": 0.0589
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 73.3685,
+          "mean_elevation": 73.3687,
           "contribution": 0.0445
         }
       ]
@@ -7075,13 +7075,13 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 1627.6819,
+          "mean_elevation": 1627.6835,
           "contribution": 0.5068
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 686.4355,
+          "mean_elevation": 686.4357,
           "contribution": 0.4266
         }
       ]
@@ -7097,13 +7097,13 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 192.5869,
+          "mean_elevation": 192.5871,
           "contribution": 0.3226
         },
         {
           "dim": 6,
           "label": "dim_6",
-          "mean_elevation": 83.9728,
+          "mean_elevation": 83.9725,
           "contribution": 0.2419
         },
         {
@@ -7131,7 +7131,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 159.1993,
+          "mean_elevation": 159.1994,
           "contribution": 0.4311
         },
         {
@@ -7149,19 +7149,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 71.3098,
+          "mean_elevation": 71.3099,
           "contribution": 0.0577
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 65.0964,
+          "mean_elevation": 65.0965,
           "contribution": 0.0629
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 55.159,
+          "mean_elevation": 55.1591,
           "contribution": 0.0464
         },
         {
@@ -7189,25 +7189,25 @@
         {
           "dim": 28,
           "label": "dim_28",
-          "mean_elevation": 108110.2891,
+          "mean_elevation": 108110.2969,
           "contribution": 0.5626
         },
         {
           "dim": 33,
           "label": "dim_33",
-          "mean_elevation": 1776.3232,
+          "mean_elevation": 1776.321,
           "contribution": 0.012
         },
         {
           "dim": 24,
           "label": "dim_24",
-          "mean_elevation": 700.6702,
+          "mean_elevation": 700.67,
           "contribution": 0.0254
         },
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 527.0934,
+          "mean_elevation": 527.0941,
           "contribution": 0.0264
         },
         {
@@ -7219,25 +7219,25 @@
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 475.2,
+          "mean_elevation": 475.2009,
           "contribution": 0.0249
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 438.0255,
+          "mean_elevation": 438.0264,
           "contribution": 0.0263
         },
         {
           "dim": 34,
           "label": "dim_34",
-          "mean_elevation": 282.6253,
+          "mean_elevation": 282.6252,
           "contribution": 0.0202
         },
         {
           "dim": 19,
           "label": "dim_19",
-          "mean_elevation": 280.1307,
+          "mean_elevation": 280.1308,
           "contribution": 0.021
         },
         {
@@ -7259,19 +7259,19 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 458.1704,
+          "mean_elevation": 458.1709,
           "contribution": 0.3666
         },
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 311.3928,
+          "mean_elevation": 311.3937,
           "contribution": 0.0035
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 232.6933,
+          "mean_elevation": 232.6934,
           "contribution": 0.3714
         },
         {
@@ -7293,7 +7293,7 @@
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 91.6626,
+          "mean_elevation": 91.6627,
           "contribution": 0.3071
         },
         {
@@ -7305,7 +7305,7 @@
         {
           "dim": 0,
           "label": "dim_0",
-          "mean_elevation": 53.52,
+          "mean_elevation": 53.5201,
           "contribution": 0.0838
         },
         {
@@ -7327,7 +7327,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 212.6968,
+          "mean_elevation": 212.6969,
           "contribution": 0.7393
         },
         {
@@ -7355,7 +7355,7 @@
         {
           "dim": 29,
           "label": "dim_29",
-          "mean_elevation": 165.6978,
+          "mean_elevation": 165.6979,
           "contribution": 0.451
         },
         {
@@ -7373,19 +7373,19 @@
         {
           "dim": 21,
           "label": "dim_21",
-          "mean_elevation": 77.5353,
+          "mean_elevation": 77.5354,
           "contribution": 0.0632
         },
         {
           "dim": 27,
           "label": "dim_27",
-          "mean_elevation": 57.5799,
+          "mean_elevation": 57.58,
           "contribution": 0.0558
         },
         {
           "dim": 20,
           "label": "dim_20",
-          "mean_elevation": 54.6276,
+          "mean_elevation": 54.6277,
           "contribution": 0.0462
         },
         {
@@ -7407,19 +7407,19 @@
         {
           "dim": 4,
           "label": "dim_4",
-          "mean_elevation": 860.7964,
+          "mean_elevation": 860.7954,
           "contribution": 0.0097
         },
         {
           "dim": 8,
           "label": "dim_8",
-          "mean_elevation": 451.5424,
+          "mean_elevation": 451.5429,
           "contribution": 0.3612
         },
         {
           "dim": 13,
           "label": "dim_13",
-          "mean_elevation": 248.0289,
+          "mean_elevation": 248.029,
           "contribution": 0.3956
         },
         {
