@@ -18,6 +18,7 @@ import itertools
 import json
 import sys
 import time
+import gc
 from pathlib import Path
 
 import numpy as np
@@ -99,7 +100,7 @@ def evaluate_attacks(
     config: TranADConfig,
     train_scores: np.ndarray,
     device: torch.device,
-    score_batch_size: int = 5000,
+    score_batch_size: int = 2000,
 ) -> dict:
     """Evaluate model on all 5 attack types and return per-attack metrics."""
     attack_results = {}
@@ -133,7 +134,7 @@ def run_trial(
     config: TranADConfig,
     train_data: np.ndarray,
     device: torch.device,
-    score_batch_size: int = 5000,
+    score_batch_size: int = 2000,
     subsample_fraction: float = 0.1,
 ) -> dict:
     """Train a model and evaluate on all 5 attack types.
@@ -196,6 +197,13 @@ def run_trial(
                 break
     train_time = time.time() - start_time
 
+    del train_tensor, windows, train_loader, optimizer, scheduler, loss_fn, data_for_training
+    if val_loader is not None:
+        del val_loader
+    if device.type == "cuda":
+        gc.collect()
+        torch.cuda.empty_cache()
+
     train_scores = score_batch(
         model, train_data, config.window_size, device, config.scoring_mode,
         batch_size=score_batch_size,
@@ -216,6 +224,10 @@ def run_trial(
         "train_time_s": round(train_time, 1),
         "final_train_loss": final_loss,
     }
+    del model, train_scores, attack_results
+    if device.type == "cuda":
+        gc.collect()
+        torch.cuda.empty_cache()
     return results
 
 
@@ -226,7 +238,7 @@ def retrain_best(
     output_dir: Path,
     retrain_epochs: int,
     seed: int,
-    score_batch_size: int = 5000,
+    score_batch_size: int = 2000,
 ) -> dict:
     """Retrain the winning config end-to-end and save to output_dir."""
     print("\n" + "=" * 70)
@@ -309,7 +321,7 @@ def main():
                         help="Max epochs for the final retrain (uses early stopping)")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--resume", action="store_true")
-    parser.add_argument("--score-batch-size", type=int, default=5000,
+    parser.add_argument("--score-batch-size", type=int, default=2000,
                         help="Batch size for scoring (0 = process all at once)")
     args = parser.parse_args()
 
