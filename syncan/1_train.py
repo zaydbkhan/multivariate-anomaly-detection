@@ -27,7 +27,7 @@ from src.utils import auto_device
 BASELINE_DEFAULTS = {
     "window_size": 100,
     "epochs": 5,
-    "batch_size": 512,
+    "batch_size": 256,
     "lr": 0.001,
     "d_feedforward": 8,
     "n_layers": 1,
