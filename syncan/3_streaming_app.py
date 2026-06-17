@@ -218,7 +218,7 @@ async def score(request: SyncANScoreRequest):
         window_size=cfg.window_size,
         device=str(device),
         scoring_mode=request.scoring_mode,
-        batch_size=5000,
+        batch_size=2000,
     )
 
     scores_1d = np.mean(scores, axis=1)
