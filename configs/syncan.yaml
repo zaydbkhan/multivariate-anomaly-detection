@@ -11,7 +11,7 @@ model:
 
 training:
   epochs: 5
-  batch_size: 384
+  batch_size: 256
   learning_rate: 0.001
   weight_decay: 0.00001
   scheduler_step: 5
