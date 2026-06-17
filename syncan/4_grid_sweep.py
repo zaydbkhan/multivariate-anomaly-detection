@@ -207,6 +207,7 @@ def run_trial(
         gc.collect()
         torch.cuda.empty_cache()
 
+    print("  Evaluating...")
     train_scores = score_batch(
         model, train_data, config.window_size, device, config.scoring_mode,
         batch_size=score_batch_size,
@@ -276,6 +277,10 @@ def retrain_best(
 
     registry = SynCANRegistry(base_dir=output_dir)
     registry.save_model(model, config, final_loss, epoch=final_epoch - 1)
+
+    if device.type == "cuda":
+        gc.collect()
+        torch.cuda.empty_cache()
 
     train_scores = score_batch(
         model, train_data, config.window_size, device, config.scoring_mode,
