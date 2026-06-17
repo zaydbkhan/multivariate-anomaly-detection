@@ -16,10 +16,13 @@ import argparse
 import csv
 import itertools
 import json
+import os
 import sys
 import time
 import gc
 from pathlib import Path
+
+os.environ.setdefault("PYTORCH_ALLOC_CONF", "expandable_segments:True")
 
 import numpy as np
 import torch
