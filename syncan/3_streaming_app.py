@@ -198,7 +198,7 @@ async def score(request: SyncANScoreRequest):
         raise HTTPException(status_code=404, detail=str(e))
 
     model, cfg = registry.get_model(device)
-    threshold = _scorer_state.get("threshold", 0.5)
+    threshold = _scorer_state.get("threshold", 0.5) if _scorer_state else 0.5
     baselines = np.array(_scorer_state.get("feature_baselines", [])) if _scorer_state else np.array([])
     threshold_method = _scorer_state.get("method", "unknown") if _scorer_state else "unknown"
 
@@ -218,7 +218,7 @@ async def score(request: SyncANScoreRequest):
         window_size=cfg.window_size,
         device=str(device),
         scoring_mode=request.scoring_mode,
-        batch_size=5000,
+        batch_size=2000,
     )
 
     scores_1d = np.mean(scores, axis=1)

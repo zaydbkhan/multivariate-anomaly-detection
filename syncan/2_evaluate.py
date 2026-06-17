@@ -237,6 +237,13 @@ def evaluate_model(
         json.dump(summary_segments, f, indent=2, default=_json_safe)
     print(f"Attribution saved to {attribution_path}")
 
+    registry.save_scorer_state({
+        "threshold": float(threshold),
+        "feature_baselines": baselines,
+        "method": method,
+    })
+    print(f"Scorer state saved to {registry.scorer_path}")
+
     return save_data
 
 
