@@ -78,7 +78,7 @@ def build_config(params: dict, max_epochs: int, early_stopping_patience: int = 0
         n_heads=params["n_heads"],
         window_size=params["window_size"],
         d_feedforward=params["d_feedforward"],
-        batch_size=256,
+        batch_size=384,
         use_layer_norm=False,
         dtype="float32",
         lr=params["lr"],
@@ -242,7 +242,7 @@ def retrain_best(
         n_heads=best_params["n_heads"],
         window_size=best_params["window_size"],
         d_feedforward=best_params["d_feedforward"],
-        batch_size=256,
+        batch_size=384,
         use_layer_norm=False,
         dtype="float32",
         lr=best_params["lr"],
@@ -428,6 +428,9 @@ def main():
 
         with open(results_path, "a", newline="") as f:
             csv.writer(f).writerow(row)
+
+        if device.type == "cuda":
+            torch.cuda.empty_cache()
 
     print("\n" + "=" * 70)
     print(f"SWEEP COMPLETE: {len(combos)} trials")
