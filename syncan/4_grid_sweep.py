@@ -379,21 +379,33 @@ def main():
     results_path = results_dir / f"sweep_syncan_{grid_type}.csv"
 
     completed_trials: set[int] = set()
+    best_avg_f1 = -1.0
+    best_params: dict = {}
     if args.resume and results_path.exists():
         with open(results_path) as f:
             reader = csv.DictReader(f)
             for row in reader:
                 if row.get("status") == "ok":
-                    completed_trials.add(int(row["trial"]))
-        print(f"Resuming: {len(completed_trials)} trials already completed")
+                    trial_num = int(row["trial"])
+                    completed_trials.add(trial_num)
+                    avg_f1 = float(row["avg_f1"])
+                    if avg_f1 > best_avg_f1:
+                        best_avg_f1 = avg_f1
+                        best_params = {
+                            "window_size": int(row["window_size"]),
+                            "lr": float(row["lr"]),
+                            "n_layers": int(row["n_layers"]),
+                            "n_heads": int(row["n_heads"]),
+                            "d_feedforward": int(row["d_feedforward"]),
+                        }
+        if completed_trials:
+            print(f"Resuming: {len(completed_trials)} trials completed"
+                  f", best avg F1 so far: {best_avg_f1:.4f}")
 
     write_header = not results_path.exists() or not args.resume
     if write_header:
         with open(results_path, "w", newline="") as f:
             csv.writer(f).writerow(CSV_COLUMNS)
-
-    best_avg_f1 = -1.0
-    best_params: dict = {}
 
     for i, params in enumerate(combos):
         trial_num = i + 1
