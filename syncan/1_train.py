@@ -27,12 +27,13 @@ from src.utils import auto_device
 BASELINE_DEFAULTS = {
     "window_size": 100,
     "epochs": 5,
-    "batch_size": 128,
+    "batch_size": 512,
     "lr": 0.001,
-    "d_feedforward": 16,
-    "dtype": "float32",
-    "loss_weighting": "epoch_inverse",
-    "scoring_mode": "phase2_only",
+    "d_feedforward": 8,
+    "n_layers": 1,
+    "scheduler_gamma": 0.95,
+    "loss_weighting": "exponential_decay",
+    "scoring_mode": "averaged",
     "early_stopping_patience": 0,
     "val_split": 0.1,
     "max_epochs": 5,
@@ -51,9 +52,7 @@ def main():
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument("--lr", type=float, default=None)
     parser.add_argument("--d-feedforward", type=int, default=None)
-    parser.add_argument("--dtype", type=str, choices=["float32", "float64"], default=None)
-    parser.add_argument("--loss-weighting", type=str,
-                        choices=["epoch_inverse", "exponential_decay"], default=None)
+    parser.add_argument("--n-layers", type=int, default=None)
     parser.add_argument("--early-stopping-patience", type=int, default=None)
     parser.add_argument("--val-split", type=float, default=None)
     parser.add_argument("--max-epochs", type=int, default=None)
@@ -65,6 +64,7 @@ def main():
     data_dir = PROJECT_ROOT / args.data_dir
     output_dir = PROJECT_ROOT / args.output_dir
 
+    n_layers = args.n_layers or BASELINE_DEFAULTS["n_layers"]
     config = TranADConfig(
         n_features=20,
         n_heads=10,
@@ -73,14 +73,16 @@ def main():
         batch_size=args.batch_size or BASELINE_DEFAULTS["batch_size"],
         lr=args.lr or BASELINE_DEFAULTS["lr"],
         d_feedforward=args.d_feedforward or BASELINE_DEFAULTS["d_feedforward"],
-        dtype=args.dtype or BASELINE_DEFAULTS["dtype"],
-        loss_weighting=args.loss_weighting or BASELINE_DEFAULTS["loss_weighting"],
+        loss_weighting=BASELINE_DEFAULTS["loss_weighting"],
         scoring_mode=BASELINE_DEFAULTS["scoring_mode"],
+        scheduler_gamma=BASELINE_DEFAULTS["scheduler_gamma"],
         early_stopping_patience=(
             args.early_stopping_patience or BASELINE_DEFAULTS["early_stopping_patience"]
         ),
         val_split=args.val_split or BASELINE_DEFAULTS["val_split"],
         max_epochs=args.max_epochs or BASELINE_DEFAULTS["max_epochs"],
+        n_encoder_layers=n_layers,
+        n_decoder_layers=n_layers,
     )
 
     subsample_frac = 1.0 if args.full else 0.1
@@ -100,9 +102,10 @@ def main():
     train_data = np.load(train_path)
     print(f"Training data: {train_data.shape[0]} samples, {train_data.shape[1]} features")
     print(f"Config: window_size={config.window_size}, epochs={config.epochs}, "
-          f"batch_size={config.batch_size}, lr={config.lr}, dtype={config.dtype}")
-    print(f"  loss_weighting={config.loss_weighting}, "
-          f"early_stopping_patience={config.early_stopping_patience}")
+          f"batch_size={config.batch_size}, lr={config.lr}")
+    print(f"  n_layers={n_layers}, loss_weighting={config.loss_weighting}, "
+          f"scoring_mode={config.scoring_mode}")
+    print(f"  early_stopping_patience={config.early_stopping_patience}")
     print(f"  subsample_fraction={subsample_frac} "
           f"({'full dataset' if args.full else '10% subsample'})")
 

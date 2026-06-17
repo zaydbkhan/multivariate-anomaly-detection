@@ -38,28 +38,35 @@ SYNCAN_PROCESSED = PROJECT_ROOT / "data" / "syncan" / "processed"
 ATTACK_TYPES = ["plateau", "continuous", "playback", "suppress", "flooding"]
 
 QUICK_CONFIGS = [
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "epoch_inverse",     "scoring_mode": "phase2_only", "dtype": "float32"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "phase2_only", "dtype": "float32"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
-    {"window_size": 100, "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
-    {"window_size": 30,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
-    {"window_size": 60,  "lr": 0.001, "d_feedforward": 8,  "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
-    {"window_size": 60,  "lr": 0.001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
-    {"window_size": 30,  "lr": 0.0001, "d_feedforward": 32, "loss_weighting": "exponential_decay", "scoring_mode": "averaged",    "dtype": "float32"},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 1, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 3, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 16},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 32},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 2, "n_heads": 5,  "d_feedforward": 8},
+    {"window_size": 100, "lr": 0.0001, "n_layers": 2, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 1, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 3, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 16},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 2, "n_heads": 10, "d_feedforward": 32},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 2, "n_heads": 5,  "d_feedforward": 8},
+    {"window_size": 140, "lr": 0.0001, "n_layers": 2, "n_heads": 10, "d_feedforward": 8},
+    {"window_size": 100, "lr": 0.001,  "n_layers": 2, "n_heads": 5,  "d_feedforward": 16},
+    {"window_size": 140, "lr": 0.001,  "n_layers": 3, "n_heads": 5,  "d_feedforward": 16},
 ]
 
 FULL_GRID = {
-    "window_size": [30, 60, 100],
-    "dtype": ["float32"],
-    "loss_weighting": ["epoch_inverse", "exponential_decay"],
-    "scoring_mode": ["phase2_only", "averaged"],
+    "window_size": [100, 140],
     "lr": [0.0001, 0.001],
+    "n_layers": [1, 2, 3],
+    "n_heads": [5, 10],
     "d_feedforward": [8, 16, 32],
 }
 
 CSV_COLUMNS = [
-    "trial", "window_size", "dtype", "loss_weighting", "scoring_mode",
-    "lr", "d_feedforward", "avg_f1", "avg_precision", "avg_recall",
+    "trial", "window_size", "lr", "n_layers", "n_heads", "d_feedforward",
+    "avg_f1", "avg_precision", "avg_recall",
     "plateau_f1", "continuous_f1", "playback_f1", "suppress_f1", "flooding_f1",
     "epochs_trained", "train_time_s", "final_train_loss", "status",
 ]
@@ -68,18 +75,22 @@ CSV_COLUMNS = [
 def build_config(params: dict, max_epochs: int, early_stopping_patience: int = 0) -> TranADConfig:
     return TranADConfig(
         n_features=20,
-        n_heads=10,
+        n_heads=params["n_heads"],
         window_size=params["window_size"],
         d_feedforward=params["d_feedforward"],
+        batch_size=512,
         use_layer_norm=False,
-        dtype=params["dtype"],
+        dtype="float32",
         lr=params["lr"],
-        loss_weighting=params["loss_weighting"],
+        loss_weighting="exponential_decay",
         adversarial_loss=False,
-        scoring_mode=params["scoring_mode"],
+        scoring_mode="averaged",
+        scheduler_gamma=0.95,
         early_stopping_patience=early_stopping_patience,
         val_split=0.1,
         max_epochs=max_epochs,
+        n_encoder_layers=params["n_layers"],
+        n_decoder_layers=params["n_layers"],
     )
 
 
@@ -109,7 +120,7 @@ def evaluate_attacks(
             test_scores=test_scores,
             labels=test_lbl,
             method="pot",
-            pot_params=POTParams(q=1e-5, level=0.999, scale=1.0),
+            pot_params=POTParams(q=1e-3, level=0.99, scale=1.0),
         )
 
         metrics = evaluate(test_scores, test_lbl, cal["threshold"])
@@ -228,18 +239,22 @@ def retrain_best(
 
     config = TranADConfig(
         n_features=20,
-        n_heads=10,
+        n_heads=best_params["n_heads"],
         window_size=best_params["window_size"],
         d_feedforward=best_params["d_feedforward"],
+        batch_size=512,
         use_layer_norm=False,
-        dtype=best_params["dtype"],
+        dtype="float32",
         lr=best_params["lr"],
-        loss_weighting=best_params["loss_weighting"],
+        loss_weighting="exponential_decay",
         adversarial_loss=False,
-        scoring_mode=best_params["scoring_mode"],
+        scoring_mode="averaged",
+        scheduler_gamma=0.95,
         early_stopping_patience=5,
         val_split=0.1,
         max_epochs=retrain_epochs,
+        n_encoder_layers=best_params["n_layers"],
+        n_decoder_layers=best_params["n_layers"],
     )
 
     model, final_epoch, final_loss = train_full(config, train_data, device, seed=seed)
@@ -367,8 +382,6 @@ def main():
             continue
 
         trial_device = device
-        if params["dtype"] == "float64" and device.type == "mps":
-            trial_device = torch.device("cpu")
 
         params_str = ", ".join(f"{k}={v}" for k, v in sorted(params.items()))
         print(f"\n[{trial_num}/{len(combos)}] {params_str}")
@@ -394,9 +407,8 @@ def main():
                 print("  *** New best avg F1! ***")
 
             row = [
-                trial_num, params["window_size"], params["dtype"],
-                params["loss_weighting"], params["scoring_mode"],
-                params["lr"], params["d_feedforward"],
+                trial_num, params["window_size"], params["lr"],
+                params["n_layers"], params["n_heads"], params["d_feedforward"],
                 f"{results['avg_f1']:.6f}", f"{results['avg_precision']:.6f}",
                 f"{results['avg_recall']:.6f}",
                 f"{results['per_attack']['plateau']['f1']:.6f}",

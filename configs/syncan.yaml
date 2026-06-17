@@ -5,19 +5,19 @@ model:
   window_size: 100
   n_encoder_layers: 1
   n_decoder_layers: 1
-  d_feedforward: 16
+  d_feedforward: 8
   dropout: 0.1
   use_layer_norm: false
 
 training:
   epochs: 5
-  batch_size: 128
+  batch_size: 512
   learning_rate: 0.001
   weight_decay: 0.00001
   scheduler_step: 5
-  scheduler_gamma: 0.9
+  scheduler_gamma: 0.95
   dtype: "float32"
-  loss_weighting: "epoch_inverse"
+  loss_weighting: "exponential_decay"
   epsilon: 1.01
   adversarial_loss: false
   gradient_clip_norm: 1.0
@@ -28,8 +28,8 @@ training:
 scoring:
   threshold_method: "pot"
   percentile: 99
-  pot_risk_level: 0.001
-  scoring_mode: "phase2_only"
+  pot_risk_level: 0.01
+  scoring_mode: "averaged"
 
 data:
   dataset: "syncan"
