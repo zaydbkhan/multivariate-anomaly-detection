@@ -75,7 +75,7 @@ def evaluate_intervals(
     positions: list[tuple[int, int]],
     q_values: list[float] | None = None,
 ) -> dict:
-    """CANet-style interval evaluation at multiple Q thresholds.
+    """Evaluate interval detection at multiple Q thresholds.
 
     An attack interval is detected if >= Q% of its timesteps exceed the
     pointwise anomaly threshold.
@@ -84,7 +84,8 @@ def evaluate_intervals(
         score_1d: Aggregated anomaly scores, shape (N,).
         threshold: Pointwise anomaly threshold.
         positions: List of (start, end) attack intervals (exclusive end).
-        q_values: Q thresholds to evaluate. Default [0.10, 0.25, 0.50, 0.90].
+        q_values: Q thresholds to evaluate. Default [0.01, 0.02, 0.05, 0.10,
+            0.25, 0.50, 0.90].
 
     Returns:
         dict with:
@@ -95,7 +96,7 @@ def evaluate_intervals(
           - per_interval: list of {start, end, flagged_fraction}
     """
     if q_values is None:
-        q_values = [0.10, 0.25, 0.50, 0.90]
+        q_values = [0.01, 0.02, 0.05, 0.10, 0.25, 0.50, 0.90]
 
     per_interval = []
     for start, end in positions:
@@ -151,7 +152,8 @@ def compute_tnr(
         score_1d: Aggregated anomaly scores for normal data, shape (N,).
         threshold: Pointwise anomaly threshold.
         normal_intervals: List of (start, end) normal intervals (exclusive end).
-        q_values: Q thresholds. Default [0.10, 0.25, 0.50, 0.90].
+        q_values: Q thresholds. Default [0.01, 0.02, 0.05, 0.10, 0.25,
+            0.50, 0.90].
 
     Returns:
         dict with:
@@ -161,7 +163,7 @@ def compute_tnr(
           - per_interval: list of {start, end, flagged_fraction, is_fp}
     """
     if q_values is None:
-        q_values = [0.10, 0.25, 0.50, 0.90]
+        q_values = [0.01, 0.02, 0.05, 0.10, 0.25, 0.50, 0.90]
 
     per_interval = []
     for start, end in normal_intervals:
@@ -200,4 +202,52 @@ def compute_tnr(
         "fpr": fpr,
         "total_intervals": total,
         "per_interval": per_interval,
+    }
+
+
+def compute_recall_progression(
+    score_1d: np.ndarray,
+    labels: np.ndarray,
+    threshold: float,
+    positions: list[tuple[int, int]],
+    checkpoints: list[float] | None = None,
+) -> dict:
+    """Compute recall within each interval at fraction-of-duration checkpoints.
+
+    For an interval of duration D, computes pointwise recall within
+    [start, start + cp * D] for each fraction cp in checkpoints.
+    Only intervals long enough for a given checkpoint are included.
+
+    Args:
+        score_1d: Aggregated anomaly scores, shape (N,).
+        labels: 1D ground-truth labels, shape (N,).
+        threshold: Pointwise anomaly threshold.
+        positions: List of (start, end) attack intervals (exclusive end).
+        checkpoints: Fractions of duration to evaluate. Default [0.25, 0.50,
+            0.75, 1.0].
+
+    Returns:
+        dict mapping e.g. "0.25" -> mean recall at that fraction.
+    """
+    if checkpoints is None:
+        checkpoints = [0.25, 0.50, 0.75, 1.0]
+
+    cp_recalls: dict[float, list[float]] = {cp: [] for cp in checkpoints}
+    for start, end in positions:
+        dur = end - start
+        for cp in checkpoints:
+            window_len = int(round(cp * dur))
+            if window_len < 1 or window_len > dur:
+                continue
+            window_end = start + window_len
+            slice_preds = (score_1d[start:window_end] > threshold).astype(float)
+            slice_labels = labels[start:window_end]
+            tp = ((slice_preds == 1) & (slice_labels == 1)).sum()
+            fn = ((slice_preds == 0) & (slice_labels == 1)).sum()
+            recall = float(tp / (tp + fn)) if (tp + fn) > 0 else 0.0
+            cp_recalls[cp].append(recall)
+
+    return {
+        f"{cp:.2f}": float(np.mean(cp_recalls[cp])) if cp_recalls[cp] else 0.0
+        for cp in checkpoints if cp_recalls[cp]
     }

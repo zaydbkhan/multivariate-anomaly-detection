@@ -24,6 +24,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.syncan_registry import SynCANRegistry
 from src.eval_syncan import (
+    compute_recall_progression,
     compute_tnr,
     evaluate_intervals,
     extract_attack_intervals,
@@ -192,6 +193,12 @@ def evaluate_model(
             t25 = tnr_result["tnr"].get("0.25", 1.0)
             print(f"  Interval: R@25%={r25:.4f}  TNR@25%={t25:.4f}  "
                   f"({iv['total_intervals']} attack intervals)")
+            # Recall progression within interval (fraction-of-duration)
+            rp = compute_recall_progression(score_1d, lbl, threshold, attack_intervals)
+            interval_metrics[attack]["recall_progression"] = rp
+            print(f"  Recall progression: 25%={rp.get('0.25', 0):.4f} "
+                  f"50%={rp.get('0.50', 0):.4f} 75%={rp.get('0.75', 0):.4f} "
+                  f"100%={rp.get('1.00', 0):.4f}")
         else:
             interval_metrics[attack] = {"attack": None, "tnr": None}
             print(f"  Interval: no attack intervals found")
@@ -216,21 +223,21 @@ def evaluate_model(
     print("=" * 65)
 
     # ---- interval detection summary ----
-    q_labels = ["0.10", "0.25", "0.50", "0.90"]
+    q_labels = ["0.01", "0.02", "0.05", "0.10", "0.25", "0.50", "0.90"]
     has_interval = any(
         interval_metrics.get(a, {}).get("attack") is not None
         for a in ATTACK_TYPES
     )
     if has_interval:
         print()
-        print("=" * 78)
+        print("=" * 82)
         print("Interval Detection (attack detected if >= Q% of interval flagged)")
-        print("=" * 78)
+        print("=" * 82)
         header = f"{'Attack':<12s}"
         header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
         header += f" {'Flagged%':>9s} {'Ints':>5s}"
         print(header)
-        print("-" * 78)
+        print("-" * 82)
 
         tnr_vals = {q: [] for q in q_labels}
         for attack in ATTACK_TYPES:
@@ -246,14 +253,35 @@ def evaluate_model(
                     tnr_vals[q].append(tnr_entry["tnr"].get(q, 1.0))
 
         if any(tnr_vals[q] for q in q_labels):
-            print("-" * 78)
+            print("-" * 82)
             avg_tnr = "".join(
                 f"{np.mean(tnr_vals[q]):>8.4f}" if tnr_vals[q] else f"{'':>8s}"
                 for q in q_labels
             )
             print(f"{'TNR (avg)':<12s}{avg_tnr}{'':>9s}{'':>5s}")
             print(f"  (TNR from {len(normal_intervals)} normal intervals of {median_duration} steps)")
-        print("=" * 78)
+        print("=" * 82)
+
+        # ---- recall progression summary ----
+        print()
+        print("=" * 55)
+        print("Recall Progression (cumulative fraction of interval)")
+        print("=" * 55)
+        rp_header = f"{'Attack':<12s} {'25%':>8s} {'50%':>8s} {'75%':>8s} {'100%':>8s}"
+        print(rp_header)
+        print("-" * 55)
+        for attack in ATTACK_TYPES:
+            entry = interval_metrics.get(attack, {})
+            iv = entry.get("attack")
+            rp = entry.get("recall_progression", {})
+            if iv is None:
+                continue
+            print(
+                f"{attack:<12s} "
+                f"{rp.get('0.25', 0):>8.4f} {rp.get('0.50', 0):>8.4f} "
+                f"{rp.get('0.75', 0):>8.4f} {rp.get('1.00', 0):>8.4f}"
+            )
+        print("=" * 55)
 
     # Feature attribution — per-attack to avoid cross-boundary point-adjustment
     print("\n" + "=" * 65)
@@ -373,28 +401,47 @@ def show_from_saved(model_dir: Path) -> None:
     print("=" * 65)
 
     # ---- interval detection ----
-    q_labels = ["0.10", "0.25", "0.50", "0.90"]
+    q_labels = ["0.01", "0.02", "0.05", "0.10", "0.25", "0.50", "0.90"]
     has_interval = any(
         per_attack.get(a, {}).get("interval_metrics", {}).get("attack")
         for a in ATTACK_TYPES
     )
     if has_interval:
         print()
-        print("=" * 78)
+        print("=" * 82)
         print("Interval Detection (attack detected if >= Q% of interval flagged)")
-        print("=" * 78)
+        print("=" * 82)
         header = f"{'Attack':<12s}"
         header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
         header += f" {'Flagged%':>9s} {'Ints':>5s}"
         print(header)
-        print("-" * 78)
+        print("-" * 82)
         for attack in ATTACK_TYPES:
             entry = per_attack.get(attack, {}).get("interval_metrics", {}).get("attack")
             if entry is None:
                 continue
             vals = "".join(f"{entry['interval_recall'].get(q, 0):>8.4f}" for q in q_labels)
             print(f"{attack:<12s}{vals}{entry['avg_flagged_fraction']:>9.4f}{entry['total_intervals']:>5d}")
-        print("=" * 78)
+        print("=" * 82)
+
+        # ---- recall progression ----
+        print()
+        print("=" * 55)
+        print("Recall Progression (cumulative fraction of interval)")
+        print("=" * 55)
+        rp_header = f"{'Attack':<12s} {'25%':>8s} {'50%':>8s} {'75%':>8s} {'100%':>8s}"
+        print(rp_header)
+        print("-" * 55)
+        for attack in ATTACK_TYPES:
+            entry = per_attack.get(attack, {}).get("interval_metrics", {}).get("recall_progression", {})
+            if not entry:
+                continue
+            print(
+                f"{attack:<12s} "
+                f"{entry.get('0.25', 0):>8.4f} {entry.get('0.50', 0):>8.4f} "
+                f"{entry.get('0.75', 0):>8.4f} {entry.get('1.00', 0):>8.4f}"
+            )
+        print("=" * 55)
 
 
 def main():

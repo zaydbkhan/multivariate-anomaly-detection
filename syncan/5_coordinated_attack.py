@@ -26,6 +26,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.eval_syncan import (
+    compute_recall_progression,
     compute_tnr,
     evaluate_intervals,
     sample_normal_intervals,
@@ -101,19 +102,31 @@ def build_plateau_groups(
 def generate_attack_positions(
     total_length: int,
     num_attacks: int,
-    duration: int,
+    min_duration: int,
+    max_duration: int,
     seed: int,
+    end_margin: int = 500,
 ) -> list[tuple[int, int]]:
     rng = np.random.default_rng(seed)
-    positions: list[tuple[int, int]] = []
-    current = int(rng.integers(2000, 5000))
-    for _ in range(num_attacks):
-        end = current + duration
-        if end > total_length - 2000:
-            break
-        positions.append((current, end))
-        gap = int(rng.integers(500, 2001))
-        current = end + gap
+    durations = rng.integers(min_duration, max_duration + 1, size=num_attacks)
+    total_dur = int(durations.sum())
+    offset = int(rng.integers(2000, 5000))
+    available = total_length - end_margin - offset - total_dur
+    gap_budget = max(available, 0)
+
+    if num_attacks > 1:
+        raw_gaps = rng.uniform(0, 1, size=num_attacks - 1)
+        gaps = (raw_gaps / raw_gaps.sum() * gap_budget).tolist()
+    else:
+        gaps = []
+
+    positions = []
+    cursor = offset
+    for i in range(num_attacks):
+        dur = int(durations[i])
+        positions.append((cursor, cursor + dur))
+        if i < num_attacks - 1:
+            cursor += dur + int(round(gaps[i]))
     return positions
 
 
@@ -175,32 +188,6 @@ def generate_coordinated_suppress_plateau(
     return sig
 
 
-def compute_recall_progression(
-    score_1d: np.ndarray,
-    labels: np.ndarray,
-    threshold: float,
-    positions: list[tuple[int, int]],
-    checkpoints: list[int],
-) -> dict:
-    cp_recalls: dict[int, list[float]] = {cp: [] for cp in checkpoints}
-    for start, end in positions:
-        dur = end - start
-        for cp in checkpoints:
-            if cp > dur:
-                continue
-            window_end = start + cp
-            slice_preds = (score_1d[start:window_end] > threshold).astype(float)
-            slice_labels = labels[start:window_end]
-            tp = ((slice_preds == 1) & (slice_labels == 1)).sum()
-            fn = ((slice_preds == 0) & (slice_labels == 1)).sum()
-            recall = float(tp / (tp + fn)) if (tp + fn) > 0 else 0.0
-            cp_recalls[cp].append(recall)
-    return {
-        str(cp): float(np.mean(cp_recalls[cp])) if cp_recalls[cp] else 0.0
-        for cp in checkpoints if cp_recalls[cp]
-    }
-
-
 SCENARIOS = [
     ("coordinated_plateau", generate_coordinated_plateau),
     ("coordinated_mixed", generate_coordinated_mixed),
@@ -224,8 +211,9 @@ def main():
     )
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--score-batch-size", type=int, default=2000)
-    parser.add_argument("--num-attacks", type=int, default=20)
-    parser.add_argument("--attack-duration", type=int, default=400)
+    parser.add_argument("--num-attacks", type=int, default=100)
+    parser.add_argument("--min-attack-duration", type=int, default=50)
+    parser.add_argument("--max-attack-duration", type=int, default=500)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--two-tailed", action="store_true",
                         help="Also evaluate with two-tailed z-score attribution")
@@ -298,13 +286,15 @@ def main():
     normal_signals = np.load(PROCESSED / "test_normal_signals.npy")
     total_len = len(normal_signals)
 
+    all_durations: list[int] = []
     t0 = time.time()
     for scenario_idx, (scenario_name, generator_fn) in enumerate(SCENARIOS):
         scenario_seed = args.seed + scenario_idx
         print(f"Generating {scenario_name} (seed={scenario_seed})...")
 
         positions = generate_attack_positions(
-            total_len, args.num_attacks, args.attack_duration, scenario_seed
+            total_len, args.num_attacks, args.min_attack_duration,
+            args.max_attack_duration, scenario_seed
         )
         if positions:
             print(
@@ -323,6 +313,7 @@ def main():
         np.save(PROCESSED / f"test_{scenario_name}_signals.npy", sig)
         np.save(PROCESSED / f"test_{scenario_name}_labels.npy", labels)
 
+        all_durations.extend(e - s for s, e in positions)
         actual_anomalies = int(labels.sum())
         perc_anomalous = 100.0 * actual_anomalies / total_len
         print(f"  Anomalous timesteps: {actual_anomalies} ({perc_anomalous:.2f}%)")
@@ -380,10 +371,13 @@ def main():
     )
     normal_score_1d = np.mean(normal_scores, axis=1)
     print(f"  normal_score_1d shape={normal_score_1d.shape}")
-    normal_intervals = sample_normal_intervals(
-        len(normal_sig), args.num_attacks, args.attack_duration, seed=42
+    median_duration = int(np.median(all_durations)) if all_durations else (
+        (args.min_attack_duration + args.max_attack_duration) // 2
     )
-    print(f"  Sampled {len(normal_intervals)} normal intervals of {args.attack_duration} steps")
+    normal_intervals = sample_normal_intervals(
+        len(normal_sig), args.num_attacks, median_duration, seed=42
+    )
+    print(f"  Sampled {len(normal_intervals)} normal intervals of {median_duration} steps")
 
     results = {}
     recall_progressions = {}
@@ -433,7 +427,8 @@ def main():
 
         # ---- interval detection (>= Q% of interval flagged) ----
         positions = generate_attack_positions(
-            len(test_lbl), args.num_attacks, args.attack_duration, scenario_seed
+            len(test_lbl), args.num_attacks, args.min_attack_duration,
+            args.max_attack_duration, scenario_seed
         )
         q_iv = evaluate_intervals(score_1d, threshold, positions)
         tnr_result = compute_tnr(normal_score_1d, threshold, normal_intervals)
@@ -445,12 +440,11 @@ def main():
 
         cp = compute_recall_progression(
             score_1d, test_lbl, threshold, positions,
-            checkpoints=[50, 100, 200, args.attack_duration],
         )
         recall_progressions[scenario_name] = cp
-        print(f"  Recall progression (cumulative from attack onset):")
-        for cp_name in sorted(cp.keys(), key=int):
-            print(f"    Within {int(cp_name):>3d} timesteps: recall={cp[cp_name]:.4f}")
+        print(f"  Recall progression (cumulative fraction of interval):")
+        for fr in ["0.25", "0.50", "0.75", "1.00"]:
+            print(f"    {fr} of duration: recall={cp.get(fr, 0):.4f}")
 
         # ---- attribution verification ----
         adj_preds = adjust_predicts(score_1d, test_lbl, threshold)
@@ -509,10 +503,10 @@ def main():
         del test_sig, test_lbl, test_scores, score_1d
 
     # ---- summary table ----
-    q_labels = ["0.10", "0.25", "0.50", "0.90"]
-    print(f"\n{'=' * 108}")
+    q_labels = ["0.01", "0.02", "0.05", "0.10", "0.25", "0.50", "0.90"]
+    print(f"\n{'=' * 90}")
     print(f"Coordinated Attack Evaluation Summary (method={args.method})")
-    print(f"{'=' * 108}")
+    print(f"{'=' * 90}")
     # Pointwise section
     header = f"{'Attack':<20s} {'F1':>8s} {'Prec':>8s} {'Rec':>8s} "
     header += f"{'AUC':>8s} {'Thresh':>10s} {'Anom':>8s}"
@@ -535,23 +529,22 @@ def main():
     print()
 
     # Interval detection section
-    print(f"{'=' * 108}")
+    print(f"{'=' * 90}")
     print(f"Interval Detection (attack detected if >= Q% of interval flagged)")
-    print(f"{'=' * 108}")
+    print(f"{'=' * 90}")
     header = f"{'Attack':<20s}"
     header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
-    header += f" {'Flagged%':>9s} {'Ints':>5s} {'TNR@25%':>9s}"
+    header += f" {'Flagged%':>9s} {'Ints':>5s}"
     print(header)
-    print(f"{'-' * 108}")
+    print(f"{'-' * 90}")
     tnr_vals = {q: [] for q in q_labels}
     for scenario_name, _ in SCENARIOS:
         cm = q_metrics[scenario_name]
         iv = cm["attack"]
         vals = "".join(f"{iv['interval_recall'].get(q, 0):>8.4f}" for q in q_labels)
-        t25 = cm.get("tnr", {}).get("tnr", {}).get("0.25", 1.0)
         print(
             f"{SHORT_NAMES[scenario_name]:<20s}{vals}"
-            f"{iv['avg_flagged_fraction']:>9.4f}{iv['total_intervals']:>5d}{t25:>9.4f}"
+            f"{iv['avg_flagged_fraction']:>9.4f}{iv['total_intervals']:>5d}"
         )
         for q in q_labels:
             tnr_vals[q].append(cm.get("tnr", {}).get("tnr", {}).get(q, 1.0))
@@ -561,28 +554,28 @@ def main():
     for q in q_labels:
         avg_r = np.mean([q_metrics[s]["attack"]["interval_recall"].get(q, 0) for s, _ in SCENARIOS])
         print(f"{avg_r:>8.4f}", end="")
-    print(f"{avg_flag:>9.4f}{total_ints:>5d}{'':>9s}")
+    print(f"{avg_flag:>9.4f}{total_ints:>5d}")
     print(f"{'TNR (avg)':<20s}", end="")
     for q in q_labels:
         avg_t = np.mean(tnr_vals[q])
         print(f"{avg_t:>8.4f}", end="")
-    print(f"{'':>9s}{'':>5s}{'':>9s}")
-    print(f"  (TNR from {len(normal_intervals)} normal intervals of {args.attack_duration} steps)")
-    print(f"{'=' * 108}")
+    print()
+    print(f"  (TNR from {len(normal_intervals)} normal intervals of {median_duration} steps)")
+    print(f"{'=' * 90}")
 
     # ---- recall progression table ----
-    print(f"\nRecall progression (cumulative from attack onset):")
-    print(f"{'Attack':<20s} {'t=50':>8s} {'t=100':>8s} {'t=200':>8s} {'t=400':>8s}")
+    print(f"\nRecall progression (cumulative fraction of interval):")
+    print(f"{'Attack':<20s} {'25%':>8s} {'50%':>8s} {'75%':>8s} {'100%':>8s}")
     print(f"{'-' * 55}")
     for scenario_name, _ in SCENARIOS:
         cp = recall_progressions[scenario_name]
         print(
             f"{SHORT_NAMES[scenario_name]:<20s} "
-            f"{cp.get('50', 0):>8.4f} {cp.get('100', 0):>8.4f} "
-            f"{cp.get('200', 0):>8.4f} {cp.get(str(args.attack_duration), 0):>8.4f}"
+            f"{cp.get('0.25', 0):>8.4f} {cp.get('0.50', 0):>8.4f} "
+            f"{cp.get('0.75', 0):>8.4f} {cp.get('1.00', 0):>8.4f}"
         )
     print(f"{'-' * 55}")
-    print("If early recall (t=50) is high → model detects via correlation breakdown")
+    print("If early recall (25%) is high → model detects via correlation breakdown")
     print("If recall climbs over time → detection relies on accumulating error")
 
     # ---- save results ----
@@ -613,6 +606,9 @@ def main():
         }
         if attr:
             save_data[scenario_name]["attribution"] = attr
+
+    save_data["normal_interval_duration"] = median_duration
+    save_data["n_normal_intervals"] = len(normal_intervals)
 
     json_path = model_dir / "eval_results_coordinated.json"
     with open(json_path, "w") as f:
