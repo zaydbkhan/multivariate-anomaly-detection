@@ -2,108 +2,109 @@
   "method": "pot",
   "per_attack": {
     "plateau": {
-      "f1": 0.7005747231585477,
-      "precision": 0.7714152698296052,
-      "recall": 0.6416590236132357,
-      "roc_auc": 0.8022433288830758,
-      "TP": 31483,
-      "TN": 241637,
-      "FP": 9329,
-      "FN": 17582,
-      "threshold": 0.0025000797416671002
+      "f1": 0.7306260011291333,
+      "precision": 0.7792789670017138,
+      "recall": 0.6876999896692754,
+      "roc_auc": 0.8248095671176874,
+      "TP": 33742,
+      "TN": 241409,
+      "FP": 9557,
+      "FN": 15323,
+      "threshold": 0.002191347810822017
     },
     "continuous": {
-      "f1": 0.7630176549210642,
-      "precision": 0.936010128075236,
-      "recall": 0.6440019908800393,
-      "roc_auc": 0.8185971217617362,
-      "TP": 25876,
-      "TN": 258082,
-      "FP": 1769,
-      "FN": 14304,
-      "threshold": 0.002500137822599377
+      "f1": 0.74589868428688,
+      "precision": 0.8958129794501699,
+      "recall": 0.6389746140769101,
+      "roc_auc": 0.813741706754684,
+      "TP": 25674,
+      "TN": 256865,
+      "FP": 2986,
+      "FN": 14506,
+      "threshold": 0.002191330771893263
     },
     "playback": {
-      "f1": 0.7843407597228561,
-      "precision": 0.9701592495274002,
-      "recall": 0.6582681139464104,
-      "roc_auc": 0.8275942367659985,
-      "TP": 26074,
-      "TN": 259618,
-      "FP": 802,
-      "FN": 13536,
-      "threshold": 0.002500094262045357
+      "f1": 0.7501479371359641,
+      "precision": 0.8587427154804367,
+      "recall": 0.6659429435329606,
+      "roc_auc": 0.8246406984844419,
+      "TP": 26378,
+      "TN": 256081,
+      "FP": 4339,
+      "FN": 13232,
+      "threshold": 0.0022146486236114767
     },
     "suppress": {
-      "f1": 0.5630694429406936,
-      "precision": 0.9760690098432108,
-      "recall": 0.39566100158000056,
-      "roc_auc": 0.6967852808853678,
-      "TP": 21046,
-      "TN": 246322,
-      "FP": 516,
-      "FN": 32146,
-      "threshold": 0.002500050701200962
+      "f1": 0.5947656722442,
+      "precision": 0.9949726578783856,
+      "recall": 0.4241615279695891,
+      "roc_auc": 0.7118498433398438,
+      "TP": 22562,
+      "TN": 246724,
+      "FP": 114,
+      "FN": 30630,
+      "threshold": 0.0022519895604331546
     },
     "flooding": {
-      "f1": 0.6477305233346354,
-      "precision": 0.9767935066777628,
-      "recall": 0.4845137665666254,
-      "roc_auc": 0.7411216079931358,
-      "TP": 23950,
-      "TN": 250031,
-      "FP": 569,
-      "FN": 25481,
-      "threshold": 0.002581059081493822
+      "f1": 0.6866973751471138,
+      "precision": 0.998571593638354,
+      "recall": 0.5232748678919554,
+      "roc_auc": 0.7615636111736882,
+      "TP": 25866,
+      "TN": 250563,
+      "FP": 37,
+      "FN": 23565,
+      "threshold": 0.0022979263101793085
     }
   },
-  "avg_f1": 0.6917466208155594,
-  "avg_precision": 0.9260894327906429,
-  "avg_recall": 0.5648207793172623,
+  "avg_f1": 0.7016271339886583,
+  "avg_precision": 0.905475782689812,
+  "avg_recall": 0.5880107886281382,
   "attribution": {
     "plateau": {
-      "n_segments": 671,
+      "n_segments": 375,
       "top_signals": [
-        "id10_Signal2",
         "id10_Signal4",
+        "id1_Signal2",
         "id3_Signal1",
         "id5_Signal1",
         "id6_Signal2"
       ]
     },
     "continuous": {
-      "n_segments": 332,
+      "n_segments": 196,
       "top_signals": [
-        "id10_Signal4",
+        "id1_Signal2",
         "id3_Signal1",
-        "id5_Signal1",
         "id6_Signal2",
         "id7_Signal2"
       ]
     },
     "playback": {
-      "n_segments": 278,
+      "n_segments": 229,
       "top_signals": [
-        "id10_Signal3",
-        "id1_Signal2",
-        "id3_Signal1",
-        "id5_Signal2",
-        "id6_Signal1"
+        "id10_Signal1",
+        "id10_Signal4",
+        "id3_Signal2",
+        "id5_Signal1",
+        "id9_Signal1"
       ]
     },
     "suppress": {
-      "n_segments": 105,
+      "n_segments": 127,
       "top_signals": [
-        "id1_Signal2",
-        "id3_Signal1",
-        "id7_Signal2"
+        "id10_Signal1",
+        "id10_Signal2",
+        "id10_Signal4",
+        "id9_Signal1"
       ]
     },
     "flooding": {
-      "n_segments": 131,
+      "n_segments": 113,
       "top_signals": [
         "id1_Signal1",
-        "id2_Signal2"
+        "id1_Signal2",
+        "id5_Signal1"
       ]
     }
   }
