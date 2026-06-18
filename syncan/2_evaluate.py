@@ -23,6 +23,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.syncan_registry import SynCANRegistry
+from src.eval_syncan import (
+    compute_tnr,
+    evaluate_intervals,
+    extract_attack_intervals,
+    sample_normal_intervals,
+)
 from src.scorer import (
     POTParams,
     adjust_predicts,
@@ -130,9 +136,36 @@ def evaluate_model(
     baselines = compute_feature_baselines(train_scores)
     print(f"Feature baselines: shape={baselines.shape}")
 
+    # ---- score normal test data for TNR ----
+    print("Scoring normal test data for TNR estimation...")
+    normal_sig = np.load(DATA_DIR / "test_normal_signals.npy")
+    normal_scores = score_batch(
+        model, normal_sig,
+        window_size=config.window_size,
+        device=device,
+        scoring_mode=config.scoring_mode,
+        batch_size=score_batch_size,
+    )
+    normal_score_1d = np.mean(normal_scores, axis=1)
+    print(f"  normal_score_1d shape={normal_score_1d.shape}")
+
+    # Sample normal intervals matching attack distribution
+    all_attack_lengths = []
+    for attack in ATTACK_TYPES:
+        lbl = test_data[attack][1]
+        intervals = extract_attack_intervals(lbl)
+        all_attack_lengths.extend([e - s for s, e in intervals])
+    median_duration = int(np.median(all_attack_lengths)) if all_attack_lengths else 200
+    n_normal = min(len(all_attack_lengths), 50) if all_attack_lengths else 40
+    normal_intervals = sample_normal_intervals(
+        len(normal_sig), n_normal, median_duration, seed=42
+    )
+    print(f"  Sampled {len(normal_intervals)} normal intervals of {median_duration} steps")
+
     results = {}
     all_test_scores: list[np.ndarray] = []
     all_test_labels: list[np.ndarray] = []
+    interval_metrics: dict[str, dict] = {}
     for attack in ATTACK_TYPES:
         sig, lbl = test_data[attack]
         m, test_scores = evaluate_attack(
@@ -146,6 +179,22 @@ def evaluate_model(
         print(f"  {attack:<12s} F1={m['f1']:.4f}  P={m['precision']:.4f}  "
               f"R={m['recall']:.4f}  AUC={m['roc_auc']:.4f}  "
               f"thresh={m['threshold']:.6f}  anomalies={n_anom}")
+
+        # ---- interval detection (>= Q% of interval flagged) ----
+        score_1d = np.mean(test_scores, axis=1)
+        threshold = float(m["threshold"])
+        attack_intervals = extract_attack_intervals(lbl)
+        if attack_intervals:
+            iv = evaluate_intervals(score_1d, threshold, attack_intervals)
+            tnr_result = compute_tnr(normal_score_1d, threshold, normal_intervals)
+            interval_metrics[attack] = {"attack": iv, "tnr": tnr_result}
+            r25 = iv["interval_recall"].get("0.25", 0.0)
+            t25 = tnr_result["tnr"].get("0.25", 1.0)
+            print(f"  Interval: R@25%={r25:.4f}  TNR@25%={t25:.4f}  "
+                  f"({iv['total_intervals']} attack intervals)")
+        else:
+            interval_metrics[attack] = {"attack": None, "tnr": None}
+            print(f"  Interval: no attack intervals found")
 
     f1s = [results[a]["f1"] for a in ATTACK_TYPES]
     precs = [results[a]["precision"] for a in ATTACK_TYPES]
@@ -165,6 +214,46 @@ def evaluate_model(
     print(f"{'AVERAGE':<12s} {np.mean(f1s):>8.4f} {np.mean(precs):>8.4f} "
           f"{np.mean(recs):>8.4f}")
     print("=" * 65)
+
+    # ---- interval detection summary ----
+    q_labels = ["0.10", "0.25", "0.50", "0.90"]
+    has_interval = any(
+        interval_metrics.get(a, {}).get("attack") is not None
+        for a in ATTACK_TYPES
+    )
+    if has_interval:
+        print()
+        print("=" * 78)
+        print("Interval Detection (attack detected if >= Q% of interval flagged)")
+        print("=" * 78)
+        header = f"{'Attack':<12s}"
+        header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
+        header += f" {'Flagged%':>9s} {'Ints':>5s}"
+        print(header)
+        print("-" * 78)
+
+        tnr_vals = {q: [] for q in q_labels}
+        for attack in ATTACK_TYPES:
+            entry = interval_metrics.get(attack, {})
+            iv = entry.get("attack")
+            if iv is None:
+                continue
+            vals = "".join(f"{iv['interval_recall'].get(q, 0):>8.4f}" for q in q_labels)
+            print(f"{attack:<12s}{vals}{iv['avg_flagged_fraction']:>9.4f}{iv['total_intervals']:>5d}")
+            tnr_entry = entry.get("tnr")
+            if tnr_entry:
+                for q in q_labels:
+                    tnr_vals[q].append(tnr_entry["tnr"].get(q, 1.0))
+
+        if any(tnr_vals[q] for q in q_labels):
+            print("-" * 78)
+            avg_tnr = "".join(
+                f"{np.mean(tnr_vals[q]):>8.4f}" if tnr_vals[q] else f"{'':>8s}"
+                for q in q_labels
+            )
+            print(f"{'TNR (avg)':<12s}{avg_tnr}{'':>9s}{'':>5s}")
+            print(f"  (TNR from {len(normal_intervals)} normal intervals of {median_duration} steps)")
+        print("=" * 78)
 
     # Feature attribution — per-attack to avoid cross-boundary point-adjustment
     print("\n" + "=" * 65)
@@ -215,7 +304,10 @@ def evaluate_model(
     save_data = {
         "method": method,
         "per_attack": {
-            a: {k: float(v) if hasattr(v, "item") else v for k, v in results[a].items()}
+            a: {
+                **{k: float(v) if hasattr(v, "item") else v for k, v in results[a].items()},
+                "interval_metrics": interval_metrics.get(a, {}),
+            }
             for a in ATTACK_TYPES
         },
         "avg_f1": float(np.mean(f1s)),
@@ -223,6 +315,9 @@ def evaluate_model(
         "avg_recall": float(np.mean(recs)),
         "attribution": attack_attribution,
     }
+    if has_interval:
+        save_data["normal_interval_duration"] = median_duration
+        save_data["n_normal_intervals"] = len(normal_intervals)
 
     registry.save_eval_results(save_data)
     print(f"\nResults saved to {registry.eval_path}")
@@ -276,6 +371,30 @@ def show_from_saved(model_dir: Path) -> None:
           f"{results.get('avg_precision', 0):>8.4f} "
           f"{results.get('avg_recall', 0):>8.4f}")
     print("=" * 65)
+
+    # ---- interval detection ----
+    q_labels = ["0.10", "0.25", "0.50", "0.90"]
+    has_interval = any(
+        per_attack.get(a, {}).get("interval_metrics", {}).get("attack")
+        for a in ATTACK_TYPES
+    )
+    if has_interval:
+        print()
+        print("=" * 78)
+        print("Interval Detection (attack detected if >= Q% of interval flagged)")
+        print("=" * 78)
+        header = f"{'Attack':<12s}"
+        header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
+        header += f" {'Flagged%':>9s} {'Ints':>5s}"
+        print(header)
+        print("-" * 78)
+        for attack in ATTACK_TYPES:
+            entry = per_attack.get(attack, {}).get("interval_metrics", {}).get("attack")
+            if entry is None:
+                continue
+            vals = "".join(f"{entry['interval_recall'].get(q, 0):>8.4f}" for q in q_labels)
+            print(f"{attack:<12s}{vals}{entry['avg_flagged_fraction']:>9.4f}{entry['total_intervals']:>5d}")
+        print("=" * 78)
 
 
 def main():

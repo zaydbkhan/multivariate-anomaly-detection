@@ -25,6 +25,11 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.eval_syncan import (
+    compute_tnr,
+    evaluate_intervals,
+    sample_normal_intervals,
+)
 from src.scorer import (
     POTParams,
     adjust_predicts,
@@ -38,9 +43,6 @@ from src.syncan_registry import SynCANRegistry
 from src.utils import auto_device
 
 PROCESSED = PROJECT_ROOT / "data" / "syncan" / "processed"
-
-# Context padding for per-interval evaluation windows
-CTX_PADDING = 100
 
 
 def parse_device_id(signal_name: str) -> str:
@@ -171,48 +173,6 @@ def generate_coordinated_suppress_plateau(
         sig[start:end, i] = 0.0
         sig[start:end, j] = rng.uniform(-0.5, 0.5)
     return sig
-
-
-def evaluate_intervals(
-    score_1d: np.ndarray,
-    labels: np.ndarray,
-    threshold: float,
-    positions: list[tuple[int, int]],
-) -> dict:
-    interval_metrics = []
-    for start, end in positions:
-        ctx_start = max(0, start - CTX_PADDING)
-        ctx_end = min(len(labels), end + CTX_PADDING)
-        rel_start = start - ctx_start
-        rel_end = end - ctx_start
-
-        ctx_preds = (score_1d[ctx_start:ctx_end] > threshold).astype(float)
-        ctx_labels = np.zeros(ctx_end - ctx_start)
-        ctx_labels[rel_start:rel_end] = 1.0
-
-        tp = int(((ctx_preds == 1) & (ctx_labels == 1)).sum())
-        fp = int(((ctx_preds == 1) & (ctx_labels == 0)).sum())
-        fn = int(((ctx_preds == 0) & (ctx_labels == 1)).sum())
-        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
-
-        interval_metrics.append({
-            "f1": f1, "precision": precision, "recall": recall,
-            "tp": tp, "fp": fp, "fn": fn,
-        })
-
-    if not interval_metrics:
-        return {"avg_f1": 0.0, "avg_precision": 0.0, "avg_recall": 0.0, "intervals": []}
-    avg_f1 = float(np.mean([m["f1"] for m in interval_metrics]))
-    avg_precision = float(np.mean([m["precision"] for m in interval_metrics]))
-    avg_recall = float(np.mean([m["recall"] for m in interval_metrics]))
-    return {
-        "avg_f1": avg_f1,
-        "avg_precision": avg_precision,
-        "avg_recall": avg_recall,
-        "intervals": interval_metrics,
-    }
 
 
 def compute_recall_progression(
@@ -408,10 +368,27 @@ def main():
     train_std = np.std(train_scores, axis=0)
     train_std = np.maximum(train_std, 1e-8)
 
+    # ---- score normal data for TNR ----
+    print("Scoring normal test data for TNR estimation...")
+    normal_sig = np.load(PROCESSED / "test_normal_signals.npy")
+    normal_scores = score_batch(
+        model, normal_sig,
+        window_size=config.window_size,
+        device=device,
+        scoring_mode=config.scoring_mode,
+        batch_size=args.score_batch_size,
+    )
+    normal_score_1d = np.mean(normal_scores, axis=1)
+    print(f"  normal_score_1d shape={normal_score_1d.shape}")
+    normal_intervals = sample_normal_intervals(
+        len(normal_sig), args.num_attacks, args.attack_duration, seed=42
+    )
+    print(f"  Sampled {len(normal_intervals)} normal intervals of {args.attack_duration} steps")
+
     results = {}
-    interval_results = {}
     recall_progressions = {}
     attribution_results: dict[str, dict] = {}
+    q_metrics: dict[str, dict] = {}
     for scenario_idx, (scenario_name, _) in enumerate(SCENARIOS):
         scenario_seed = args.seed + scenario_idx
         print(f"\nEvaluating {scenario_name}...")
@@ -438,6 +415,7 @@ def main():
             labels=test_lbl,
             method=args.method,
             pot_params=POTParams(q=1e-3, level=0.99, scale=1.0),
+            percentile=99.0,
         )
 
         threshold = float(cal["threshold"])
@@ -453,16 +431,17 @@ def main():
 
         results[scenario_name] = metrics
 
-        # ---- per-interval metrics ----
+        # ---- interval detection (>= Q% of interval flagged) ----
         positions = generate_attack_positions(
             len(test_lbl), args.num_attacks, args.attack_duration, scenario_seed
         )
-        iv = evaluate_intervals(score_1d, test_lbl, threshold, positions)
-        interval_results[scenario_name] = iv
-        print(
-            f"  Interval avg: F1={iv['avg_f1']:.4f}  P={iv['avg_precision']:.4f}  "
-            f"R={iv['avg_recall']:.4f}  (over {len(iv['intervals'])} intervals)"
-        )
+        q_iv = evaluate_intervals(score_1d, threshold, positions)
+        tnr_result = compute_tnr(normal_score_1d, threshold, normal_intervals)
+        q_metrics[scenario_name] = {"attack": q_iv, "tnr": tnr_result}
+        r25 = q_iv["interval_recall"].get("0.25", 0.0)
+        t25 = tnr_result["tnr"].get("0.25", 1.0)
+        print(f"  Interval detection: R@25%={r25:.4f}  TNR@25%={t25:.4f}  "
+              f"({q_iv['total_intervals']} intervals)")
 
         cp = compute_recall_progression(
             score_1d, test_lbl, threshold, positions,
@@ -530,36 +509,66 @@ def main():
         del test_sig, test_lbl, test_scores, score_1d
 
     # ---- summary table ----
-    print(f"\n{'=' * 70}")
+    q_labels = ["0.10", "0.25", "0.50", "0.90"]
+    print(f"\n{'=' * 108}")
     print(f"Coordinated Attack Evaluation Summary (method={args.method})")
-    print(f"{'=' * 70}")
+    print(f"{'=' * 108}")
+    # Pointwise section
     header = f"{'Attack':<20s} {'F1':>8s} {'Prec':>8s} {'Rec':>8s} "
     header += f"{'AUC':>8s} {'Thresh':>10s} {'Anom':>8s}"
-    header += f" {'IntF1':>8s} {'IntPrec':>8s} {'IntRec':>8s}"
     print(header)
-    print(f"{'-' * 95}")
+    print(f"{'-' * 76}")
     for scenario_name, _ in SCENARIOS:
         m = results[scenario_name]
-        iv = interval_results[scenario_name]
         lbl = np.load(PROCESSED / f"test_{scenario_name}_labels.npy")
         n_anom = int(lbl.sum())
         print(
             f"{SHORT_NAMES[scenario_name]:<20s} {m['f1']:>8.4f} "
             f"{m['precision']:>8.4f} {m['recall']:>8.4f} "
-            f"{m['roc_auc']:>8.4f} {m['threshold']:>10.6f} {n_anom:>8d} "
-            f"{iv['avg_f1']:>8.4f} {iv['avg_precision']:>8.4f} {iv['avg_recall']:>8.4f}"
+            f"{m['roc_auc']:>8.4f} {m['threshold']:>10.6f} {n_anom:>8d}"
         )
         del lbl
     avg_f1 = np.mean([results[s]["f1"] for s, _ in SCENARIOS])
     avg_prec = np.mean([results[s]["precision"] for s, _ in SCENARIOS])
     avg_rec = np.mean([results[s]["recall"] for s, _ in SCENARIOS])
-    avg_int_f1 = np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])
-    avg_int_prec = np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])
-    avg_int_rec = np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])
-    print(f"{'AVERAGE':<20s} {avg_f1:>8.4f} {avg_prec:>8.4f} {avg_rec:>8.4f} "
-          f"{'':>8s} {'':>10s} {'':>8s} "
-          f"{avg_int_f1:>8.4f} {avg_int_prec:>8.4f} {avg_int_rec:>8.4f}")
-    print(f"{'=' * 95}")
+    print(f"{'AVERAGE':<20s} {avg_f1:>8.4f} {avg_prec:>8.4f} {avg_rec:>8.4f}")
+    print()
+
+    # Interval detection section
+    print(f"{'=' * 108}")
+    print(f"Interval Detection (attack detected if >= Q% of interval flagged)")
+    print(f"{'=' * 108}")
+    header = f"{'Attack':<20s}"
+    header += "".join(f"{f'R@{q}':>8s}" for q in q_labels)
+    header += f" {'Flagged%':>9s} {'Ints':>5s} {'TNR@25%':>9s}"
+    print(header)
+    print(f"{'-' * 108}")
+    tnr_vals = {q: [] for q in q_labels}
+    for scenario_name, _ in SCENARIOS:
+        cm = q_metrics[scenario_name]
+        iv = cm["attack"]
+        vals = "".join(f"{iv['interval_recall'].get(q, 0):>8.4f}" for q in q_labels)
+        t25 = cm.get("tnr", {}).get("tnr", {}).get("0.25", 1.0)
+        print(
+            f"{SHORT_NAMES[scenario_name]:<20s}{vals}"
+            f"{iv['avg_flagged_fraction']:>9.4f}{iv['total_intervals']:>5d}{t25:>9.4f}"
+        )
+        for q in q_labels:
+            tnr_vals[q].append(cm.get("tnr", {}).get("tnr", {}).get(q, 1.0))
+    avg_flag = np.mean([q_metrics[s]["attack"]["avg_flagged_fraction"] for s, _ in SCENARIOS])
+    total_ints = sum(q_metrics[s]["attack"]["total_intervals"] for s, _ in SCENARIOS)
+    print(f"{'AVERAGE':<20s}", end="")
+    for q in q_labels:
+        avg_r = np.mean([q_metrics[s]["attack"]["interval_recall"].get(q, 0) for s, _ in SCENARIOS])
+        print(f"{avg_r:>8.4f}", end="")
+    print(f"{avg_flag:>9.4f}{total_ints:>5d}{'':>9s}")
+    print(f"{'TNR (avg)':<20s}", end="")
+    for q in q_labels:
+        avg_t = np.mean(tnr_vals[q])
+        print(f"{avg_t:>8.4f}", end="")
+    print(f"{'':>9s}{'':>5s}{'':>9s}")
+    print(f"  (TNR from {len(normal_intervals)} normal intervals of {args.attack_duration} steps)")
+    print(f"{'=' * 108}")
 
     # ---- recall progression table ----
     print(f"\nRecall progression (cumulative from attack onset):")
@@ -582,15 +591,12 @@ def main():
         "avg_f1": float(np.mean([results[s]["f1"] for s, _ in SCENARIOS])),
         "avg_precision": float(np.mean([results[s]["precision"] for s, _ in SCENARIOS])),
         "avg_recall": float(np.mean([results[s]["recall"] for s, _ in SCENARIOS])),
-        "interval_avg_f1": float(np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])),
-        "interval_avg_precision": float(np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])),
-        "interval_avg_recall": float(np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])),
     }
     for scenario_name, _ in SCENARIOS:
         m = results[scenario_name]
-        iv = interval_results[scenario_name]
         cp = recall_progressions[scenario_name]
         attr = attribution_results.get(scenario_name, {})
+        cm = q_metrics.get(scenario_name, {})
         save_data[scenario_name] = {
             "f1": float(m["f1"]),
             "precision": float(m["precision"]),
@@ -601,10 +607,9 @@ def main():
             "TN": int(m["TN"]),
             "FP": int(m["FP"]),
             "FN": int(m["FN"]),
-            "interval_avg_f1": iv["avg_f1"],
-            "interval_avg_precision": iv["avg_precision"],
-            "interval_avg_recall": iv["avg_recall"],
             "recall_progression": {k: float(v) for k, v in cp.items()},
+            "interval_detection": cm.get("attack"),
+            "tnr": cm.get("tnr"),
         }
         if attr:
             save_data[scenario_name]["attribution"] = attr
