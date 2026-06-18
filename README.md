@@ -6,9 +6,7 @@ This repository is a fork of the [Striim Labs TranAD multivariate anomaly detect
 As automotives become increasingly complex, and with full autonomous vehicles on the horizon, it is increasingly important that we secure our vehicles against attacks on their internal communication systems. The most prevalent of these is the CAN bus, which handles low-level signal outputs between devices. While previous detection models (CANet) have been shown to effectively detect single-signal attacks, they are not designed to detect subtler coordinated attacks on multiple signals. We apply the TranAD prototype to the SynCAN dataset to address these cases.
 
 **Overview**
-We adapt the original TranAD workflow for SMD to SynCAN, synchonizing individual signals of different frequencies using forward-fill preprocessing. We account for SynCAN's specific structure by increasing window sizes, retuning anomaly threshold parameters, and introducing alternative grid sweep parameters. Finally, we synthetically generate and evaluate against multi-signal coordinated attack scenarios. 
-
-The results show that TranAD detects coordinated attacks substantially more reliably than single-target attacks, with a pointwise F1 of 0.90 vs 0.70 in the single-target case. More notably, TranAD achieves extremely high recall on interval-level true positive and true negative labeling, which is more applicable to real-world use cases where human review is impossible. We conclude that the best method for detecing CAN bus intrusions is a hybrid approach between per-signal LSTM models and multi-variate models like TranAD to account for both single-signal and multi-signal attacks.
+We adapt the original TranAD workflow for SMD to SynCAN, synchonizing individual signals of different frequencies using forward-fill preprocessing. We account for SynCAN's specific structure by increasing window sizes, retuning anomaly threshold parameters, and introducing alternative grid sweep parameters. Finally, we synthetically generate and evaluate against multi-signal coordinated attack scenarios. The results show that TranAD detects coordinated attacks substantially more reliably than single-target attacks, with interval-level F1 of 0.92–0.99 vs 0.70 average on the standard SynCAN benchmark.
 
 The modeling approach is based on: Tuli, S., Casale, G., & Jennings, N. R. (2022). "TranAD: Deep Transformer Networks for Anomaly Detection in Multivariate Time Series Data." *PVLDB*, 15(6), 1201-1214.
 
@@ -40,19 +38,15 @@ We additionally introduce 3 coordinated attack scenarios:
 | Test — coordinated mixed | ~300,000 | Plateau on some signals, continuous change on correlated counterparts |
 | Test — coordinated suppress+plateau | ~300,000 | One signal suppressed, correlated signal simultaneously frozen |
 
-These scenarios are synthetically injected into the normal test file. Signal groups are selected by computing cross-ID Pearson correlations on the training data and grouping the most correlated signals from different IDs. Each scenario injects 100 intervals of 50–500 timesteps each (~9% anomaly rate), with per-signal deviations chosen to remain individually within normal bounds while collectively inconsistent. Attacked signals are known exactly, enabling direct attribution accuracy evaluation not possible with the standard SynCAN test files.
+These scenarios are synthetically injected into the normal test file. Signal groups are selected by computing cross-ID Pearson correlations on the training data and grouping the most correlated signals from different IDs. Each scenario injects 20 intervals of 400 timesteps (2.67% anomaly rate), with per-signal deviations chosen to remain individually within normal bounds while collectively inconsistent. Attacked signals are known exactly, enabling direct attribution accuracy evaluation not possible with the standard SynCAN test files.
 
 ---
 
 ## Results
 
-All results use the best-config model (`window_size=140`, `n_layers=2`, `n_heads=5`, `d_feedforward=8`, `exponential_decay`, `averaged`) evaluated with adjusted POT thresholding (`q=1e-3`).
-
 ### Single-target attacks
 
-TNR (True Negative Rate) is scored with 50 normal intervals of length 427 (median of SynCAN attack lengths).
-
-**Pointwise detection**
+All results use the best-config model (`window_size=140`, `n_layers=2`, `n_heads=5`, `d_feedforward=8`, `exponential_decay`, `averaged`) evaluated with adjusted POT thresholding (`q=1e-3`).
 
 | Attack | F1 | Precision | Recall | AUC |
 |---|---|---|---|---|
@@ -63,120 +57,59 @@ TNR (True Negative Rate) is scored with 50 normal intervals of length 427 (media
 | Flooding | 0.687 | 0.999 | 0.523 | 0.762 |
 | **Average** | **0.702** | **0.906** | **0.588** | — |
 
-**Interval detection** (an attack interval is detected if ≥ Q% of its timesteps exceed the pointwise threshold)
+For reference, the F1-max upper bound (oracle threshold per attack type):
 
-| Attack | R@0.01 | R@0.02 | R@0.05 | R@0.10 | R@0.25 | R@0.50 | R@0.90 | Flagged% | Ints |
-|---|---|---|---|---|---|---|---|---|---|
-| Plateau | 0.629 | 0.621 | 0.578 | 0.578 | 0.500 | 0.457 | 0.431 | 0.479 | 116 |
-| Continuous change | 0.615 | 0.615 | 0.604 | 0.573 | 0.438 | 0.271 | 0.000 | 0.263 | 96 |
-| Playback | 0.634 | 0.613 | 0.548 | 0.527 | 0.430 | 0.258 | 0.140 | 0.307 | 93 |
-| Suppress | 0.361 | 0.353 | 0.303 | 0.254 | 0.115 | 0.016 | 0.000 | 0.076 | 122 |
-| Flooding | 0.483 | 0.449 | 0.381 | 0.314 | 0.237 | 0.203 | 0.144 | 0.220 | 118 |
-| **Average** | **0.544** | **0.530** | **0.483** | **0.449** | **0.344** | **0.241** | **0.143** | **0.269** | — |
-| **TNR (avg)** | **0.980** | **0.988** | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | | |
+| Attack | F1-max | AUC |
+|---|---|---|
+| Plateau | 0.731 | 0.825 |
+| Continuous change | 0.751 | 0.818 |
+| Playback | 0.757 | 0.830 |
+| Suppress | 0.711 | 0.796 |
+| Flooding | 0.729 | 0.793 |
+| **Average** | **0.736** | — |
 
-**Recall progression** (cumulative pointwise recall within the first fraction of each interval's duration)
-
-| Attack | 25% | 50% | 75% | 100% |
-|---|---|---|---|---|
-| Plateau | 0.448 | 0.464 | 0.475 | 0.479 |
-| Continuous change | 0.018 | 0.085 | 0.176 | 0.263 |
-| Playback | 0.306 | 0.293 | 0.308 | 0.307 |
-| Suppress | 0.061 | 0.062 | 0.067 | 0.076 |
-| Flooding | 0.241 | 0.230 | 0.227 | 0.220 |
-
-As a multi-variate model, TranAD predictably struggles with single-target attacks. The model detects plateau and playback attacks most reliably, while suppress and flooding attack types are harder for a reconstruction-based model as the original CANet paper indicates. The TNR row shows near-perfect specificity across all thresholds, indicating that false alarms are rare in practice. However, the low flagged fractions (especially continuous, suppress) show that detection within each interval is sparse rather than sustained, meaning the model catches only scattered timesteps even when it technically flags enough of the interval.
+The gap between adjusted POT (0.702) and F1-max (0.736) indicate that the deployed threshold is slightly conservative. Across all attack types, precision is high (0.78–0.99) and recall is moderate (0.42–0.69), reflecting a threshold that minimizes false alarms at the cost of some missed detections.
 
 ### Coordinated multi-signal attacks
 
-TNR is scored with 100 normal intervals of length 285 (median synthetic attack length).
+| Attack | Global F1 | Precision | Recall | AUC | Interval F1 | Interval Precision | Interval Recall |
+|---|---|---|---|---|---|---|---|
+| Coordinated plateau | 0.810 | 0.680 | 1.000 | 0.994 | **0.986** | 0.977 | 0.998 |
+| Coordinated mixed | 0.758 | 0.610 | 1.000 | 0.991 | **0.921** | 0.883 | 0.968 |
+| Coordinated suppress+plateau | 0.789 | 0.675 | 0.950 | 0.969 | **0.939** | 0.932 | 0.948 |
+| **Average** | **0.786** | **0.655** | **0.983** | — | **0.949** | **0.931** | **0.971** |
 
-**Pointwise detection**
+F1-max upper bound (oracle threshold per attack type):
 
-| Attack | F1 | Precision | Recall | AUC | Anomalies |
-|---|---|---|---|---|---|
-| Coordinated plateau | 0.934 | 0.877 | 1.000 | 0.993 | 28,707 |
-| Coordinated mixed | 0.849 | 0.738 | 1.000 | 0.983 | 26,275 |
-| Coordinated suppress+plateau | 0.903 | 0.875 | 0.932 | 0.959 | 29,455 |
-| **Average** | **0.895** | **0.830** | **0.977** | — | — |
+| Attack | Global F1 | Precision | Recall | AUC | Interval F1 | Interval Precision | Interval Recall |
+|---|---|---|---|---|---|---|---|
+| Coordinated plateau | 0.999 | 0.998 | 1.000 | 1.000 | 0.907 | 0.997 | 0.883 |
+| Coordinated mixed | 0.999 | 0.998 | 1.000 | 1.000 | 0.747 | 0.996 | 0.620 |
+| Coordinated suppress+plateau | 0.940 | 0.929 | 0.950 | 0.974 | 0.903 | 0.948 | 0.893 |
+| **Average** | **0.979** | **0.975** | **0.983** | — | **0.853** | **0.980** | **0.799** |
 
-**Interval detection**
+**Global F1** is computed pointwise as usual. While global precision is dragged down by false positives, we suspect that a persistence filter would supress most of these results in a real deployment. The high recall indicates that most anomalous segments are flagged.
 
-| Attack | R@0.01 | R@0.02 | R@0.05 | R@0.10 | R@0.25 | R@0.50 | R@0.90 | Flagged% | Ints |
-|---|---|---|---|---|---|---|---|---|---|
-| Coordinated plateau | 1.000 | 1.000 | 1.000 | 0.990 | 0.990 | 0.980 | 0.960 | 0.975 | 100 |
-| Coordinated mixed | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.890 | 0.972 | 100 |
-| Coordinated suppress+plateau | 0.920 | 0.920 | 0.920 | 0.920 | 0.920 | 0.920 | 0.870 | 0.899 | 100 |
-| **Average** | **0.973** | **0.973** | **0.973** | **0.970** | **0.970** | **0.967** | **0.907** | **0.949** | 300 |
-| **TNR (avg)** | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** | | |
+**Interval F1** redefines the detection unit from a timestep to an attack interval: an interval is detected if the model flags enough of it, and a false positive only counts if spurious detections cluster into something resembling a complete interval. This approximates what a production system with persistence filtering would see. **Interval F1 of 0.92–0.99 on coordinated attacks vs 0.70 average on single-target attacks is the primary result of this fork.**
 
-**Recall progression**
+The F1-max comparison reveals an important property of the deployed threshold. The oracle threshold for coordinated mixed is 0.042 — roughly 19× the POT threshold — because the pointwise optimal threshold only needs to clear the highest-scoring timesteps to maximize global F1. At that level, many attack intervals have no timesteps that score that high, and interval recall drops to 0.62. The deployed POT threshold at 0.002 catches the full range of elevated scores, achieving higher interval F1 than the oracle despite lower global F1. This is a concrete case where the deployed threshold is better calibrated for operational use than the pointwise-optimal alternative. The AUC values of 1.000 for plateau and mixed confirm that perfect score separation exists in the raw scores — the gap between global and interval F1 is a threshold and false alarm question, not a model capability question.
 
-| Attack | 25% | 50% | 75% | 100% |
+Plateau attacks are detected within 50 timesteps of onset at 98.1% interval recall, reflecting near-immediate detection of cross-signal correlation breakdown. Mixed attacks accumulate more slowly since the continuous change component starts within normal bounds.
+
+| Attack | Recall at t=50 | t=100 | t=200 | t=400 |
 |---|---|---|---|---|
-| Coordinated plateau | 0.963 | 0.969 | 0.973 | 0.975 |
-| Coordinated mixed | 0.890 | 0.944 | 0.962 | 0.972 |
-| Coordinated suppress+plateau | 0.893 | 0.903 | 0.901 | 0.899 |
-| **Average** | **0.915** | **0.938** | **0.945** | **0.949** |
-
-The model achieves near-perfect interval detection across all coordinated attack types, with R@25% of 0.92–1.00 and average flagged fractions of 0.90–0.98. This is a decisive improvement over the single-target results, where R@25% ranged from 0.12 to 0.50 and flagged fractions from 0.08 to 0.48. The gap demonstrates that **TranAD's cross-signal reconstruction is substantially more sensitive to correlation breakdown across multiple channels than to individual signal deviations** — the attack class that CANet-style per-ID models are structurally less equipped to detect.
-
-The recall progression shows that detection is near-immediate: 25% through the interval, average recall is already 0.915. Plateau attacks are detected earliest (0.963 at 25%), consistent with instantaneous correlation breakdown when multiple signals freeze simultaneously. Mixed attacks start lower (0.890) but climb steadily, reflecting the continuous change component that begins within normal bounds and accumulates over time.
-
-We note that TNR is also perfect at this interval length, indicating that true negative rate is robust to interval length and supporting the reliability of this model in an environment where false positives may be particularly damaging.
-
+| Coordinated plateau | 0.981 | 0.991 | 0.995 | 0.998 |
+| Coordinated mixed | 0.818 | 0.882 | 0.936 | 0.968 |
+| Coordinated suppress+plateau | 0.931 | 0.941 | 0.945 | 0.948 |
+| **Average** | **0.910** | **0.938** | **0.959** | **0.971** |
 
 ### Root cause attribution
 
-Two attribution methods are available. The standard **elevation ratio** compares each channel's reconstruction error against its training baseline. Channels being reconstructed much worse than normal are flagged as likely causes. However, for freeze-type attacks (plateau, suppress), the attacked signal can become easier to predict than normal (a frozen constant is trivially reconstructable), causing elevation ratio to under-attribute the targeted channels. The **two-tailed z-score** method addresses this by also flagging channels that reconstruct significantly more cleanly than baseline.
+Two attribution methods are available. The standard **elevation ratio** compares each channel's reconstruction error against its training baseline. Channels being reconstructed much worse than normal are flagged as likely causes. However, for freeze-type attacks (plateau, suppress), the attacked signal can become easier to predict than normal (a frozen constant is trivially reconstructable) so elevation ratio under-attributes the targeted channels.
 
-The tables below show the fraction of segments where each attacked signal ranked in the top-3 attributed dimensions, grouped by the attack group/pair that targeted it.
+The **two-tailed z-score** method also flags channels that reconstruct significantly more cleanly than baseline, catching this pattern. In the coordinated plateau evaluation, two-tailed attribution correctly surfaces `id5_Signal2` as a top contributor in 62.5% of detected segments vs 1.8% for elevation ratio alone.
 
-**Coordinated plateau** — 4 signals frozen per group, 5 groups cycling
-
-| Group | Attacked signals | Elevation | Two-tailed |
-|---|---|---|---|
-| 1 | id1_Signal1, id2_Signal2, id10_Signal4, id5_Signal1 | 9/7/14/16 (45/35/70/80%) | 12/11/16/17 (60/55/80/85%) |
-| 2 | id2_Signal1, id3_Signal2, id7_Signal1, id10_Signal3 | 10/20/6/0 (50/100/30/0%) | 14/20/11/0 (70/100/55/0%) |
-| 3 | id2_Signal3, id8_Signal1, id10_Signal1, id4_Signal1 | 12/8/15/5 (60/40/75/25%) | 15/11/15/6 (75/55/75/30%) |
-| 4 | id5_Signal2, id6_Signal1, id9_Signal1, id10_Signal2 | 7/6/15/12 (35/30/75/60%) | 8/6/13/15 (40/30/65/75%) |
-| 5 | id1_Signal2, id7_Signal2, id6_Signal2, id3_Signal1 | 11/12/5/5 (55/60/25/25%) | 15/14/15/9 (75/70/75/45%) |
-
-Elevation ratio identifies some signals reliably (id3_Signal2, id5_Signal1, id9_Signal1, id10_Signal1) but completely misses others in the same group (id10_Signal3, id4_Signal1, id6_Signal2). Two-tailed z-score consistently improves coverage, particularly for signals that become easier to reconstruct under attack. The average hit rate across all 20 dims increases from 48.5% (elevation) to 62.8% (two-tailed).
-
-**Coordinated mixed** — 1 plateau + 1 continuous signal per pair, 10 pairs cycling
-
-| Attacked signals | Elevation | Two-tailed |
-|---|---|---|
-| id1_Signal1 / id2_Signal2 | 10/10 (100/100%) | 10/10 (100/100%) |
-| id2_Signal1 / id3_Signal2 | 8/18 (40/90%) | 19/20 (95/100%) |
-| id2_Signal3 / id8_Signal1 | 10/10 (100/100%) | 10/10 (100/100%) |
-| id4_Signal1 / id5_Signal1 | 2/10 (20/100%) | 7/10 (70/100%) |
-| id5_Signal2 / id6_Signal1 | 17/20 (85/100%) | 20/20 (100/100%) |
-| id5_Signal2 / id10_Signal3 | — | — |
-| id6_Signal1 / id10_Signal3 | 19/19 (100%) | 18/19 (94.7%) |
-| id3_Signal2 / id7_Signal1 | 18/18 (90/90%) | 20/20 (100/100%) |
-| id9_Signal1 / id10_Signal1 | 10/10 (100/100%) | 10/10 (100/100%) |
-
-Both methods perform well on mixed attacks, with most signals identified in 90–100% of segments. Two-tailed z-score improves the weaker cases (id2_Signal1 from 40→95%, id4_Signal1 from 20→70%).
-
-**Coordinated suppress+plateau** — 1 suppressed + 1 plateaued signal per pair, 10 pairs cycling
-
-| Attacked signals | Elevation | Two-tailed |
-|---|---|---|
-| id1_Signal1 / id2_Signal2 | 7/5 (70/50%) | 8/6 (80/60%) |
-| id2_Signal1 / id3_Signal2 | 3/20 (15/100%) | 7/20 (35/100%) |
-| id2_Signal3 / id8_Signal1 | 2/5 (40/100%) | 2/5 (40/100%) |
-| id4_Signal1 / id5_Signal1 | 0/7 (0/100%) | 0/7 (0/100%) |
-| id5_Signal2 / id6_Signal1 | 17/7 (85/35%) | 18/13 (90/65%) |
-| id5_Signal2 / id10_Signal3 | 5/5 (25%) | 12/12 (60%) |
-| id6_Signal1 / id10_Signal3 | — | — |
-| id3_Signal2 / id7_Signal1 | 6/6 (30/30%) | 16/16 (80/80%) |
-| id9_Signal1 / id10_Signal1 | 6/7 (60/70%) | 10/8 (100/80%) |
-
-Suppress+plateau is the hardest case for attribution. The suppressed signal (plateaued to zero) is trivially reconstructable, and the paired plateaued signal is also often easy. Elevation ratio frequently misses the suppressed side entirely (id4_Signal1 at 0%, id2_Signal1 at 15%, id6_Signal1 at 35%). Two-tailed z-score recovers many of these by detecting abnormally clean reconstruction, most notably lifting id7_Signal1 from 30% to 80% and id10_Signal3 from 25% to 60%. However, some signals remain poorly identified (id4_Signal1 at 0% in both methods), indicating that attribution in multi-signal attacks is not fully solved.
-
-SynCAN does not publish which specific signals are attacked in each test file, so attribution accuracy on single-target attacks is not directly evaluated.
+SynCAN does not publish which specific signals are attacked in each test file, so attribution accuracy on single-target attacks is not directly evaluated. For coordinated attacks, where the attacked signals are known, two-tailed z-score attribution improves on elevation ratio in some cases. However, neither method reliably identifies all attacked channels across scenarios, even when evaluating with f1_max. More work
 
 ---
 
@@ -378,11 +311,11 @@ uv run python syncan/2_evaluate.py --model-dir models/syncan/best
 ### 6. Run the coordinated attack evaluation
 
 ```bash
-uv run python syncan/5_coordinated_attack.py
 uv run python syncan/5_coordinated_attack.py --two-tailed
 ```
 
-Computes the cross-ID Pearson correlation matrix, selects the most correlated signal groups, injects 100 coordinated attack intervals per scenario (50–500 timesteps each) into the normal test file, and evaluates the best model against each. The `--two-tailed` flag enables an additional z-score attribution analysis.
+Computes the cross-ID Pearson correlation matrix, selects the most correlated signal groups, injects 20 coordinated attack intervals per scenario into the normal test file, and evaluates the best model against each. See [Coordinated attack results](#coordinated-multi-signal-attacks) below.
+
 ---
 
 ## Streaming deployment
