@@ -3,12 +3,12 @@
 This repository is a fork of the [Striim Labs TranAD multivariate anomaly detection prototype](https://github.com/striim-labs/multivariate-anomaly-detection), adapting it to intrusion detection on the vehicle Controller Area Network (CAN) bus using the [SynCAN dataset](https://github.com/etas/SynCAN) (Hanselmann et al., IEEE Access 2020).
 
 **Motivation**
-As automotives become increasingly complex, and with full autonomous vehicles on the horizon, it is increasingly important that we secure our vehicles against attacks on their internal communication systems. The most prevalent of these is the CAN bus, which handles low-level signal outputs between devices. While previous detection models (CANet) have been shown to effectively detect single-signal attacks, they are not designed to detect subtler coordinated attacks on multiple signals. We apply the TranAD prototype to the SynCAN dataset to address these cases.
+As automobiles become increasingly complex, and with full autonomous vehicles on the horizon, it is increasingly important that we secure our vehicles against attacks on their internal communication systems. The most prevalent of these is the CAN bus, which handles low-level signal outputs between devices. While previous detection models (CANet) have been shown to effectively detect single-signal attacks, they are not designed to detect subtler coordinated attacks on multiple signals. We apply the TranAD prototype to the SynCAN dataset to address these cases.
 
 **Overview**
-We adapt the original TranAD workflow for SMD to SynCAN, synchonizing individual signals of different frequencies using forward-fill preprocessing. We account for SynCAN's specific structure by increasing window sizes, retuning anomaly threshold parameters, and introducing alternative grid sweep parameters. Finally, we synthetically generate and evaluate against multi-signal coordinated attack scenarios. 
+We adapt the original TranAD workflow for SMD to SynCAN, synchronizing individual signals of different frequencies using forward-fill preprocessing. We account for SynCAN's specific structure by increasing window sizes, retuning anomaly threshold parameters, and introducing alternative grid sweep parameters. Finally, we synthetically generate and evaluate against multi-signal coordinated attack scenarios. 
 
-The results show that TranAD detects coordinated attacks substantially more reliably than single-target attacks, with a pointwise F1 of 0.90 vs 0.70 in the single-target case. More notably, TranAD achieves extremely high recall on interval-level true positive and true negative labeling, which is more applicable to real-world use cases where human review is impossible. We conclude that the best method for detecting CAN bus intrusions is a hybrid approach between per-ID LSTM models, basic per-signal frequency modeling, and multi-variate models like TranAD to account for both single-signal and multi-signal attacks.
+The results show that TranAD detects coordinated attacks substantially more reliably than single-target attacks, with a pointwise F1 of 0.90 vs 0.70 in the single-target case. More notably, TranAD achieves extremely high recall on interval-level true positive and true negative labeling, which is more applicable to real-world use cases where human review is impossible. We conclude that the best method for detecting CAN bus intrusions is a hybrid approach between per-ID LSTM models, basic per-signal frequency modeling, and multivariate models like TranAD to account for both single-signal and multi-signal attacks.
 
 The modeling approach is based on: Tuli, S., Casale, G., & Jennings, N. R. (2022). "TranAD: Deep Transformer Networks for Anomaly Detection in Multivariate Time Series Data." *PVLDB*, 15(6), 1201-1214.
 
@@ -85,7 +85,7 @@ TNR (True Negative Rate) is scored with 50 normal intervals of length 427 (media
 | Suppress | 0.061 | 0.062 | 0.067 | 0.076 |
 | Flooding | 0.241 | 0.230 | 0.227 | 0.220 |
 
-As a multi-variate model, TranAD predictably struggles with single-target attacks. The model detects plateau and playback attacks most reliably, while suppress and flooding attack types are harder for a reconstruction-based model as the original CANet paper indicates. The TNR row shows near-perfect specificity across all thresholds, indicating that false alarms are rare in practice. However, the low flagged fractions (especially continuous, suppress) show that detection within each interval is sparse rather than sustained, meaning the model catches only scattered timesteps even when it technically flags enough of the interval.
+As a multivariate model, TranAD predictably struggles with single-target attacks. The model detects plateau and playback attacks most reliably, while suppress and flooding attack types are harder for a reconstruction-based model as the original CANet paper indicates. The TNR row shows near-perfect specificity across all thresholds, indicating that false alarms are rare in practice. However, the low flagged fractions (especially continuous, suppress) show that detection within each interval is sparse rather than sustained, meaning the model catches only scattered timesteps even when it technically flags enough of the interval.
 
 ### Coordinated multi-signal attacks
 
@@ -131,39 +131,70 @@ Two attribution methods are available. The standard **elevation ratio** compares
 
 **Coordinated plateau** — top-3 hit rate per dim, by group
 
-| Group | Attacked signals | Elevation | Two-tailed |
+| Group | Signal | Elevation | Two-tailed |
 |---|---|---|---|
-| 1 | id1_Signal1, id2_Signal2, id10_Signal4, id5_Signal1 | 9/7/14/16 (45/35/70/80%) | 12/11/16/17 (60/55/80/85%) |
-| 2 | id2_Signal1, id3_Signal2, id7_Signal1, id10_Signal3 | 10/20/6/0 (50/100/30/0%) | 14/20/11/0 (70/100/55/0%) |
-| 3 | id2_Signal3, id8_Signal1, id10_Signal1, id4_Signal1 | 12/8/15/5 (60/40/75/25%) | 15/11/15/6 (75/55/75/30%) |
-| 4 | id5_Signal2, id6_Signal1, id9_Signal1, id10_Signal2 | 7/6/15/12 (35/30/75/60%) | 8/6/13/15 (40/30/65/75%) |
-| 5 | id1_Signal2, id7_Signal2, id6_Signal2, id3_Signal1 | 11/12/5/5 (55/60/25/25%) | 15/14/15/9 (75/70/75/45%) |
+| 1 | id1_Signal1 | 9/20 (45%) | 12/20 (60%) |
+|   | id2_Signal2 | 7/20 (35%) | 11/20 (55%) |
+|   | id10_Signal4 | 14/20 (70%) | 16/20 (80%) |
+|   | id5_Signal1 | 16/20 (80%) | 17/20 (85%) |
+| 2 | id2_Signal1 | 10/20 (50%) | 14/20 (70%) |
+|   | id3_Signal2 | 20/20 (100%) | 20/20 (100%) |
+|   | id7_Signal1 | 6/20 (30%) | 11/20 (55%) |
+|   | id10_Signal3 | 0/20 (0%) | 0/20 (0%) |
+| 3 | id2_Signal3 | 12/20 (60%) | 15/20 (75%) |
+|   | id8_Signal1 | 8/20 (40%) | 11/20 (55%) |
+|   | id10_Signal1 | 15/20 (75%) | 15/20 (75%) |
+|   | id4_Signal1 | 5/20 (25%) | 6/20 (30%) |
+| 4 | id5_Signal2 | 7/20 (35%) | 8/20 (40%) |
+|   | id6_Signal1 | 6/20 (30%) | 6/20 (30%) |
+|   | id9_Signal1 | 15/20 (75%) | 13/20 (65%) |
+|   | id10_Signal2 | 12/20 (60%) | 15/20 (75%) |
+| 5 | id1_Signal2 | 11/20 (55%) | 15/20 (75%) |
+|   | id7_Signal2 | 12/20 (60%) | 14/20 (70%) |
+|   | id6_Signal2 | 5/20 (25%) | 15/20 (75%) |
+|   | id3_Signal1 | 5/20 (25%) | 9/20 (45%) |
 
 **Coordinated mixed** — top-3 hit rate per dim, by pair
 
-| Attacked signals | Elevation | Two-tailed |
-|---|---|---|
-| id1_Signal1 / id2_Signal2 | 10/10 (100/100%) | 10/10 (100/100%) |
-| id2_Signal1 / id3_Signal2 | 8/18 (40/90%) | 19/20 (95/100%) |
-| id2_Signal3 / id8_Signal1 | 10/10 (100/100%) | 10/10 (100/100%) |
-| id4_Signal1 / id5_Signal1 | 2/10 (20/100%) | 7/10 (70/100%) |
-| id5_Signal2 / id6_Signal1 | 17/20 (85/100%) | 20/20 (100/100%) |
-| id6_Signal1 / id10_Signal3 | 19/19 (100%) | 18/19 (94.7%) |
-| id3_Signal2 / id7_Signal1 | 18/18 (90/90%) | 20/20 (100/100%) |
-| id9_Signal1 / id10_Signal1 | 10/10 (100/100%) | 10/10 (100/100%) |
+| Pair | Signal | Elevation | Two-tailed |
+|---|---|---|---|
+| id1_Signal1 / id2_Signal2 | id1_Signal1 | 10/10 (100%) | 10/10 (100%) |
+|   | id2_Signal2 | 10/10 (100%) | 10/10 (100%) |
+| id2_Signal1 / id3_Signal2 | id2_Signal1 | 8/20 (40%) | 19/20 (95%) |
+|   | id3_Signal2 | 18/20 (90%) | 20/20 (100%) |
+| id2_Signal3 / id8_Signal1 | id2_Signal3 | 10/10 (100%) | 10/10 (100%) |
+|   | id8_Signal1 | 10/10 (100%) | 10/10 (100%) |
+| id4_Signal1 / id5_Signal1 | id4_Signal1 | 2/10 (20%) | 7/10 (70%) |
+|   | id5_Signal1 | 10/10 (100%) | 10/10 (100%) |
+| id5_Signal2 / id6_Signal1 | id5_Signal2 | 17/20 (85%) | 20/20 (100%) |
+|   | id6_Signal1 | 20/20 (100%) | 20/20 (100%) |
+| id6_Signal1 / id10_Signal3 | id6_Signal1 | 20/20 (100%) | 20/20 (100%) |
+|   | id10_Signal3 | 19/19 (100%) | 18/19 (94.7%) |
+| id3_Signal2 / id7_Signal1 | id3_Signal2 | 18/20 (90%) | 20/20 (100%) |
+|   | id7_Signal1 | 18/20 (90%) | 20/20 (100%) |
+| id9_Signal1 / id10_Signal1 | id9_Signal1 | 10/10 (100%) | 10/10 (100%) |
+|   | id10_Signal1 | 10/10 (100%) | 10/10 (100%) |
 
 **Coordinated suppress+plateau** — top-3 hit rate per dim, by pair
 
-| Attacked signals | Elevation | Two-tailed |
-|---|---|---|
-| id1_Signal1 / id2_Signal2 | 7/5 (70/50%) | 8/6 (80/60%) |
-| id2_Signal1 / id3_Signal2 | 3/20 (15/100%) | 7/20 (35/100%) |
-| id2_Signal3 / id8_Signal1 | 2/5 (40/100%) | 2/5 (40/100%) |
-| id4_Signal1 / id5_Signal1 | 0/7 (0/100%) | 0/7 (0/100%) |
-| id5_Signal2 / id6_Signal1 | 17/7 (85/35%) | 18/13 (90/65%) |
-| id5_Signal2 / id10_Signal3 | 5/5 (25%) | 12/12 (60%) |
-| id3_Signal2 / id7_Signal1 | 6/6 (30/30%) | 16/16 (80/80%) |
-| id9_Signal1 / id10_Signal1 | 6/7 (60/70%) | 10/8 (100/80%) |
+| Pair | Signal | Elevation | Two-tailed |
+|---|---|---|---|
+| id1_Signal1 / id2_Signal2 | id1_Signal1 | 7/10 (70%) | 8/10 (80%) |
+|   | id2_Signal2 | 5/10 (50%) | 6/10 (60%) |
+| id2_Signal1 / id3_Signal2 | id2_Signal1 | 3/20 (15%) | 7/20 (35%) |
+|   | id3_Signal2 | 20/20 (100%) | 20/20 (100%) |
+| id2_Signal3 / id8_Signal1 | id2_Signal3 | 2/5 (40%) | 2/5 (40%) |
+|   | id8_Signal1 | 5/5 (100%) | 5/5 (100%) |
+| id4_Signal1 / id5_Signal1 | id4_Signal1 | 0/7 (0%) | 0/7 (0%) |
+|   | id5_Signal1 | 7/7 (100%) | 7/7 (100%) |
+| id5_Signal2 / id6_Signal1 | id5_Signal2 | 17/20 (85%) | 18/20 (90%) |
+|   | id6_Signal1 | 7/20 (35%) | 13/20 (65%) |
+| id5_Signal2 / id10_Signal3 | id5_Signal2 | 17/20 (85%) | 18/20 (90%) |
+|   | id10_Signal3 | 5/20 (25%) | 12/20 (60%) |
+| id3_Signal2 / id7_Signal1 | id3_Signal2 | 20/20 (100%) | 20/20 (100%) |
+|   | id7_Signal1 | 6/20 (30%) | 16/20 (80%) |
+| id9_Signal1 / id10_Signal1 | id9_Signal1 | 6/10 (60%) | 10/10 (100%) |
+|   | id10_Signal1 | 7/10 (70%) | 8/10 (80%) |
 
 With the two-tailed improvement, attributions are fairly strong but still imperfect. Notably, **the mixed signal attribution is extremely strong**, rather than the 4-signal coordinated plateau we might expect to come out on top. The results seem to indicate that **TranAD performs better when signals fail in different ways**, but concede that there is not yet enough evidence to support any interpretation. We expect that better attribution results could be obtained through more focused training — see [Limitations](#limitations) below.
 
@@ -183,7 +214,7 @@ We theorize that a **hybrid architecture combining all 3 approaches** — per-ID
 
 ## Limitations
 
-- **Single-target sweep.** The hyperparameter sweep optimizes on the five standard SynCAN attack types as a real-world baseline, all of which are single-target. However, there is no guarantee that the configuration best suited for single-target detection is optimal for coordinated attack detection, or for interval detection. A sweep that includes coordinated attack F1 and/or interval detection as an evaluation criterion is a natural next step.
+- **Single-target sweep.** The hyperparameter sweep optimizes for the five standard SynCAN attack types as a real-world baseline, all of which are single-target. However, there is no guarantee that the configuration best suited for single-target detection is optimal for coordinated attack detection, or for interval detection. A sweep that includes coordinated attack F1 and/or interval detection as an evaluation criterion is a natural next step.
 - **Synthetic coordinated attacks.** The coordinated attack evaluation uses injected attacks rather than recorded real-world multi-ECU compromises. The attack design reflects known CAN correlation structure, but real coordinated attacks may have different signatures.
 - **Forward-fill preprocessing.** The synchronized matrix representation loses the inter-arrival timing that CANet uses. Frequency-based attacks (suppress, flooding) are more naturally addressed by monitoring message arrival rates, which TranAD does not do.
 - **Synthetic dataset.** SynCAN's authors note it is "somewhat cleaner than in the real case." Performance on real vehicle CAN traffic is expected to be lower.
@@ -221,7 +252,7 @@ Adjusting to `q=1e-3` produces a threshold that independently converges with the
 
 The original TranAD paper holds `n_heads` and `n_layers` fixed across experiments for consistent benchmarking against other published methods. This sweep treats them as tunable parameters, since there is no prior published TranAD result on SynCAN to compare against and the dataset's structure (20 signals, variable-frequency CAN IDs, short attack intervals) differs meaningfully from SMD.
 
-The quick sweep (16 targeted configurations, `--quick`) varies `window_size`, `lr`, `n_layers`, `n_heads`, and `d_feedforward` with `loss_weighting` and `scoring_mode` fixed at `exponential_decay` and `averaged` — confirmed from the original prototype and stable on SynCAN. Key findings:
+The quick sweep (16 targeted configurations, `--quick`) varies `window_size`, `lr`, `n_layers`, `n_heads`, and `d_feedforward` with `loss_weighting` and `scoring_mode` fixed at `exponential_decay` and `averaged` respectively, as supported by previous grid sweep tests on SynCAN. Key findings:
 
 - `n_layers=2` consistently outperforms both 1 and 3. Three layers underperform on SynCAN, suggesting the dataset's correlation structure doesn't benefit from added depth.
 - `n_heads=5` outperforms `n_heads=10` at `window_size=140`. With 20 channels and 10 heads, each head attends to 2 channels on average; reducing to 5 gives each head richer multi-channel context.
