@@ -236,6 +236,7 @@ def evaluate_model(
         "threshold": mean_threshold,
         "feature_baselines": baselines,
         "method": method,
+        "details": {"q": 1e-3, "level": 0.99, "scale": 1.0},
     })
     print(f"Scorer state saved to {registry.scorer_path}")
 
