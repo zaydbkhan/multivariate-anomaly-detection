@@ -10,6 +10,7 @@ Usage:
     uv run python syncan/3_streaming_app.py
 """
 
+import json
 import logging
 import os
 import sys
@@ -72,6 +73,8 @@ def _load_resources() -> None:
         p = Path(DATA_DIR) / "signal_columns.npy"
         if p.exists():
             _signal_labels = np.load(p, allow_pickle=True).tolist()
+        else:
+            raise FileNotFoundError(f"signal_columns.npy not found at {p}")
 
 
 # -- Pydantic models --
@@ -105,7 +108,7 @@ class SyncANScoreRequest(BaseModel):
     def validate_minimum_timesteps(cls, v):
         if len(v) < 10:
             raise ValueError(
-                f"At least 10 timesteps required (window_size), got {len(v)}"
+                f"At least 10 timesteps required, got {len(v)}"
             )
         return v
 
@@ -135,7 +138,7 @@ class SyncANScoreRequest(BaseModel):
 
 class SyncANScoreResponse(BaseModel):
     n_timesteps: int
-    n_features: int = N_FEATURES
+    n_features: int
     threshold: float
     n_anomalies: int
     anomaly_ratio: float
@@ -151,7 +154,7 @@ class SyncANScoreResponse(BaseModel):
 class SyncANHealthResponse(BaseModel):
     status: str
     detector: str = "tranad-syncan"
-    n_features: int = N_FEATURES
+    n_features: int
     model_loaded: bool
 
 
@@ -185,8 +188,14 @@ app = FastAPI(
 @app.get("/health", response_model=SyncANHealthResponse)
 async def health():
     model_loaded = _scorer_state is not None
+    try:
+        _, cfg = registry.get_model(device)
+        nf = cfg.n_features
+    except FileNotFoundError:
+        nf = N_FEATURES
     return SyncANHealthResponse(
         status="ready" if model_loaded else "starting",
+        n_features=nf,
         model_loaded=model_loaded,
     )
 
@@ -197,7 +206,7 @@ async def score(request: SyncANScoreRequest):
 
     try:
         _load_resources()
-    except FileNotFoundError as e:
+    except (FileNotFoundError, json.JSONDecodeError) as e:
         raise HTTPException(status_code=404, detail=str(e))
 
     model, cfg = registry.get_model(device)
@@ -206,10 +215,10 @@ async def score(request: SyncANScoreRequest):
     threshold_method = _scorer_state.get("method", "unknown") if _scorer_state else "unknown"
 
     data = np.array(request.data, dtype=np.float64)
-    if data.shape[1] != N_FEATURES:
+    if data.shape[1] != cfg.n_features:
         raise HTTPException(
             status_code=422,
-            detail=f"Feature count mismatch: model expects {N_FEATURES}, got {data.shape[1]}",
+            detail=f"Feature count mismatch: model expects {cfg.n_features}, got {data.shape[1]}",
         )
 
     min_vals = _norm_params[0]
@@ -293,6 +302,7 @@ async def score(request: SyncANScoreRequest):
 
     return SyncANScoreResponse(
         n_timesteps=len(data),
+        n_features=cfg.n_features,
         threshold=threshold,
         n_anomalies=n_anomalies,
         anomaly_ratio=round(n_anomalies / len(data), 6),
