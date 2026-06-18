@@ -49,12 +49,15 @@ device = auto_device(DEVICE_STR)
 _norm_params: np.ndarray | None = None
 _scorer_state: dict | None = None
 _signal_labels: list[str] | None = None
-_raw_data_buffer: deque = deque(maxlen=ROLLING_BUFFER_BATCHES)
+_raw_data_buffer: deque | None = None
 
 
 def _load_resources() -> None:
-    global _norm_params, _scorer_state, _signal_labels
-    registry.get_model(device)
+    global _norm_params, _scorer_state, _signal_labels, _raw_data_buffer
+    _, cfg = registry.get_model(device)
+
+    if _raw_data_buffer is None:
+        _raw_data_buffer = deque(maxlen=ROLLING_BUFFER_BATCHES * cfg.window_size)
 
     if _norm_params is None:
         p = Path(DATA_DIR) / "norm_params.npy"
@@ -225,6 +228,7 @@ async def score(request: SyncANScoreRequest):
     predictions = (scores_1d > threshold).astype(int)
     n_anomalies = int(predictions.sum())
 
+    assert _raw_data_buffer is not None
     history = np.array(_raw_data_buffer) if len(_raw_data_buffer) > 0 else None
     _raw_data_buffer.extend(data)
 
