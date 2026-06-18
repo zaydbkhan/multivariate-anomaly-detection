@@ -166,56 +166,51 @@ def evaluate_model(
           f"{np.mean(recs):>8.4f}")
     print("=" * 65)
 
-    # Feature attribution across all attack segments
+    # Feature attribution — per-attack to avoid cross-boundary point-adjustment
     print("\n" + "=" * 65)
     print("ROOT CAUSE ATTRIBUTION")
     print("=" * 65)
-    concat_scores = np.concatenate(all_test_scores, axis=0)
-    concat_labels = np.concatenate(all_test_labels, axis=0)
-    score_1d = np.mean(concat_scores, axis=1)
-    labels_1d = concat_labels.astype(float)
-    threshold = np.mean([results[a]["threshold"] for a in ATTACK_TYPES])
-
-    raw_predictions = (score_1d > threshold).astype(float)
-    adjusted_predictions = adjust_predicts(score_1d, labels_1d, threshold)
-
-    summary_segments = build_segment_summaries(
-        concat_scores, adjusted_predictions, baselines,
-        feature_labels=signal_labels,
-    )
-    print(f"  Detected {len(summary_segments)} anomalous segments across all attacks")
-
-    attack_sizes = {a: len(all_test_scores[i]) for i, a in enumerate(ATTACK_TYPES)}
-    attack_offsets: dict[str, int] = {}
-    cum = 0
-    for a in ATTACK_TYPES:
-        attack_offsets[a] = cum
-        cum += attack_sizes[a]
+    mean_threshold = float(np.mean([results[a]["threshold"] for a in ATTACK_TYPES]))
 
     attack_attribution: dict[str, dict] = {}
+    all_summary_segments: list[dict] = []
     for attack in ATTACK_TYPES:
-        offset = attack_offsets[attack]
-        end = offset + attack_sizes[attack]
-        attack_segments = [
-            s for s in summary_segments
-            if offset <= s["segment_start"] < end
-        ]
+        test_scores = all_test_scores[ATTACK_TYPES.index(attack)]
+        test_labels = all_test_labels[ATTACK_TYPES.index(attack)]
+
+        score_1d = np.mean(test_scores, axis=1)
+        labels_1d = test_labels.astype(float)
+        threshold = results[attack]["threshold"]
+
+        raw_preds = (score_1d > threshold).astype(float)
+        adj_preds = adjust_predicts(score_1d, labels_1d, threshold)
+
+        segs = build_segment_summaries(
+            test_scores, adj_preds, baselines,
+            feature_labels=signal_labels,
+        )
+
         top_channels: set[str] = set()
-        for seg in attack_segments[:3]:
+        for seg in segs[:3]:
             for d in seg.get("attributed_dimensions", [])[:3]:
                 top_channels.add(d["label"])
+
         attack_attribution[attack] = {
-            "n_segments": len(attack_segments),
+            "n_segments": len(segs),
             "top_signals": sorted(top_channels)[:5],
         }
-        if attack_segments:
-            print(f"\n  {attack}:")
+        all_summary_segments.extend(segs)
+
+        if segs:
+            print(f"\n  {attack} ({len(segs)} segments):")
             top_list = sorted(top_channels)[:5]
             print(f"    Top contributed signals: {', '.join(top_list) if top_list else '(none)'}")
-            for seg in attack_segments[:3]:
+            for seg in segs[:3]:
                 top_dims = [d["label"] for d in seg.get("attributed_dimensions", [])[:3]]
                 print(f"    Segment [{seg['segment_start']}-{seg['segment_end']}]: "
                       f"peak={seg['peak_score']:.4f}, top={top_dims}")
+
+    print(f"\n  Total segments across all attacks: {len(all_summary_segments)}")
 
     save_data = {
         "method": method,
@@ -234,11 +229,11 @@ def evaluate_model(
 
     attribution_path = model_dir / "attribution_results.json"
     with open(attribution_path, "w") as f:
-        json.dump(summary_segments, f, indent=2, default=_json_safe)
+        json.dump(all_summary_segments, f, indent=2, default=_json_safe)
     print(f"Attribution saved to {attribution_path}")
 
     registry.save_scorer_state({
-        "threshold": float(threshold),
+        "threshold": mean_threshold,
         "feature_baselines": baselines,
         "method": method,
     })
