@@ -389,7 +389,7 @@ def main():
         f"scoring_mode={config.scoring_mode}"
     )
 
-    print(f"Scoring training data for POT calibration...")
+    print(f"Scoring training data for threshold calibration...")
     t0 = time.time()
     train_data = np.load(PROCESSED / "train_signals.npy")
     train_scores = score_batch(
