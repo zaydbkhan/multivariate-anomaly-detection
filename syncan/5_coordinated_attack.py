@@ -453,52 +453,82 @@ def main():
             feature_labels=signal_labels,
         )
 
+        # Build per-position attacked-dimension mapping
+        # (each attack position attacks a subset of overall attacked dims)
         if scenario_name == "coordinated_plateau":
-            attacked_dims = {d for g in plateau_groups for d in g}
+            all_attacked = {d for g in plateau_groups for d in g}
+            pos_dims = []
+            for atk_idx, (ps, pe) in enumerate(positions):
+                group = plateau_groups[atk_idx % len(plateau_groups)]
+                pos_dims.append((ps, pe, set(group)))
         else:
-            attacked_dims = {d for pair in top_pairs for d in pair}
+            all_attacked = {d for pair in top_pairs for d in pair}
+            pos_dims = []
+            for atk_idx, (ps, pe) in enumerate(positions):
+                pair = top_pairs[atk_idx % len(top_pairs)]
+                pos_dims.append((ps, pe, {pair[0], pair[1]}))
 
-        dim_hits: dict[int, int] = {d: 0 for d in attacked_dims}
+        dim_hits: dict[int, int] = {d: 0 for d in all_attacked}
+        dim_segments: dict[int, int] = {d: 0 for d in all_attacked}
         for seg in segments:
+            seg_start = seg["segment_start"]
+            seg_end = seg["segment_end"]
+            active: set[int] = set()
+            for ps, pe, dims in pos_dims:
+                if ps < seg_end and pe > seg_start:
+                    active.update(dims)
+            for d in active:
+                dim_segments[d] += 1
             top3 = [d["dim"] for d in seg["attributed_dimensions"][:3]]
-            for d in attacked_dims:
+            for d in active:
                 if d in top3:
                     dim_hits[d] += 1
 
-        n_segs = len(segments)
-        print(f"  Attribution ({n_segs} segments, attacked signals in top-3):")
-        for dim in sorted(attacked_dims):
-            if n_segs > 0:
-                hit_rate = 100.0 * dim_hits[dim] / n_segs
+        print(f"  Attribution ({len(segments)} segments, attacked signals in top-3):")
+        for dim in sorted(all_attacked):
+            total = dim_segments[dim]
+            if total > 0:
+                hit_rate = 100.0 * dim_hits[dim] / total
                 bar = "#" * int(hit_rate / 5) + "." * (20 - int(hit_rate / 5))
                 print(f"    {signal_labels[dim]:<15s} (dim {dim:>2d}): "
-                      f"{dim_hits[dim]:>2d}/{n_segs} ({hit_rate:>5.1f}%)  [{bar}]")
+                      f"{dim_hits[dim]:>2d}/{total} ({hit_rate:>5.1f}%)  [{bar}]")
 
         attribution_results[scenario_name] = {
-            dim: {"label": signal_labels[dim], "hits": dim_hits[dim], "total_segments": n_segs}
-            for dim in attacked_dims
+            dim: {
+                "label": signal_labels[dim],
+                "hits": dim_hits[dim],
+                "total_active_segments": dim_segments[dim],
+            }
+            for dim in all_attacked
         }
 
         # ---- two-tailed (z-score) attribution (--two-tailed flag) ----
         if args.two_tailed:
-            z2_dim_hits: dict[int, int] = {d: 0 for d in attacked_dims}
+            z2_dim_hits: dict[int, int] = {d: 0 for d in all_attacked}
             for seg in segments:
+                seg_start = seg["segment_start"]
+                seg_end = seg["segment_end"]
+                active: set[int] = set()
+                for ps, pe, dims in pos_dims:
+                    if ps < seg_end and pe > seg_start:
+                        active.update(dims)
                 s, e = seg["segment_start"], seg["segment_end"]
                 seg_scores = test_scores[s:e + 1]
                 z_scores = (seg_scores - train_mean) / train_std  # (T, F)
                 mean_z = np.mean(np.abs(z_scores), axis=0)  # (F,)
                 top3_z = np.argsort(mean_z)[::-1][:3]
-                for d in attacked_dims:
+                for d in active:
                     if d in top3_z:
                         z2_dim_hits[d] += 1
 
-            print(f"  Two-tailed z-score ({n_segs} segments, attacked signals in top-3):")
-            for dim in sorted(attacked_dims):
-                if n_segs > 0:
-                    hit_rate = 100.0 * z2_dim_hits[dim] / n_segs
+            print(f"  Two-tailed z-score ({len(segments)} segments, attacked signals in top-3):")
+            for dim in sorted(all_attacked):
+                total = dim_segments[dim]
+                if total > 0:
+                    hit_rate = 100.0 * z2_dim_hits[dim] / total
                     bar = "#" * int(hit_rate / 5) + "." * (20 - int(hit_rate / 5))
                     print(f"    {signal_labels[dim]:<15s} (dim {dim:>2d}): "
-                          f"{z2_dim_hits[dim]:>2d}/{n_segs} ({hit_rate:>5.1f}%)  [{bar}]")
+                          f"{z2_dim_hits[dim]:>2d}/{total} ({hit_rate:>5.1f}%)  [{bar}]")
 
         del test_sig, test_lbl, test_scores, score_1d
 
