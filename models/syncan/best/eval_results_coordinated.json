@@ -1,62 +1,3746 @@
 {
+  "method": "pot",
+  "avg_f1": 0.8953613011780265,
+  "avg_precision": 0.829938226466043,
+  "avg_recall": 0.977276070494097,
   "coordinated_plateau": {
-    "f1": 0.809547902681318,
-    "precision": 0.6800408018700775,
-    "recall": 0.99999999875,
-    "roc_auc": 0.993555456631168,
-    "threshold": 0.0022106529815011946,
-    "TP": 8000,
-    "TN": 288266,
-    "FP": 3764,
+    "f1": 0.9344372594198461,
+    "precision": 0.8769512751254158,
+    "recall": 0.9999999996516529,
+    "roc_auc": 0.9925771128875915,
+    "threshold": 0.0022296599698765455,
+    "TP": 28707,
+    "TN": 267295,
+    "FP": 4028,
     "FN": 0,
-    "interval_avg_f1": 0.985711219904266,
-    "interval_avg_precision": 0.9771676796920683,
-    "interval_avg_recall": 0.9976249999999999,
     "recall_progression": {
-      "50": 0.9810000000000001,
-      "100": 0.9904999999999997,
-      "200": 0.9952500000000001,
-      "400": 0.9976249999999999
+      "0.25": 0.9630709801582635,
+      "0.50": 0.9691176928911094,
+      "0.75": 0.9724856329374003,
+      "1.00": 0.9747389317662194
+    },
+    "interval_detection": {
+      "interval_recall": {
+        "0.01": 1.0,
+        "0.02": 1.0,
+        "0.05": 1.0,
+        "0.10": 0.99,
+        "0.25": 0.99,
+        "0.50": 0.98,
+        "0.90": 0.96
+      },
+      "detected_intervals": {
+        "0.01": 100,
+        "0.02": 100,
+        "0.05": 100,
+        "0.10": 99,
+        "0.25": 99,
+        "0.50": 98,
+        "0.90": 96
+      },
+      "total_intervals": 100,
+      "avg_flagged_fraction": 0.9747389317662194,
+      "per_interval": [
+        {
+          "start": 4498,
+          "end": 4588,
+          "flagged_fraction": 0.9888888888888889
+        },
+        {
+          "start": 4631,
+          "end": 5030,
+          "flagged_fraction": 0.9974937343358395
+        },
+        {
+          "start": 9606,
+          "end": 9951,
+          "flagged_fraction": 0.9971014492753624
+        },
+        {
+          "start": 13817,
+          "end": 14064,
+          "flagged_fraction": 0.9959514170040485
+        },
+        {
+          "start": 18164,
+          "end": 18409,
+          "flagged_fraction": 0.9959183673469387
+        },
+        {
+          "start": 22949,
+          "end": 23386,
+          "flagged_fraction": 0.9977116704805492
+        },
+        {
+          "start": 26054,
+          "end": 26142,
+          "flagged_fraction": 0.9886363636363636
+        },
+        {
+          "start": 29449,
+          "end": 29813,
+          "flagged_fraction": 0.9972527472527473
+        },
+        {
+          "start": 30626,
+          "end": 30766,
+          "flagged_fraction": 0.9928571428571429
+        },
+        {
+          "start": 31432,
+          "end": 31524,
+          "flagged_fraction": 0.9891304347826086
+        },
+        {
+          "start": 35410,
+          "end": 35697,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 38436,
+          "end": 38926,
+          "flagged_fraction": 0.9979591836734694
+        },
+        {
+          "start": 42213,
+          "end": 42594,
+          "flagged_fraction": 0.9973753280839895
+        },
+        {
+          "start": 47042,
+          "end": 47435,
+          "flagged_fraction": 0.9974554707379135
+        },
+        {
+          "start": 51126,
+          "end": 51499,
+          "flagged_fraction": 0.9973190348525469
+        },
+        {
+          "start": 54718,
+          "end": 55122,
+          "flagged_fraction": 0.9975247524752475
+        },
+        {
+          "start": 58374,
+          "end": 58655,
+          "flagged_fraction": 0.99644128113879
+        },
+        {
+          "start": 60422,
+          "end": 60529,
+          "flagged_fraction": 0.9906542056074766
+        },
+        {
+          "start": 60708,
+          "end": 61136,
+          "flagged_fraction": 0.9976635514018691
+        },
+        {
+          "start": 63675,
+          "end": 63928,
+          "flagged_fraction": 0.9960474308300395
+        },
+        {
+          "start": 65176,
+          "end": 65451,
+          "flagged_fraction": 0.9963636363636363
+        },
+        {
+          "start": 67826,
+          "end": 68043,
+          "flagged_fraction": 0.9953917050691244
+        },
+        {
+          "start": 73005,
+          "end": 73137,
+          "flagged_fraction": 0.7803030303030303
+        },
+        {
+          "start": 74497,
+          "end": 74964,
+          "flagged_fraction": 0.9978586723768736
+        },
+        {
+          "start": 75303,
+          "end": 75705,
+          "flagged_fraction": 0.9975124378109452
+        },
+        {
+          "start": 77341,
+          "end": 77681,
+          "flagged_fraction": 0.6941176470588235
+        },
+        {
+          "start": 79388,
+          "end": 79619,
+          "flagged_fraction": 0.9956709956709957
+        },
+        {
+          "start": 83468,
+          "end": 83889,
+          "flagged_fraction": 0.997624703087886
+        },
+        {
+          "start": 87128,
+          "end": 87423,
+          "flagged_fraction": 0.9966101694915255
+        },
+        {
+          "start": 91981,
+          "end": 92230,
+          "flagged_fraction": 0.9959839357429718
+        },
+        {
+          "start": 96093,
+          "end": 96346,
+          "flagged_fraction": 0.9960474308300395
+        },
+        {
+          "start": 98709,
+          "end": 98861,
+          "flagged_fraction": 0.993421052631579
+        },
+        {
+          "start": 103594,
+          "end": 103685,
+          "flagged_fraction": 0.989010989010989
+        },
+        {
+          "start": 104656,
+          "end": 104956,
+          "flagged_fraction": 0.9966666666666667
+        },
+        {
+          "start": 105088,
+          "end": 105538,
+          "flagged_fraction": 0.9977777777777778
+        },
+        {
+          "start": 106062,
+          "end": 106140,
+          "flagged_fraction": 0.9871794871794872
+        },
+        {
+          "start": 110340,
+          "end": 110777,
+          "flagged_fraction": 0.9977116704805492
+        },
+        {
+          "start": 113463,
+          "end": 113886,
+          "flagged_fraction": 0.9976359338061466
+        },
+        {
+          "start": 114824,
+          "end": 114998,
+          "flagged_fraction": 0.9942528735632183
+        },
+        {
+          "start": 117911,
+          "end": 118245,
+          "flagged_fraction": 0.9970059880239521
+        },
+        {
+          "start": 119131,
+          "end": 119255,
+          "flagged_fraction": 0.9919354838709677
+        },
+        {
+          "start": 123304,
+          "end": 123695,
+          "flagged_fraction": 0.9974424552429667
+        },
+        {
+          "start": 126289,
+          "end": 126654,
+          "flagged_fraction": 0.9972602739726028
+        },
+        {
+          "start": 128869,
+          "end": 129078,
+          "flagged_fraction": 0.9952153110047847
+        },
+        {
+          "start": 130831,
+          "end": 130911,
+          "flagged_fraction": 0.9875
+        },
+        {
+          "start": 134576,
+          "end": 135063,
+          "flagged_fraction": 0.997946611909651
+        },
+        {
+          "start": 137167,
+          "end": 137418,
+          "flagged_fraction": 0.9960159362549801
+        },
+        {
+          "start": 137928,
+          "end": 138380,
+          "flagged_fraction": 0.9977876106194691
+        },
+        {
+          "start": 139066,
+          "end": 139421,
+          "flagged_fraction": 0.9971830985915493
+        },
+        {
+          "start": 145014,
+          "end": 145415,
+          "flagged_fraction": 0.9975062344139651
+        },
+        {
+          "start": 150698,
+          "end": 151090,
+          "flagged_fraction": 0.9974489795918368
+        },
+        {
+          "start": 155158,
+          "end": 155295,
+          "flagged_fraction": 0.9927007299270073
+        },
+        {
+          "start": 156841,
+          "end": 157055,
+          "flagged_fraction": 0.9953271028037384
+        },
+        {
+          "start": 162690,
+          "end": 162950,
+          "flagged_fraction": 0.9961538461538462
+        },
+        {
+          "start": 167478,
+          "end": 167752,
+          "flagged_fraction": 0.9963503649635036
+        },
+        {
+          "start": 171920,
+          "end": 171989,
+          "flagged_fraction": 0.9855072463768116
+        },
+        {
+          "start": 174602,
+          "end": 174898,
+          "flagged_fraction": 0.9966216216216216
+        },
+        {
+          "start": 176481,
+          "end": 176600,
+          "flagged_fraction": 0.9915966386554622
+        },
+        {
+          "start": 177160,
+          "end": 177545,
+          "flagged_fraction": 0.9974025974025974
+        },
+        {
+          "start": 182793,
+          "end": 183151,
+          "flagged_fraction": 0.9972067039106145
+        },
+        {
+          "start": 185801,
+          "end": 186267,
+          "flagged_fraction": 0.9978540772532188
+        },
+        {
+          "start": 187444,
+          "end": 187829,
+          "flagged_fraction": 0.9974025974025974
+        },
+        {
+          "start": 189608,
+          "end": 189823,
+          "flagged_fraction": 0.9953488372093023
+        },
+        {
+          "start": 193191,
+          "end": 193677,
+          "flagged_fraction": 0.9979423868312757
+        },
+        {
+          "start": 194705,
+          "end": 194940,
+          "flagged_fraction": 0.9957446808510638
+        },
+        {
+          "start": 199921,
+          "end": 200117,
+          "flagged_fraction": 0.9948979591836735
+        },
+        {
+          "start": 204527,
+          "end": 204985,
+          "flagged_fraction": 0.9978165938864629
+        },
+        {
+          "start": 209168,
+          "end": 209385,
+          "flagged_fraction": 0.9953917050691244
+        },
+        {
+          "start": 211897,
+          "end": 211981,
+          "flagged_fraction": 0.9880952380952381
+        },
+        {
+          "start": 215629,
+          "end": 215890,
+          "flagged_fraction": 0.9961685823754789
+        },
+        {
+          "start": 219286,
+          "end": 219694,
+          "flagged_fraction": 0.9975490196078431
+        },
+        {
+          "start": 223473,
+          "end": 223608,
+          "flagged_fraction": 0.9925925925925926
+        },
+        {
+          "start": 224099,
+          "end": 224357,
+          "flagged_fraction": 0.9961240310077519
+        },
+        {
+          "start": 226775,
+          "end": 226883,
+          "flagged_fraction": 0.9907407407407407
+        },
+        {
+          "start": 227125,
+          "end": 227484,
+          "flagged_fraction": 0.9972144846796658
+        },
+        {
+          "start": 230356,
+          "end": 230620,
+          "flagged_fraction": 0.9962121212121212
+        },
+        {
+          "start": 232538,
+          "end": 232736,
+          "flagged_fraction": 0.9949494949494949
+        },
+        {
+          "start": 233576,
+          "end": 233728,
+          "flagged_fraction": 0.993421052631579
+        },
+        {
+          "start": 234329,
+          "end": 234633,
+          "flagged_fraction": 0.9967105263157895
+        },
+        {
+          "start": 238050,
+          "end": 238402,
+          "flagged_fraction": 0.9971590909090909
+        },
+        {
+          "start": 239394,
+          "end": 239868,
+          "flagged_fraction": 0.9978902953586498
+        },
+        {
+          "start": 245247,
+          "end": 245494,
+          "flagged_fraction": 0.9959514170040485
+        },
+        {
+          "start": 248873,
+          "end": 248995,
+          "flagged_fraction": 0.09016393442622951
+        },
+        {
+          "start": 251012,
+          "end": 251437,
+          "flagged_fraction": 0.9976470588235294
+        },
+        {
+          "start": 254873,
+          "end": 255207,
+          "flagged_fraction": 0.9970059880239521
+        },
+        {
+          "start": 255340,
+          "end": 255705,
+          "flagged_fraction": 0.9972602739726028
+        },
+        {
+          "start": 261279,
+          "end": 261372,
+          "flagged_fraction": 0.989247311827957
+        },
+        {
+          "start": 264176,
+          "end": 264366,
+          "flagged_fraction": 0.9947368421052631
+        },
+        {
+          "start": 268917,
+          "end": 269313,
+          "flagged_fraction": 0.9974747474747475
+        },
+        {
+          "start": 269794,
+          "end": 270219,
+          "flagged_fraction": 0.34352941176470586
+        },
+        {
+          "start": 273049,
+          "end": 273295,
+          "flagged_fraction": 0.9959349593495935
+        },
+        {
+          "start": 276148,
+          "end": 276560,
+          "flagged_fraction": 0.9975728155339806
+        },
+        {
+          "start": 282013,
+          "end": 282442,
+          "flagged_fraction": 0.9976689976689976
+        },
+        {
+          "start": 285766,
+          "end": 285990,
+          "flagged_fraction": 0.9955357142857143
+        },
+        {
+          "start": 288743,
+          "end": 289198,
+          "flagged_fraction": 0.9978021978021978
+        },
+        {
+          "start": 290750,
+          "end": 290930,
+          "flagged_fraction": 0.9944444444444445
+        },
+        {
+          "start": 292858,
+          "end": 293016,
+          "flagged_fraction": 0.9936708860759493
+        },
+        {
+          "start": 296043,
+          "end": 296400,
+          "flagged_fraction": 0.9971988795518207
+        },
+        {
+          "start": 298952,
+          "end": 299289,
+          "flagged_fraction": 0.9970326409495549
+        },
+        {
+          "start": 299415,
+          "end": 299528,
+          "flagged_fraction": 0.9911504424778761
+        }
+      ]
+    },
+    "tnr": {
+      "tnr": {
+        "0.01": 1.0,
+        "0.02": 1.0,
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.25": 1.0,
+        "0.50": 1.0,
+        "0.90": 1.0
+      },
+      "fpr": {
+        "0.01": 0.0,
+        "0.02": 0.0,
+        "0.05": 0.0,
+        "0.10": 0.0,
+        "0.25": 0.0,
+        "0.50": 0.0,
+        "0.90": 0.0
+      },
+      "total_intervals": 100,
+      "per_interval": [
+        {
+          "start": 13128,
+          "end": 13413,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 19124,
+          "end": 19409,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 20355,
+          "end": 20640,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 22881,
+          "end": 23166,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 25753,
+          "end": 26038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 26743,
+          "end": 27028,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 27611,
+          "end": 27896,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 28220,
+          "end": 28505,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 29142,
+          "end": 29427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38391,
+          "end": 38676,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38940,
+          "end": 39225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 41890,
+          "end": 42175,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 46241,
+          "end": 46526,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 48162,
+          "end": 48447,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 49517,
+          "end": 49802,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 54704,
+          "end": 54989,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 56787,
+          "end": 57072,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 58332,
+          "end": 58617,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 60371,
+          "end": 60656,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68010,
+          "end": 68295,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68098,
+          "end": 68383,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 71805,
+          "end": 72090,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 82940,
+          "end": 83225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 86424,
+          "end": 86709,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 93626,
+          "end": 93911,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 97653,
+          "end": 97938,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 98967,
+          "end": 99252,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 106247,
+          "end": 106532,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109062,
+          "end": 109347,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109886,
+          "end": 110171,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111031,
+          "end": 111316,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111116,
+          "end": 111401,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 116142,
+          "end": 116427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 120592,
+          "end": 120877,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 123136,
+          "end": 123421,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 129753,
+          "end": 130038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 130450,
+          "end": 130735,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131026,
+          "end": 131311,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131509,
+          "end": 131794,
+          "flagged_fraction": 0.007017543859649123,
+          "is_fp": false
+        },
+        {
+          "start": 132880,
+          "end": 133165,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 133569,
+          "end": 133854,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134965,
+          "end": 135250,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134992,
+          "end": 135277,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 138752,
+          "end": 139037,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 139876,
+          "end": 140161,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 140733,
+          "end": 141018,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 142579,
+          "end": 142864,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149188,
+          "end": 149473,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149938,
+          "end": 150223,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 153795,
+          "end": 154080,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 157763,
+          "end": 158048,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163451,
+          "end": 163736,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163808,
+          "end": 164093,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 166197,
+          "end": 166482,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 169194,
+          "end": 169479,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 188759,
+          "end": 189044,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 189300,
+          "end": 189585,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 190866,
+          "end": 191151,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 192948,
+          "end": 193233,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 196141,
+          "end": 196426,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 200760,
+          "end": 201045,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 203168,
+          "end": 203453,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204573,
+          "end": 204858,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204713,
+          "end": 204998,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 205751,
+          "end": 206036,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 208969,
+          "end": 209254,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209891,
+          "end": 210176,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209939,
+          "end": 210224,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 214999,
+          "end": 215284,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 220474,
+          "end": 220759,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 222793,
+          "end": 223078,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 223211,
+          "end": 223496,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227189,
+          "end": 227474,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227739,
+          "end": 228024,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 228083,
+          "end": 228368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 230149,
+          "end": 230434,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 231914,
+          "end": 232199,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 233278,
+          "end": 233563,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 234213,
+          "end": 234498,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 235553,
+          "end": 235838,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 238478,
+          "end": 238763,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 241218,
+          "end": 241503,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 246560,
+          "end": 246845,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 248027,
+          "end": 248312,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249458,
+          "end": 249743,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249578,
+          "end": 249863,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 251643,
+          "end": 251928,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 252287,
+          "end": 252572,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257215,
+          "end": 257500,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257280,
+          "end": 257565,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 266083,
+          "end": 266368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 267663,
+          "end": 267948,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 269193,
+          "end": 269478,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 271400,
+          "end": 271685,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 276488,
+          "end": 276773,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 277723,
+          "end": 278008,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 281835,
+          "end": 282120,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 289972,
+          "end": 290257,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 290910,
+          "end": 291195,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 292353,
+          "end": 292638,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        }
+      ]
+    },
+    "attribution": {
+      "0": {
+        "label": "id1_Signal1",
+        "hits": 9,
+        "total_active_segments": 20
+      },
+      "1": {
+        "label": "id1_Signal2",
+        "hits": 11,
+        "total_active_segments": 20
+      },
+      "2": {
+        "label": "id2_Signal1",
+        "hits": 10,
+        "total_active_segments": 20
+      },
+      "3": {
+        "label": "id2_Signal2",
+        "hits": 7,
+        "total_active_segments": 20
+      },
+      "4": {
+        "label": "id2_Signal3",
+        "hits": 12,
+        "total_active_segments": 20
+      },
+      "5": {
+        "label": "id3_Signal1",
+        "hits": 5,
+        "total_active_segments": 20
+      },
+      "6": {
+        "label": "id3_Signal2",
+        "hits": 20,
+        "total_active_segments": 20
+      },
+      "7": {
+        "label": "id4_Signal1",
+        "hits": 5,
+        "total_active_segments": 20
+      },
+      "8": {
+        "label": "id5_Signal1",
+        "hits": 16,
+        "total_active_segments": 20
+      },
+      "9": {
+        "label": "id5_Signal2",
+        "hits": 7,
+        "total_active_segments": 20
+      },
+      "10": {
+        "label": "id6_Signal1",
+        "hits": 6,
+        "total_active_segments": 20
+      },
+      "11": {
+        "label": "id6_Signal2",
+        "hits": 5,
+        "total_active_segments": 20
+      },
+      "12": {
+        "label": "id7_Signal1",
+        "hits": 6,
+        "total_active_segments": 20
+      },
+      "13": {
+        "label": "id7_Signal2",
+        "hits": 12,
+        "total_active_segments": 20
+      },
+      "14": {
+        "label": "id8_Signal1",
+        "hits": 8,
+        "total_active_segments": 20
+      },
+      "15": {
+        "label": "id9_Signal1",
+        "hits": 15,
+        "total_active_segments": 20
+      },
+      "16": {
+        "label": "id10_Signal1",
+        "hits": 15,
+        "total_active_segments": 20
+      },
+      "17": {
+        "label": "id10_Signal2",
+        "hits": 12,
+        "total_active_segments": 20
+      },
+      "18": {
+        "label": "id10_Signal3",
+        "hits": 0,
+        "total_active_segments": 20
+      },
+      "19": {
+        "label": "id10_Signal4",
+        "hits": 14,
+        "total_active_segments": 20
+      }
     }
   },
   "coordinated_mixed": {
-    "f1": 0.7578581192916841,
-    "precision": 0.61012812644133,
-    "recall": 0.99999999875,
-    "roc_auc": 0.99124747457453,
-    "threshold": 0.0022212853084812205,
-    "TP": 8000,
-    "TN": 286918,
-    "FP": 5112,
+    "f1": 0.8490273300800489,
+    "precision": 0.737668098279663,
+    "recall": 0.9999999996194101,
+    "roc_auc": 0.982933645047579,
+    "threshold": 0.002212842491143716,
+    "TP": 26275,
+    "TN": 264411,
+    "FP": 9344,
     "FN": 0,
-    "interval_avg_f1": 0.9210085935416139,
-    "interval_avg_precision": 0.8826532642071093,
-    "interval_avg_recall": 0.9678749999999999,
     "recall_progression": {
-      "50": 0.818,
-      "100": 0.8814999999999997,
-      "200": 0.9357500000000002,
-      "400": 0.9678749999999999
+      "0.25": 0.8896550619169542,
+      "0.50": 0.94351099673778,
+      "0.75": 0.9623252352373144,
+      "1.00": 0.9717501124865092
+    },
+    "interval_detection": {
+      "interval_recall": {
+        "0.01": 1.0,
+        "0.02": 1.0,
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.25": 1.0,
+        "0.50": 1.0,
+        "0.90": 0.89
+      },
+      "detected_intervals": {
+        "0.01": 100,
+        "0.02": 100,
+        "0.05": 100,
+        "0.10": 100,
+        "0.25": 100,
+        "0.50": 100,
+        "0.90": 89
+      },
+      "total_intervals": 100,
+      "avg_flagged_fraction": 0.9717501124865092,
+      "per_interval": [
+        {
+          "start": 2524,
+          "end": 2801,
+          "flagged_fraction": 0.9963898916967509
+        },
+        {
+          "start": 4876,
+          "end": 5220,
+          "flagged_fraction": 0.997093023255814
+        },
+        {
+          "start": 8213,
+          "end": 8443,
+          "flagged_fraction": 0.9652173913043478
+        },
+        {
+          "start": 9184,
+          "end": 9253,
+          "flagged_fraction": 0.9855072463768116
+        },
+        {
+          "start": 9272,
+          "end": 9582,
+          "flagged_fraction": 0.9967741935483871
+        },
+        {
+          "start": 13704,
+          "end": 13763,
+          "flagged_fraction": 0.9661016949152542
+        },
+        {
+          "start": 15988,
+          "end": 16162,
+          "flagged_fraction": 0.9942528735632183
+        },
+        {
+          "start": 18967,
+          "end": 19395,
+          "flagged_fraction": 0.9976635514018691
+        },
+        {
+          "start": 23313,
+          "end": 23572,
+          "flagged_fraction": 0.8957528957528957
+        },
+        {
+          "start": 27304,
+          "end": 27618,
+          "flagged_fraction": 0.8089171974522293
+        },
+        {
+          "start": 31832,
+          "end": 32317,
+          "flagged_fraction": 0.9979381443298969
+        },
+        {
+          "start": 33891,
+          "end": 34042,
+          "flagged_fraction": 0.9933774834437086
+        },
+        {
+          "start": 34989,
+          "end": 35420,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 35482,
+          "end": 35871,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 37807,
+          "end": 38028,
+          "flagged_fraction": 0.8778280542986425
+        },
+        {
+          "start": 40993,
+          "end": 41161,
+          "flagged_fraction": 0.9940476190476191
+        },
+        {
+          "start": 43931,
+          "end": 44104,
+          "flagged_fraction": 0.9190751445086706
+        },
+        {
+          "start": 48401,
+          "end": 48640,
+          "flagged_fraction": 0.99581589958159
+        },
+        {
+          "start": 52687,
+          "end": 53025,
+          "flagged_fraction": 0.9970414201183432
+        },
+        {
+          "start": 55453,
+          "end": 55706,
+          "flagged_fraction": 0.9960474308300395
+        },
+        {
+          "start": 56306,
+          "end": 56422,
+          "flagged_fraction": 0.9913793103448276
+        },
+        {
+          "start": 58869,
+          "end": 59349,
+          "flagged_fraction": 0.9979166666666667
+        },
+        {
+          "start": 63844,
+          "end": 64069,
+          "flagged_fraction": 0.9955555555555555
+        },
+        {
+          "start": 68376,
+          "end": 68828,
+          "flagged_fraction": 0.9977876106194691
+        },
+        {
+          "start": 72124,
+          "end": 72259,
+          "flagged_fraction": 0.9407407407407408
+        },
+        {
+          "start": 75480,
+          "end": 75655,
+          "flagged_fraction": 0.9942857142857143
+        },
+        {
+          "start": 79708,
+          "end": 80108,
+          "flagged_fraction": 0.9975
+        },
+        {
+          "start": 83467,
+          "end": 83642,
+          "flagged_fraction": 0.9942857142857143
+        },
+        {
+          "start": 86694,
+          "end": 87147,
+          "flagged_fraction": 0.9977924944812362
+        },
+        {
+          "start": 89111,
+          "end": 89351,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 91304,
+          "end": 91560,
+          "flagged_fraction": 0.99609375
+        },
+        {
+          "start": 93938,
+          "end": 93989,
+          "flagged_fraction": 0.9803921568627451
+        },
+        {
+          "start": 98300,
+          "end": 98540,
+          "flagged_fraction": 0.7666666666666667
+        },
+        {
+          "start": 101676,
+          "end": 101865,
+          "flagged_fraction": 0.9947089947089947
+        },
+        {
+          "start": 105901,
+          "end": 106198,
+          "flagged_fraction": 0.9966329966329966
+        },
+        {
+          "start": 108656,
+          "end": 109135,
+          "flagged_fraction": 0.9979123173277662
+        },
+        {
+          "start": 111758,
+          "end": 111814,
+          "flagged_fraction": 0.9821428571428571
+        },
+        {
+          "start": 115230,
+          "end": 115658,
+          "flagged_fraction": 0.9976635514018691
+        },
+        {
+          "start": 119054,
+          "end": 119284,
+          "flagged_fraction": 0.8478260869565217
+        },
+        {
+          "start": 120357,
+          "end": 120648,
+          "flagged_fraction": 0.9965635738831615
+        },
+        {
+          "start": 125180,
+          "end": 125441,
+          "flagged_fraction": 0.9961685823754789
+        },
+        {
+          "start": 126539,
+          "end": 126807,
+          "flagged_fraction": 0.996268656716418
+        },
+        {
+          "start": 130025,
+          "end": 130446,
+          "flagged_fraction": 0.7767220902612827
+        },
+        {
+          "start": 132218,
+          "end": 132694,
+          "flagged_fraction": 0.9978991596638656
+        },
+        {
+          "start": 134070,
+          "end": 134566,
+          "flagged_fraction": 0.9979838709677419
+        },
+        {
+          "start": 139422,
+          "end": 139739,
+          "flagged_fraction": 0.9968454258675079
+        },
+        {
+          "start": 143061,
+          "end": 143426,
+          "flagged_fraction": 0.9972602739726028
+        },
+        {
+          "start": 144811,
+          "end": 145286,
+          "flagged_fraction": 0.9978947368421053
+        },
+        {
+          "start": 148841,
+          "end": 149311,
+          "flagged_fraction": 0.997872340425532
+        },
+        {
+          "start": 152991,
+          "end": 153491,
+          "flagged_fraction": 0.992
+        },
+        {
+          "start": 155265,
+          "end": 155336,
+          "flagged_fraction": 0.9859154929577465
+        },
+        {
+          "start": 159898,
+          "end": 159963,
+          "flagged_fraction": 0.9538461538461539
+        },
+        {
+          "start": 164703,
+          "end": 165014,
+          "flagged_fraction": 0.9967845659163987
+        },
+        {
+          "start": 166312,
+          "end": 166415,
+          "flagged_fraction": 0.9902912621359223
+        },
+        {
+          "start": 169987,
+          "end": 170426,
+          "flagged_fraction": 0.9977220956719818
+        },
+        {
+          "start": 171413,
+          "end": 171806,
+          "flagged_fraction": 0.9974554707379135
+        },
+        {
+          "start": 172874,
+          "end": 172981,
+          "flagged_fraction": 0.9906542056074766
+        },
+        {
+          "start": 176759,
+          "end": 176865,
+          "flagged_fraction": 0.9905660377358491
+        },
+        {
+          "start": 181486,
+          "end": 181583,
+          "flagged_fraction": 0.9896907216494846
+        },
+        {
+          "start": 184008,
+          "end": 184212,
+          "flagged_fraction": 0.9950980392156863
+        },
+        {
+          "start": 185747,
+          "end": 186178,
+          "flagged_fraction": 0.9976798143851509
+        },
+        {
+          "start": 187558,
+          "end": 187743,
+          "flagged_fraction": 0.9675675675675676
+        },
+        {
+          "start": 189962,
+          "end": 190329,
+          "flagged_fraction": 0.997275204359673
+        },
+        {
+          "start": 193459,
+          "end": 193757,
+          "flagged_fraction": 0.9966442953020134
+        },
+        {
+          "start": 198250,
+          "end": 198571,
+          "flagged_fraction": 0.8940809968847352
+        },
+        {
+          "start": 202226,
+          "end": 202298,
+          "flagged_fraction": 0.9861111111111112
+        },
+        {
+          "start": 206598,
+          "end": 206953,
+          "flagged_fraction": 0.9971830985915493
+        },
+        {
+          "start": 210663,
+          "end": 210916,
+          "flagged_fraction": 0.9960474308300395
+        },
+        {
+          "start": 213020,
+          "end": 213132,
+          "flagged_fraction": 0.9910714285714286
+        },
+        {
+          "start": 217794,
+          "end": 218094,
+          "flagged_fraction": 0.9966666666666667
+        },
+        {
+          "start": 221062,
+          "end": 221386,
+          "flagged_fraction": 0.9969135802469136
+        },
+        {
+          "start": 223602,
+          "end": 223705,
+          "flagged_fraction": 0.9902912621359223
+        },
+        {
+          "start": 227023,
+          "end": 227298,
+          "flagged_fraction": 0.9963636363636363
+        },
+        {
+          "start": 230982,
+          "end": 231185,
+          "flagged_fraction": 0.9950738916256158
+        },
+        {
+          "start": 233978,
+          "end": 234367,
+          "flagged_fraction": 0.9974293059125964
+        },
+        {
+          "start": 236730,
+          "end": 237007,
+          "flagged_fraction": 0.9963898916967509
+        },
+        {
+          "start": 241475,
+          "end": 241540,
+          "flagged_fraction": 0.9846153846153847
+        },
+        {
+          "start": 244023,
+          "end": 244210,
+          "flagged_fraction": 0.9946524064171123
+        },
+        {
+          "start": 246841,
+          "end": 247144,
+          "flagged_fraction": 0.9240924092409241
+        },
+        {
+          "start": 251723,
+          "end": 251961,
+          "flagged_fraction": 0.8865546218487395
+        },
+        {
+          "start": 256660,
+          "end": 256830,
+          "flagged_fraction": 0.9941176470588236
+        },
+        {
+          "start": 260017,
+          "end": 260253,
+          "flagged_fraction": 0.902542372881356
+        },
+        {
+          "start": 262347,
+          "end": 262544,
+          "flagged_fraction": 0.7411167512690355
+        },
+        {
+          "start": 263252,
+          "end": 263344,
+          "flagged_fraction": 0.8586956521739131
+        },
+        {
+          "start": 263830,
+          "end": 264194,
+          "flagged_fraction": 0.9972527472527473
+        },
+        {
+          "start": 265682,
+          "end": 265997,
+          "flagged_fraction": 0.9968253968253968
+        },
+        {
+          "start": 266046,
+          "end": 266335,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 270482,
+          "end": 270565,
+          "flagged_fraction": 0.9879518072289156
+        },
+        {
+          "start": 271659,
+          "end": 272011,
+          "flagged_fraction": 0.9971590909090909
+        },
+        {
+          "start": 272790,
+          "end": 273101,
+          "flagged_fraction": 0.9967845659163987
+        },
+        {
+          "start": 275506,
+          "end": 275919,
+          "flagged_fraction": 0.9975786924939467
+        },
+        {
+          "start": 279044,
+          "end": 279131,
+          "flagged_fraction": 0.9885057471264368
+        },
+        {
+          "start": 279328,
+          "end": 279524,
+          "flagged_fraction": 0.9948979591836735
+        },
+        {
+          "start": 280147,
+          "end": 280440,
+          "flagged_fraction": 0.9965870307167235
+        },
+        {
+          "start": 285133,
+          "end": 285242,
+          "flagged_fraction": 0.9908256880733946
+        },
+        {
+          "start": 288225,
+          "end": 288658,
+          "flagged_fraction": 0.9976905311778291
+        },
+        {
+          "start": 293219,
+          "end": 293379,
+          "flagged_fraction": 0.99375
+        },
+        {
+          "start": 294410,
+          "end": 294590,
+          "flagged_fraction": 0.9944444444444445
+        },
+        {
+          "start": 298503,
+          "end": 298728,
+          "flagged_fraction": 0.9333333333333333
+        },
+        {
+          "start": 299443,
+          "end": 299530,
+          "flagged_fraction": 0.7586206896551724
+        }
+      ]
+    },
+    "tnr": {
+      "tnr": {
+        "0.01": 1.0,
+        "0.02": 1.0,
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.25": 1.0,
+        "0.50": 1.0,
+        "0.90": 1.0
+      },
+      "fpr": {
+        "0.01": 0.0,
+        "0.02": 0.0,
+        "0.05": 0.0,
+        "0.10": 0.0,
+        "0.25": 0.0,
+        "0.50": 0.0,
+        "0.90": 0.0
+      },
+      "total_intervals": 100,
+      "per_interval": [
+        {
+          "start": 13128,
+          "end": 13413,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 19124,
+          "end": 19409,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 20355,
+          "end": 20640,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 22881,
+          "end": 23166,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 25753,
+          "end": 26038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 26743,
+          "end": 27028,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 27611,
+          "end": 27896,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 28220,
+          "end": 28505,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 29142,
+          "end": 29427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38391,
+          "end": 38676,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38940,
+          "end": 39225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 41890,
+          "end": 42175,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 46241,
+          "end": 46526,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 48162,
+          "end": 48447,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 49517,
+          "end": 49802,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 54704,
+          "end": 54989,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 56787,
+          "end": 57072,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 58332,
+          "end": 58617,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 60371,
+          "end": 60656,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68010,
+          "end": 68295,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68098,
+          "end": 68383,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 71805,
+          "end": 72090,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 82940,
+          "end": 83225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 86424,
+          "end": 86709,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 93626,
+          "end": 93911,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 97653,
+          "end": 97938,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 98967,
+          "end": 99252,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 106247,
+          "end": 106532,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109062,
+          "end": 109347,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109886,
+          "end": 110171,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111031,
+          "end": 111316,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111116,
+          "end": 111401,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 116142,
+          "end": 116427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 120592,
+          "end": 120877,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 123136,
+          "end": 123421,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 129753,
+          "end": 130038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 130450,
+          "end": 130735,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131026,
+          "end": 131311,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131509,
+          "end": 131794,
+          "flagged_fraction": 0.007017543859649123,
+          "is_fp": false
+        },
+        {
+          "start": 132880,
+          "end": 133165,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 133569,
+          "end": 133854,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134965,
+          "end": 135250,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134992,
+          "end": 135277,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 138752,
+          "end": 139037,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 139876,
+          "end": 140161,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 140733,
+          "end": 141018,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 142579,
+          "end": 142864,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149188,
+          "end": 149473,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149938,
+          "end": 150223,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 153795,
+          "end": 154080,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 157763,
+          "end": 158048,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163451,
+          "end": 163736,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163808,
+          "end": 164093,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 166197,
+          "end": 166482,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 169194,
+          "end": 169479,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 188759,
+          "end": 189044,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 189300,
+          "end": 189585,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 190866,
+          "end": 191151,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 192948,
+          "end": 193233,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 196141,
+          "end": 196426,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 200760,
+          "end": 201045,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 203168,
+          "end": 203453,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204573,
+          "end": 204858,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204713,
+          "end": 204998,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 205751,
+          "end": 206036,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 208969,
+          "end": 209254,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209891,
+          "end": 210176,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209939,
+          "end": 210224,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 214999,
+          "end": 215284,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 220474,
+          "end": 220759,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 222793,
+          "end": 223078,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 223211,
+          "end": 223496,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227189,
+          "end": 227474,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227739,
+          "end": 228024,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 228083,
+          "end": 228368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 230149,
+          "end": 230434,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 231914,
+          "end": 232199,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 233278,
+          "end": 233563,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 234213,
+          "end": 234498,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 235553,
+          "end": 235838,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 238478,
+          "end": 238763,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 241218,
+          "end": 241503,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 246560,
+          "end": 246845,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 248027,
+          "end": 248312,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249458,
+          "end": 249743,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249578,
+          "end": 249863,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 251643,
+          "end": 251928,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 252287,
+          "end": 252572,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257215,
+          "end": 257500,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257280,
+          "end": 257565,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 266083,
+          "end": 266368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 267663,
+          "end": 267948,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 269193,
+          "end": 269478,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 271400,
+          "end": 271685,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 276488,
+          "end": 276773,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 277723,
+          "end": 278008,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 281835,
+          "end": 282120,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 289972,
+          "end": 290257,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 290910,
+          "end": 291195,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 292353,
+          "end": 292638,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        }
+      ]
+    },
+    "attribution": {
+      "0": {
+        "label": "id1_Signal1",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "2": {
+        "label": "id2_Signal1",
+        "hits": 8,
+        "total_active_segments": 20
+      },
+      "3": {
+        "label": "id2_Signal2",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "4": {
+        "label": "id2_Signal3",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "6": {
+        "label": "id3_Signal2",
+        "hits": 18,
+        "total_active_segments": 20
+      },
+      "7": {
+        "label": "id4_Signal1",
+        "hits": 2,
+        "total_active_segments": 10
+      },
+      "8": {
+        "label": "id5_Signal1",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "9": {
+        "label": "id5_Signal2",
+        "hits": 17,
+        "total_active_segments": 20
+      },
+      "10": {
+        "label": "id6_Signal1",
+        "hits": 20,
+        "total_active_segments": 20
+      },
+      "12": {
+        "label": "id7_Signal1",
+        "hits": 18,
+        "total_active_segments": 20
+      },
+      "14": {
+        "label": "id8_Signal1",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "15": {
+        "label": "id9_Signal1",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "16": {
+        "label": "id10_Signal1",
+        "hits": 10,
+        "total_active_segments": 10
+      },
+      "18": {
+        "label": "id10_Signal3",
+        "hits": 19,
+        "total_active_segments": 19
+      }
     }
   },
   "coordinated_suppress_plateau": {
-    "f1": 0.7893594961350171,
-    "precision": 0.6751954507150005,
-    "recall": 0.9499999988125001,
-    "roc_auc": 0.9687403691401568,
-    "threshold": 0.002225417262475862,
-    "TP": 7600,
-    "TN": 288374,
-    "FP": 3656,
-    "FN": 400,
-    "interval_avg_f1": 0.9386311475409835,
-    "interval_avg_precision": 0.9323854166666665,
-    "interval_avg_recall": 0.9476249999999998,
+    "f1": 0.9026193140341847,
+    "precision": 0.8751953059930502,
+    "recall": 0.9318282122112279,
+    "roc_auc": 0.9586813611838698,
+    "threshold": 0.0022117093986049794,
+    "TP": 27447,
+    "TN": 266661,
+    "FP": 3914,
+    "FN": 2008,
     "recall_progression": {
-      "50": 0.931,
-      "100": 0.9404999999999998,
-      "200": 0.94525,
-      "400": 0.9476249999999998
+      "0.25": 0.892662824820357,
+      "0.50": 0.9025013014087356,
+      "0.75": 0.9007743644047537,
+      "1.00": 0.8992881169875236
+    },
+    "interval_detection": {
+      "interval_recall": {
+        "0.01": 0.92,
+        "0.02": 0.92,
+        "0.05": 0.92,
+        "0.10": 0.92,
+        "0.25": 0.92,
+        "0.50": 0.92,
+        "0.90": 0.87
+      },
+      "detected_intervals": {
+        "0.01": 92,
+        "0.02": 92,
+        "0.05": 92,
+        "0.10": 92,
+        "0.25": 92,
+        "0.50": 92,
+        "0.90": 87
+      },
+      "total_intervals": 100,
+      "avg_flagged_fraction": 0.8992881169875236,
+      "per_interval": [
+        {
+          "start": 2391,
+          "end": 2741,
+          "flagged_fraction": 0.9971428571428571
+        },
+        {
+          "start": 5042,
+          "end": 5147,
+          "flagged_fraction": 0.9904761904761905
+        },
+        {
+          "start": 6884,
+          "end": 7303,
+          "flagged_fraction": 0.9976133651551312
+        },
+        {
+          "start": 11022,
+          "end": 11188,
+          "flagged_fraction": 0.9939759036144579
+        },
+        {
+          "start": 13233,
+          "end": 13583,
+          "flagged_fraction": 0.8485714285714285
+        },
+        {
+          "start": 17343,
+          "end": 17576,
+          "flagged_fraction": 0.9957081545064378
+        },
+        {
+          "start": 22120,
+          "end": 22209,
+          "flagged_fraction": 0.9887640449438202
+        },
+        {
+          "start": 23654,
+          "end": 24141,
+          "flagged_fraction": 0.997946611909651
+        },
+        {
+          "start": 25243,
+          "end": 25534,
+          "flagged_fraction": 0.6529209621993127
+        },
+        {
+          "start": 27244,
+          "end": 27367,
+          "flagged_fraction": 0.991869918699187
+        },
+        {
+          "start": 29628,
+          "end": 30126,
+          "flagged_fraction": 0.9979919678714859
+        },
+        {
+          "start": 34013,
+          "end": 34449,
+          "flagged_fraction": 0.9977064220183486
+        },
+        {
+          "start": 36784,
+          "end": 36841,
+          "flagged_fraction": 0.9824561403508771
+        },
+        {
+          "start": 40542,
+          "end": 40665,
+          "flagged_fraction": 0.991869918699187
+        },
+        {
+          "start": 45977,
+          "end": 46072,
+          "flagged_fraction": 0.9894736842105263
+        },
+        {
+          "start": 47319,
+          "end": 47521,
+          "flagged_fraction": 0.995049504950495
+        },
+        {
+          "start": 51569,
+          "end": 51800,
+          "flagged_fraction": 0.9956709956709957
+        },
+        {
+          "start": 54345,
+          "end": 54700,
+          "flagged_fraction": 0.9971830985915493
+        },
+        {
+          "start": 56932,
+          "end": 57312,
+          "flagged_fraction": 0.9973684210526316
+        },
+        {
+          "start": 60523,
+          "end": 60851,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 61482,
+          "end": 61731,
+          "flagged_fraction": 0.9959839357429718
+        },
+        {
+          "start": 63414,
+          "end": 63894,
+          "flagged_fraction": 0.9979166666666667
+        },
+        {
+          "start": 65356,
+          "end": 65574,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 68832,
+          "end": 69067,
+          "flagged_fraction": 0.9957446808510638
+        },
+        {
+          "start": 70268,
+          "end": 70499,
+          "flagged_fraction": 0.7186147186147186
+        },
+        {
+          "start": 70752,
+          "end": 71225,
+          "flagged_fraction": 0.9978858350951374
+        },
+        {
+          "start": 71442,
+          "end": 71937,
+          "flagged_fraction": 0.997979797979798
+        },
+        {
+          "start": 76071,
+          "end": 76538,
+          "flagged_fraction": 0.9978586723768736
+        },
+        {
+          "start": 80187,
+          "end": 80501,
+          "flagged_fraction": 0.9968152866242038
+        },
+        {
+          "start": 85035,
+          "end": 85407,
+          "flagged_fraction": 0.9973118279569892
+        },
+        {
+          "start": 89021,
+          "end": 89256,
+          "flagged_fraction": 1.0
+        },
+        {
+          "start": 89535,
+          "end": 89593,
+          "flagged_fraction": 0.9827586206896551
+        },
+        {
+          "start": 93335,
+          "end": 93651,
+          "flagged_fraction": 0.9968354430379747
+        },
+        {
+          "start": 96570,
+          "end": 96979,
+          "flagged_fraction": 0.9975550122249389
+        },
+        {
+          "start": 102112,
+          "end": 102210,
+          "flagged_fraction": 0.9897959183673469
+        },
+        {
+          "start": 103436,
+          "end": 103892,
+          "flagged_fraction": 0.9978070175438597
+        },
+        {
+          "start": 104307,
+          "end": 104602,
+          "flagged_fraction": 0.9966101694915255
+        },
+        {
+          "start": 109047,
+          "end": 109333,
+          "flagged_fraction": 0.9965034965034965
+        },
+        {
+          "start": 111589,
+          "end": 112023,
+          "flagged_fraction": 0.543778801843318
+        },
+        {
+          "start": 114531,
+          "end": 114669,
+          "flagged_fraction": 0.9927536231884058
+        },
+        {
+          "start": 118495,
+          "end": 118981,
+          "flagged_fraction": 0.9979423868312757
+        },
+        {
+          "start": 119957,
+          "end": 120088,
+          "flagged_fraction": 0.9923664122137404
+        },
+        {
+          "start": 122495,
+          "end": 122879,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 127161,
+          "end": 127592,
+          "flagged_fraction": 0.9976798143851509
+        },
+        {
+          "start": 130762,
+          "end": 131106,
+          "flagged_fraction": 0.997093023255814
+        },
+        {
+          "start": 135926,
+          "end": 136015,
+          "flagged_fraction": 0.9887640449438202
+        },
+        {
+          "start": 140633,
+          "end": 140995,
+          "flagged_fraction": 0.9972375690607734
+        },
+        {
+          "start": 142455,
+          "end": 142751,
+          "flagged_fraction": 0.9966216216216216
+        },
+        {
+          "start": 146998,
+          "end": 147495,
+          "flagged_fraction": 0.9979879275653923
+        },
+        {
+          "start": 150890,
+          "end": 151031,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 151677,
+          "end": 151826,
+          "flagged_fraction": 0.9932885906040269
+        },
+        {
+          "start": 153233,
+          "end": 153418,
+          "flagged_fraction": 0.9945945945945946
+        },
+        {
+          "start": 157441,
+          "end": 157869,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 162384,
+          "end": 162874,
+          "flagged_fraction": 0.9979591836734694
+        },
+        {
+          "start": 163702,
+          "end": 164188,
+          "flagged_fraction": 0.9979423868312757
+        },
+        {
+          "start": 167946,
+          "end": 168120,
+          "flagged_fraction": 0.9942528735632183
+        },
+        {
+          "start": 169859,
+          "end": 170231,
+          "flagged_fraction": 0.9973118279569892
+        },
+        {
+          "start": 171210,
+          "end": 171568,
+          "flagged_fraction": 0.9972067039106145
+        },
+        {
+          "start": 172094,
+          "end": 172287,
+          "flagged_fraction": 0.9948186528497409
+        },
+        {
+          "start": 172814,
+          "end": 173210,
+          "flagged_fraction": 0.9974747474747475
+        },
+        {
+          "start": 175681,
+          "end": 176026,
+          "flagged_fraction": 0.9971014492753624
+        },
+        {
+          "start": 176646,
+          "end": 176825,
+          "flagged_fraction": 0.994413407821229
+        },
+        {
+          "start": 180059,
+          "end": 180264,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 184667,
+          "end": 184783,
+          "flagged_fraction": 0.9913793103448276
+        },
+        {
+          "start": 187038,
+          "end": 187268,
+          "flagged_fraction": 0.9956521739130435
+        },
+        {
+          "start": 190575,
+          "end": 190973,
+          "flagged_fraction": 0.9974874371859297
+        },
+        {
+          "start": 195436,
+          "end": 195750,
+          "flagged_fraction": 0.9968152866242038
+        },
+        {
+          "start": 200148,
+          "end": 200402,
+          "flagged_fraction": 0.9960629921259843
+        },
+        {
+          "start": 202075,
+          "end": 202501,
+          "flagged_fraction": 0.9976525821596244
+        },
+        {
+          "start": 205520,
+          "end": 205699,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 208234,
+          "end": 208368,
+          "flagged_fraction": 0.9925373134328358
+        },
+        {
+          "start": 209008,
+          "end": 209153,
+          "flagged_fraction": 0.993103448275862
+        },
+        {
+          "start": 210219,
+          "end": 210466,
+          "flagged_fraction": 0.9959514170040485
+        },
+        {
+          "start": 210916,
+          "end": 211409,
+          "flagged_fraction": 0.9979716024340771
+        },
+        {
+          "start": 212595,
+          "end": 212894,
+          "flagged_fraction": 0.9966555183946488
+        },
+        {
+          "start": 218006,
+          "end": 218347,
+          "flagged_fraction": 0.9970674486803519
+        },
+        {
+          "start": 223187,
+          "end": 223616,
+          "flagged_fraction": 0.9976689976689976
+        },
+        {
+          "start": 228010,
+          "end": 228295,
+          "flagged_fraction": 0.9964912280701754
+        },
+        {
+          "start": 232813,
+          "end": 233121,
+          "flagged_fraction": 0.5616883116883117
+        },
+        {
+          "start": 238028,
+          "end": 238129,
+          "flagged_fraction": 0.9900990099009901
+        },
+        {
+          "start": 239133,
+          "end": 239315,
+          "flagged_fraction": 0.9945054945054945
+        },
+        {
+          "start": 242413,
+          "end": 242874,
+          "flagged_fraction": 0.9978308026030369
+        },
+        {
+          "start": 244883,
+          "end": 245267,
+          "flagged_fraction": 0.9973958333333334
+        },
+        {
+          "start": 246295,
+          "end": 246495,
+          "flagged_fraction": 0.995
+        },
+        {
+          "start": 247225,
+          "end": 247545,
+          "flagged_fraction": 0.996875
+        },
+        {
+          "start": 252180,
+          "end": 252586,
+          "flagged_fraction": 0.9975369458128078
+        },
+        {
+          "start": 255993,
+          "end": 256067,
+          "flagged_fraction": 0.9864864864864865
+        },
+        {
+          "start": 259846,
+          "end": 260304,
+          "flagged_fraction": 0.9978165938864629
+        },
+        {
+          "start": 265059,
+          "end": 265232,
+          "flagged_fraction": 0.9942196531791907
+        },
+        {
+          "start": 266239,
+          "end": 266381,
+          "flagged_fraction": 0.9929577464788732
+        },
+        {
+          "start": 271680,
+          "end": 272137,
+          "flagged_fraction": 0.9978118161925602
+        },
+        {
+          "start": 274759,
+          "end": 275250,
+          "flagged_fraction": 0.9979633401221996
+        },
+        {
+          "start": 277086,
+          "end": 277211,
+          "flagged_fraction": 0.0
+        },
+        {
+          "start": 282214,
+          "end": 282667,
+          "flagged_fraction": 0.9977924944812362
+        },
+        {
+          "start": 284058,
+          "end": 284355,
+          "flagged_fraction": 0.9966329966329966
+        },
+        {
+          "start": 288941,
+          "end": 289246,
+          "flagged_fraction": 0.9967213114754099
+        },
+        {
+          "start": 290111,
+          "end": 290373,
+          "flagged_fraction": 0.9961832061068703
+        },
+        {
+          "start": 293578,
+          "end": 293954,
+          "flagged_fraction": 0.9973404255319149
+        },
+        {
+          "start": 297265,
+          "end": 297582,
+          "flagged_fraction": 0.9968454258675079
+        },
+        {
+          "start": 299356,
+          "end": 299531,
+          "flagged_fraction": 0.9942857142857143
+        }
+      ]
+    },
+    "tnr": {
+      "tnr": {
+        "0.01": 1.0,
+        "0.02": 1.0,
+        "0.05": 1.0,
+        "0.10": 1.0,
+        "0.25": 1.0,
+        "0.50": 1.0,
+        "0.90": 1.0
+      },
+      "fpr": {
+        "0.01": 0.0,
+        "0.02": 0.0,
+        "0.05": 0.0,
+        "0.10": 0.0,
+        "0.25": 0.0,
+        "0.50": 0.0,
+        "0.90": 0.0
+      },
+      "total_intervals": 100,
+      "per_interval": [
+        {
+          "start": 13128,
+          "end": 13413,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 19124,
+          "end": 19409,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 20355,
+          "end": 20640,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 22881,
+          "end": 23166,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 25753,
+          "end": 26038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 26743,
+          "end": 27028,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 27611,
+          "end": 27896,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 28220,
+          "end": 28505,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 29142,
+          "end": 29427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38391,
+          "end": 38676,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 38940,
+          "end": 39225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 41890,
+          "end": 42175,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 46241,
+          "end": 46526,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 48162,
+          "end": 48447,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 49517,
+          "end": 49802,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 54704,
+          "end": 54989,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 56787,
+          "end": 57072,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 58332,
+          "end": 58617,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 60371,
+          "end": 60656,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68010,
+          "end": 68295,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 68098,
+          "end": 68383,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 71805,
+          "end": 72090,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 82940,
+          "end": 83225,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 86424,
+          "end": 86709,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 93626,
+          "end": 93911,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 97653,
+          "end": 97938,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 98967,
+          "end": 99252,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 106247,
+          "end": 106532,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109062,
+          "end": 109347,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 109886,
+          "end": 110171,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111031,
+          "end": 111316,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 111116,
+          "end": 111401,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 116142,
+          "end": 116427,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 120592,
+          "end": 120877,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 123136,
+          "end": 123421,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 129753,
+          "end": 130038,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 130450,
+          "end": 130735,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131026,
+          "end": 131311,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 131509,
+          "end": 131794,
+          "flagged_fraction": 0.007017543859649123,
+          "is_fp": false
+        },
+        {
+          "start": 132880,
+          "end": 133165,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 133569,
+          "end": 133854,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134965,
+          "end": 135250,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 134992,
+          "end": 135277,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 138752,
+          "end": 139037,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 139876,
+          "end": 140161,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 140733,
+          "end": 141018,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 142579,
+          "end": 142864,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149188,
+          "end": 149473,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 149938,
+          "end": 150223,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 153795,
+          "end": 154080,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 157763,
+          "end": 158048,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163451,
+          "end": 163736,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 163808,
+          "end": 164093,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 166197,
+          "end": 166482,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 169194,
+          "end": 169479,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 188759,
+          "end": 189044,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 189300,
+          "end": 189585,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 190866,
+          "end": 191151,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 192948,
+          "end": 193233,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 196141,
+          "end": 196426,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 200760,
+          "end": 201045,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 203168,
+          "end": 203453,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204573,
+          "end": 204858,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 204713,
+          "end": 204998,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 205751,
+          "end": 206036,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 208969,
+          "end": 209254,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209891,
+          "end": 210176,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 209939,
+          "end": 210224,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 214999,
+          "end": 215284,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 220474,
+          "end": 220759,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 222793,
+          "end": 223078,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 223211,
+          "end": 223496,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227189,
+          "end": 227474,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 227739,
+          "end": 228024,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 228083,
+          "end": 228368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 230149,
+          "end": 230434,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 231914,
+          "end": 232199,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 233278,
+          "end": 233563,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 234213,
+          "end": 234498,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 235553,
+          "end": 235838,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 238478,
+          "end": 238763,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 241218,
+          "end": 241503,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 246560,
+          "end": 246845,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 248027,
+          "end": 248312,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249458,
+          "end": 249743,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 249578,
+          "end": 249863,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 251643,
+          "end": 251928,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 252287,
+          "end": 252572,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257215,
+          "end": 257500,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 257280,
+          "end": 257565,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 266083,
+          "end": 266368,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 267663,
+          "end": 267948,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 269193,
+          "end": 269478,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 271400,
+          "end": 271685,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 276488,
+          "end": 276773,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 277723,
+          "end": 278008,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 281835,
+          "end": 282120,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 289972,
+          "end": 290257,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 290910,
+          "end": 291195,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        },
+        {
+          "start": 292353,
+          "end": 292638,
+          "flagged_fraction": 0.0,
+          "is_fp": false
+        }
+      ]
+    },
+    "attribution": {
+      "0": {
+        "label": "id1_Signal1",
+        "hits": 7,
+        "total_active_segments": 10
+      },
+      "2": {
+        "label": "id2_Signal1",
+        "hits": 3,
+        "total_active_segments": 20
+      },
+      "3": {
+        "label": "id2_Signal2",
+        "hits": 5,
+        "total_active_segments": 10
+      },
+      "4": {
+        "label": "id2_Signal3",
+        "hits": 2,
+        "total_active_segments": 5
+      },
+      "6": {
+        "label": "id3_Signal2",
+        "hits": 20,
+        "total_active_segments": 20
+      },
+      "7": {
+        "label": "id4_Signal1",
+        "hits": 0,
+        "total_active_segments": 7
+      },
+      "8": {
+        "label": "id5_Signal1",
+        "hits": 7,
+        "total_active_segments": 7
+      },
+      "9": {
+        "label": "id5_Signal2",
+        "hits": 17,
+        "total_active_segments": 20
+      },
+      "10": {
+        "label": "id6_Signal1",
+        "hits": 7,
+        "total_active_segments": 20
+      },
+      "12": {
+        "label": "id7_Signal1",
+        "hits": 6,
+        "total_active_segments": 20
+      },
+      "14": {
+        "label": "id8_Signal1",
+        "hits": 5,
+        "total_active_segments": 5
+      },
+      "15": {
+        "label": "id9_Signal1",
+        "hits": 6,
+        "total_active_segments": 10
+      },
+      "16": {
+        "label": "id10_Signal1",
+        "hits": 7,
+        "total_active_segments": 10
+      },
+      "18": {
+        "label": "id10_Signal3",
+        "hits": 5,
+        "total_active_segments": 20
+      }
     }
-  }
+  },
+  "normal_interval_duration": 285,
+  "n_normal_intervals": 100
 }
