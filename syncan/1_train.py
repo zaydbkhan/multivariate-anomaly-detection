@@ -64,23 +64,24 @@ def main():
     data_dir = PROJECT_ROOT / args.data_dir
     output_dir = PROJECT_ROOT / args.output_dir
 
-    n_layers = args.n_layers or BASELINE_DEFAULTS["n_layers"]
+    n_layers = args.n_layers if args.n_layers is not None else BASELINE_DEFAULTS["n_layers"]
     config = TranADConfig(
         n_features=20,
         n_heads=10,
-        window_size=args.window_size or BASELINE_DEFAULTS["window_size"],
-        epochs=args.epochs or BASELINE_DEFAULTS["epochs"],
-        batch_size=args.batch_size or BASELINE_DEFAULTS["batch_size"],
-        lr=args.lr or BASELINE_DEFAULTS["lr"],
-        d_feedforward=args.d_feedforward or BASELINE_DEFAULTS["d_feedforward"],
+        window_size=args.window_size if args.window_size is not None else BASELINE_DEFAULTS["window_size"],
+        epochs=args.epochs if args.epochs is not None else BASELINE_DEFAULTS["epochs"],
+        batch_size=args.batch_size if args.batch_size is not None else BASELINE_DEFAULTS["batch_size"],
+        lr=args.lr if args.lr is not None else BASELINE_DEFAULTS["lr"],
+        d_feedforward=args.d_feedforward if args.d_feedforward is not None else BASELINE_DEFAULTS["d_feedforward"],
         loss_weighting=BASELINE_DEFAULTS["loss_weighting"],
         scoring_mode=BASELINE_DEFAULTS["scoring_mode"],
         scheduler_gamma=BASELINE_DEFAULTS["scheduler_gamma"],
         early_stopping_patience=(
-            args.early_stopping_patience or BASELINE_DEFAULTS["early_stopping_patience"]
+            args.early_stopping_patience if args.early_stopping_patience is not None
+            else BASELINE_DEFAULTS["early_stopping_patience"]
         ),
-        val_split=args.val_split or BASELINE_DEFAULTS["val_split"],
-        max_epochs=args.max_epochs or BASELINE_DEFAULTS["max_epochs"],
+        val_split=args.val_split if args.val_split is not None else BASELINE_DEFAULTS["val_split"],
+        max_epochs=args.max_epochs if args.max_epochs is not None else BASELINE_DEFAULTS["max_epochs"],
         n_encoder_layers=n_layers,
         n_decoder_layers=n_layers,
     )
