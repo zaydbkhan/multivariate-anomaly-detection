@@ -94,7 +94,7 @@ class SyncANScoreRequest(BaseModel):
         description="Include segment-level feature attribution",
     )
     scoring_mode: str = Field(
-        default="phase2_only",
+        default="averaged",
         description="Scoring mode: 'phase2_only' or 'averaged'",
     )
     timestamp: str | None = Field(default=None)
