@@ -290,7 +290,7 @@ def main():
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--from-saved", action="store_true",
                         help="Show saved results without re-scoring")
-    parser.add_argument("--score-batch-size", type=int, default=5000)
+    parser.add_argument("--score-batch-size", type=int, default=2000)
     args = parser.parse_args()
 
     model_dir = PROJECT_ROOT / args.model_dir
