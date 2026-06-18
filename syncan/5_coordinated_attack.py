@@ -550,6 +550,16 @@ def main():
             f"{iv['avg_f1']:>8.4f} {iv['avg_precision']:>8.4f} {iv['avg_recall']:>8.4f}"
         )
         del lbl
+    avg_f1 = np.mean([results[s]["f1"] for s, _ in SCENARIOS])
+    avg_prec = np.mean([results[s]["precision"] for s, _ in SCENARIOS])
+    avg_rec = np.mean([results[s]["recall"] for s, _ in SCENARIOS])
+    avg_auc = np.mean([results[s]["roc_auc"] for s, _ in SCENARIOS])
+    avg_int_f1 = np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])
+    avg_int_prec = np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])
+    avg_int_rec = np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])
+    print(f"{'AVERAGE':<20s} {avg_f1:>8.4f} {avg_prec:>8.4f} {avg_rec:>8.4f} "
+          f"{avg_auc:>8.4f} {'':>10s} {'':>8s} "
+          f"{avg_int_f1:>8.4f} {avg_int_prec:>8.4f} {avg_int_rec:>8.4f}")
     print(f"{'=' * 95}")
 
     # ---- recall progression table ----
@@ -568,7 +578,16 @@ def main():
     print("If recall climbs over time → detection relies on accumulating error")
 
     # ---- save results ----
-    save_data = {"method": args.method}
+    save_data = {
+        "method": args.method,
+        "avg_f1": float(np.mean([results[s]["f1"] for s, _ in SCENARIOS])),
+        "avg_precision": float(np.mean([results[s]["precision"] for s, _ in SCENARIOS])),
+        "avg_recall": float(np.mean([results[s]["recall"] for s, _ in SCENARIOS])),
+        "avg_roc_auc": float(np.mean([results[s]["roc_auc"] for s, _ in SCENARIOS])),
+        "interval_avg_f1": float(np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])),
+        "interval_avg_precision": float(np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])),
+        "interval_avg_recall": float(np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])),
+    }
     for scenario_name, _ in SCENARIOS:
         m = results[scenario_name]
         iv = interval_results[scenario_name]
