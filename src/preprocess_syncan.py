@@ -70,12 +70,14 @@ def download_syncan_dataset(data_dir: Path, force: bool = False) -> None:
     retry = Retry(total=3, backoff_factor=0.5, status_forcelist=[429, 500, 502, 503, 504])
     adapter = HTTPAdapter(max_retries=retry)
     session.mount("https://", adapter)
+    session.mount("http://", adapter)
 
     data_dir.mkdir(parents=True, exist_ok=True)
     logger.info("Downloading SynCAN dataset: %d files", len(files))
 
     downloaded = 0
     skipped = 0
+    failed = 0
     for fname in tqdm(files, desc="Downloading SynCAN"):
         zip_path = data_dir / f"{fname}.zip"
         csv_path = data_dir / f"{fname}.csv"
@@ -93,8 +95,14 @@ def download_syncan_dataset(data_dir: Path, force: bool = False) -> None:
             downloaded += 1
         except Exception as e:
             logger.error("Failed to download %s: %s", url, e)
+            failed += 1
 
-    logger.info("Download complete: %d downloaded, %d skipped", downloaded, skipped)
+    if downloaded == 0 and failed > 0:
+        raise RuntimeError(
+            f"All {failed} downloads failed. Check network connectivity to {BASE_URL}"
+        )
+    logger.info("Download complete: %d downloaded, %d skipped, %d failed",
+                downloaded, skipped, failed)
 
 
 def _read_csv_with_normalized_columns(filepath: Path) -> pd.DataFrame:
