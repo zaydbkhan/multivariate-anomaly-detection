@@ -237,7 +237,7 @@ async def score(request: SyncANScoreRequest):
         raw_summaries = build_segment_summaries(
             scores, predictions, baselines,
             feature_labels=_signal_labels,
-            normalized_data=data, history_data=history,
+            normalized_data=normalized, history_data=history,
         )
         for s in raw_summaries:
             segments.append(
