@@ -453,10 +453,16 @@ def main():
             ]
         except Exception as e:
             print(f"  FAILED: {e}")
-            param_names = sorted(params.keys())
-            row = [trial_num] + [params.get(k, "") for k in param_names]
-            row += [""] * (len(CSV_COLUMNS) - len(param_names) - 1)
-            row[-1] = f"error: {e}"
+            row = [
+                trial_num,
+                params.get("window_size", ""),
+                params.get("lr", ""),
+                params.get("n_layers", ""),
+                params.get("n_heads", ""),
+                params.get("d_feedforward", ""),
+            ]
+            row += [""] * (len(CSV_COLUMNS) - len(row) - 1)
+            row.append(f"error: {e}")
 
         with open(results_path, "a", newline="") as f:
             csv.writer(f).writerow(row)
