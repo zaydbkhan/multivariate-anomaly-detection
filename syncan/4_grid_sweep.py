@@ -92,6 +92,7 @@ def build_config(params: dict, max_epochs: int, early_stopping_patience: int = 0
         scheduler_gamma=0.95,
         early_stopping_patience=early_stopping_patience,
         val_split=0.1,
+        epochs=max_epochs,
         max_epochs=max_epochs,
         n_encoder_layers=params["n_layers"],
         n_decoder_layers=params["n_layers"],
