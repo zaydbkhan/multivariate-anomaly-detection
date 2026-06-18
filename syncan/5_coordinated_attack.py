@@ -202,6 +202,8 @@ def evaluate_intervals(
             "tp": tp, "fp": fp, "fn": fn,
         })
 
+    if not interval_metrics:
+        return {"avg_f1": 0.0, "avg_precision": 0.0, "avg_recall": 0.0, "intervals": []}
     avg_f1 = float(np.mean([m["f1"] for m in interval_metrics]))
     avg_precision = float(np.mean([m["precision"] for m in interval_metrics]))
     avg_recall = float(np.mean([m["recall"] for m in interval_metrics]))
@@ -341,10 +343,13 @@ def main():
         positions = generate_attack_positions(
             total_len, args.num_attacks, args.attack_duration, scenario_seed
         )
-        print(
-            f"  {len(positions)} attacks, first at offset={positions[0][0]}, "
-            f"last at offset={positions[-1][0]}"
-        )
+        if positions:
+            print(
+                f"  {len(positions)} attacks, first at offset={positions[0][0]}, "
+                f"last at offset={positions[-1][0]}"
+            )
+        else:
+            print(f"  No attacks generated (total_len={total_len} too short)")
 
         if scenario_name == "coordinated_plateau":
             sig = generator_fn(normal_signals, positions, plateau_groups, scenario_seed)
