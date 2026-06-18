@@ -570,6 +570,7 @@ def main():
         m = results[scenario_name]
         iv = interval_results[scenario_name]
         cp = recall_progressions[scenario_name]
+        attr = attribution_results.get(scenario_name, {})
         save_data[scenario_name] = {
             "f1": float(m["f1"]),
             "precision": float(m["precision"]),
@@ -585,6 +586,8 @@ def main():
             "interval_avg_recall": iv["avg_recall"],
             "recall_progression": {k: float(v) for k, v in cp.items()},
         }
+        if attr:
+            save_data[scenario_name]["attribution"] = attr
 
     json_path = model_dir / "eval_results_coordinated.json"
     with open(json_path, "w") as f:
