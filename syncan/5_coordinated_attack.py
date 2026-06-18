@@ -553,12 +553,11 @@ def main():
     avg_f1 = np.mean([results[s]["f1"] for s, _ in SCENARIOS])
     avg_prec = np.mean([results[s]["precision"] for s, _ in SCENARIOS])
     avg_rec = np.mean([results[s]["recall"] for s, _ in SCENARIOS])
-    avg_auc = np.mean([results[s]["roc_auc"] for s, _ in SCENARIOS])
     avg_int_f1 = np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])
     avg_int_prec = np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])
     avg_int_rec = np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])
     print(f"{'AVERAGE':<20s} {avg_f1:>8.4f} {avg_prec:>8.4f} {avg_rec:>8.4f} "
-          f"{avg_auc:>8.4f} {'':>10s} {'':>8s} "
+          f"{'':>8s} {'':>10s} {'':>8s} "
           f"{avg_int_f1:>8.4f} {avg_int_prec:>8.4f} {avg_int_rec:>8.4f}")
     print(f"{'=' * 95}")
 
@@ -583,7 +582,6 @@ def main():
         "avg_f1": float(np.mean([results[s]["f1"] for s, _ in SCENARIOS])),
         "avg_precision": float(np.mean([results[s]["precision"] for s, _ in SCENARIOS])),
         "avg_recall": float(np.mean([results[s]["recall"] for s, _ in SCENARIOS])),
-        "avg_roc_auc": float(np.mean([results[s]["roc_auc"] for s, _ in SCENARIOS])),
         "interval_avg_f1": float(np.mean([interval_results[s]["avg_f1"] for s, _ in SCENARIOS])),
         "interval_avg_precision": float(np.mean([interval_results[s]["avg_precision"] for s, _ in SCENARIOS])),
         "interval_avg_recall": float(np.mean([interval_results[s]["avg_recall"] for s, _ in SCENARIOS])),
