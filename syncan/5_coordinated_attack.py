@@ -269,6 +269,9 @@ def main():
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--two-tailed", action="store_true",
                         help="Also evaluate with two-tailed z-score attribution")
+    parser.add_argument("--method", type=str, default="pot",
+                        choices=["pot", "percentile", "f1_max"],
+                        help="Threshold calibration method")
     args = parser.parse_args()
 
     device = auto_device(args.device)
@@ -433,7 +436,7 @@ def main():
             train_scores=train_scores,
             test_scores=test_scores,
             labels=test_lbl,
-            method="pot",
+            method=args.method,
             pot_params=POTParams(q=1e-3, level=0.99, scale=1.0),
         )
 
@@ -528,7 +531,7 @@ def main():
 
     # ---- summary table ----
     print(f"\n{'=' * 70}")
-    print(f"Coordinated Attack Evaluation Summary (method=pot)")
+    print(f"Coordinated Attack Evaluation Summary (method={args.method})")
     print(f"{'=' * 70}")
     header = f"{'Attack':<20s} {'F1':>8s} {'Prec':>8s} {'Rec':>8s} "
     header += f"{'AUC':>8s} {'Thresh':>10s} {'Anom':>8s}"
@@ -565,7 +568,7 @@ def main():
     print("If recall climbs over time → detection relies on accumulating error")
 
     # ---- save results ----
-    save_data = {}
+    save_data = {"method": args.method}
     for scenario_name, _ in SCENARIOS:
         m = results[scenario_name]
         iv = interval_results[scenario_name]
