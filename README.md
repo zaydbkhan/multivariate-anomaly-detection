@@ -3,9 +3,11 @@
 This repository is a fork of the [Striim Labs TranAD multivariate anomaly detection prototype](https://github.com/striim-labs/multivariate-anomaly-detection), adapting it to intrusion detection on the vehicle Controller Area Network (CAN) bus using the [SynCAN dataset](https://github.com/etas/SynCAN) (Hanselmann et al., IEEE Access 2020).
 
 **Motivation**
+
 As automobiles become increasingly complex, and with full autonomous vehicles on the horizon, it is increasingly important that we secure our vehicles against attacks on their internal communication systems. The most prevalent of these is the CAN bus, which handles low-level signal outputs between devices. While previous detection models (CANet) have been shown to effectively detect single-signal attacks, they are not designed to detect subtler coordinated attacks on multiple signals. We apply the TranAD prototype to the SynCAN dataset to address these cases.
 
 **Overview**
+
 We adapt the original TranAD workflow for SMD to SynCAN, synchronizing individual signals of different frequencies using forward-fill preprocessing. We account for SynCAN's specific structure by increasing window sizes, retuning anomaly threshold parameters, and introducing alternative grid sweep parameters. Finally, we synthetically generate and evaluate against multi-signal coordinated attack scenarios. 
 
 The results show that TranAD detects coordinated attacks substantially more reliably than single-target attacks, with a pointwise F1 of 0.90 vs 0.70 in the single-target case. More notably, TranAD achieves extremely high recall on interval-level true positive and true negative labeling, which is more applicable to real-world use cases where human review is impossible. We conclude that the best method for detecting CAN bus intrusions is a hybrid approach between per-ID LSTM models, basic per-signal frequency modeling, and multivariate models like TranAD to account for both single-signal and multi-signal attacks.
@@ -94,7 +96,7 @@ TNR is scored with 100 normal intervals of length 285 (median synthetic attack l
 **Pointwise detection**
 
 | Attack | F1 | Precision | Recall | AUC | Anomalies |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | Coordinated plateau | 0.9344 | 0.8770 | 1.0000 | 0.9926 | 28,707 |
 | Coordinated mixed | 0.8490 | 0.7377 | 1.0000 | 0.9829 | 26,275 |
 | Coordinated suppress+plateau | 0.9026 | 0.8752 | 0.9318 | 0.9587 | 29,455 |
@@ -103,7 +105,7 @@ TNR is scored with 100 normal intervals of length 285 (median synthetic attack l
 **Interval detection**
 
 | Attack | R@0.01 | R@0.02 | R@0.05 | R@0.10 | R@0.25 | R@0.50 | R@0.90 | Flagged% | Ints |
-|---|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|---|
 | Coordinated plateau | 1.0000 | 1.0000 | 1.0000 | 0.9900 | 0.9900 | 0.9800 | 0.9600 | 0.9747 | 100 |
 | Coordinated mixed | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 0.8900 | 0.9718 | 100 |
 | Coordinated suppress+plateau | 0.9200 | 0.9200 | 0.9200 | 0.9200 | 0.9200 | 0.9200 | 0.8700 | 0.8993 | 100 |
@@ -121,7 +123,7 @@ TNR is scored with 100 normal intervals of length 285 (median synthetic attack l
 
 The model achieves **high pointwise detection and near-perfect interval detection** across all coordinated attack types, with an average R@25% of 0.97 and average flagged fractions of 0.90–0.98. The gap between the single-target and multi-target results demonstrates that **TranAD's cross-signal reconstruction is substantially more sensitive to correlation breakdown across multiple channels than to individual signal deviations — the attack class that CANet-style per-ID models are structurally less equipped to detect**.
 
-The recall progression shows that **detection is near-immediate**: 25% through the interval, average recall is already 0.915. Plateau attacks are detected earliest (0.963 at 25%), consistent with instantaneous correlation breakdown when multiple signals freeze simultaneously. Mixed attacks start lower (0.890) but climb steadily, reflecting the continuous change component that begins within normal bounds and accumulates over time.
+The recall progression shows that **detection is near-immediate**: 25% through the interval (~70 timesteps on average), average recall is already 0.915. Plateau attacks are detected earliest (0.963 at 25%), consistent with instantaneous correlation breakdown when multiple signals freeze simultaneously. Mixed attacks start lower (0.890) but climb steadily, reflecting the continuous change component that begins within normal bounds and accumulates over time.
 
 We note that TNR is also perfect at this interval length, indicating that **true negative rate is robust to interval length** and supporting the reliability of this model in an environment where false positives may be particularly damaging.
 
@@ -196,7 +198,7 @@ Two attribution methods are available. The standard **elevation ratio** compares
 | id9_Signal1 / id10_Signal1 | id9_Signal1 | 6/10 (60%) | 10/10 (100%) |
 |   | id10_Signal1 | 7/10 (70%) | 8/10 (80%) |
 
-With the two-tailed improvement, attributions are fairly strong but still imperfect. Notably, **the mixed signal attribution is extremely strong**, rather than the 4-signal coordinated plateau we might expect to come out on top. The results seem to indicate that **TranAD performs better when signals fail in different ways**, but concede that there is not yet enough evidence to support any interpretation. We expect that better attribution results could be obtained through more focused training — see [Limitations](#limitations) below.
+With the two-tailed improvement, attributions are fairly strong but still imperfect. Notably, **the mixed signal attribution is extremely strong**, rather than the 4-signal coordinated plateau we might expect to come out on top. The results seem to indicate that **TranAD performs better when signals fail in different ways**, but we concede that there is not yet enough evidence to support any interpretation. We expect that better attribution results could be obtained through more focused training — see [Limitations](#limitations) below.
 
 ---
 
@@ -223,7 +225,7 @@ We theorize that a **hybrid architecture combining all 3 approaches** — per-ID
 
 ## Future work
 
-The natural next step is applying the [Striim Labs LSTM autoencoder prototype](https://github.com/striim-labs/lstm-autoencoder-spark-kafka) to SynCAN in a CANet-style per-ID configuration — one LSTM per CAN ID, updating only when that ID broadcasts, with a shared latent vector for cross-ID reconstruction. This addresses the variable-frequency preprocessing limitation directly and is the architecture best matched to single-target per-ECU attacks.
+The natural next step is applying the [Striim Labs LSTM autoencoder prototype](https://github.com/striim-labs/lstm-autoencoder-spark-kafka) to SynCAN in a CANet-style per-ID configuration — one LSTM per CAN ID, updating only when that ID broadcasts, with a shared latent vector for cross-ID reconstruction. This addresses the variable-frequency preprocessing limitation directly and is the architecture best matched to single-target per-component attacks.
 
 Given TranAD's strength on coordinated attacks and a per-ID LSTM's strength on localized attacks, a hybrid architecture covers the full attack surface: per-ID LSTM for individual signal anomalies, TranAD for correlated multi-signal deviations, and rule-based frequency monitoring for suppress and flooding.
 
@@ -401,8 +403,8 @@ uv run python syncan/2_evaluate.py --model-dir models/syncan/best
 uv run python syncan/5_coordinated_attack.py
 uv run python syncan/5_coordinated_attack.py --two-tailed
 ```
-
 Computes the cross-ID Pearson correlation matrix, selects the most correlated signal groups, injects 100 coordinated attack intervals per scenario (50–500 timesteps each) into the normal test file, and evaluates the best model against each. The `--two-tailed` flag enables an additional z-score attribution analysis.
+
 ---
 
 ## Streaming deployment
