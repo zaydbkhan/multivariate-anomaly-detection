@@ -382,6 +382,7 @@ def main():
     results = {}
     recall_progressions = {}
     attribution_results: dict[str, dict] = {}
+    attribution_two_tailed_results: dict[str, dict] = {}
     q_metrics: dict[str, dict] = {}
     for scenario_idx, (scenario_name, _) in enumerate(SCENARIOS):
         scenario_seed = args.seed + scenario_idx
@@ -530,6 +531,15 @@ def main():
                     print(f"    {signal_labels[dim]:<15s} (dim {dim:>2d}): "
                           f"{z2_dim_hits[dim]:>2d}/{total} ({hit_rate:>5.1f}%)  [{bar}]")
 
+            attribution_two_tailed_results[scenario_name] = {
+                dim: {
+                    "label": signal_labels[dim],
+                    "hits": z2_dim_hits[dim],
+                    "total_active_segments": dim_segments[dim],
+                }
+                for dim in all_attacked
+            }
+
         del test_sig, test_lbl, test_scores, score_1d
 
     # ---- summary table ----
@@ -636,6 +646,9 @@ def main():
         }
         if attr:
             save_data[scenario_name]["attribution"] = attr
+        z2_attr = attribution_two_tailed_results.get(scenario_name, {})
+        if z2_attr:
+            save_data[scenario_name]["attribution_two_tailed"] = z2_attr
 
     save_data["normal_interval_duration"] = median_duration
     save_data["n_normal_intervals"] = len(normal_intervals)
