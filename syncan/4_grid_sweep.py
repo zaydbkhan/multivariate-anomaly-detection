@@ -140,6 +140,7 @@ def run_trial(
     device: torch.device,
     score_batch_size: int = 2000,
     subsample_fraction: float = 0.1,
+    trial_seed: int = 42,
 ) -> dict:
     """Train a model and evaluate on all 5 attack types.
 
@@ -153,6 +154,7 @@ def run_trial(
 
     Returns dict with per-attack metrics, avg F1, training stats.
     """
+    np.random.seed(trial_seed)
     data_for_training = subsample_data(train_data, subsample_fraction)
 
     torch_dtype = torch.float64 if config.dtype == "float64" else torch.float32
@@ -423,7 +425,9 @@ def main():
             config = build_config(params, args.max_sweep_epochs, early_stopping_patience=0)
             results = run_trial(
                 config, train_signals, trial_device,
-                args.score_batch_size, subsample_fraction=subsample_frac,
+                score_batch_size=args.score_batch_size,
+                subsample_fraction=subsample_frac,
+                trial_seed=trial_num,
             )
 
             avg_f1 = results["avg_f1"]
