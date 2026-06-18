@@ -47,10 +47,9 @@ def verify_data(
     raw_dir: Path, processed_dir: Path, force_download: bool = False
 ) -> bool:
     """Download and preprocess SynCAN data if needed, verify files exist."""
-    ok = True
 
     # Check if processed data already exists
-    expected_files = ["train_signals.npy", "train_labels.npy", "norm_params.npy"]
+    expected_files = ["train_signals.npy", "train_labels.npy", "norm_params.npy", "signal_columns.npy"]
     for attack in ["normal"] + ATTACK_TYPES:
         expected_files.append(f"test_{attack}_signals.npy")
         expected_files.append(f"test_{attack}_labels.npy")
@@ -83,7 +82,7 @@ def verify_data(
         print(f"    Preprocessing FAILED: {e}")
         return False
 
-    return ok
+    return True
 
 
 def main():
